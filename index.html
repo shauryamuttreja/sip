@@ -1393,13 +1393,12 @@ function renderClinicListScreen(c, isAfter) {
     return (isAfter ? a.afterRank : a.beforeRank) - (isAfter ? b.afterRank : b.beforeRank);
   });
   var cards = sorted.map(function(cl) { return renderClinicCard(cl, isAfter); }).join('');
-  var centers = [
-    { text: 'CC', bg: '#714FFF', label: 'CareClinics', hl: true,  tag: isAfter ? '★ #1' : 'New', tagBg: isAfter ? '#714FFF' : '#22C55E' },
-    { text: 'CA', bg: '#2563EB', label: 'Columbia',    hl: false, tag: '', tagBg: '' },
-    { text: 'SM', bg: '#F97316', label: 'Sunway',      hl: false, tag: '', tagBg: '' },
-    { text: 'KPJ', bg: '#059669', label: 'KPJ',        hl: false, tag: '', tagBg: '' },
-    { text: 'GL', bg: '#1D4ED8', label: 'Gleneagles',  hl: false, tag: '', tagBg: '' },
-  ];
+  var centers = (isAfter ? [{ text: 'CC', bg: '#714FFF', label: 'CareClinics', hl: true, tag: '★ #1', tagBg: '#714FFF' }] : []).concat([
+    { text: 'CA', bg: '#2563EB', label: 'Columbia',   hl: false, tag: '', tagBg: '' },
+    { text: 'SM', bg: '#F97316', label: 'Sunway',     hl: false, tag: '', tagBg: '' },
+    { text: 'KPJ', bg: '#059669', label: 'KPJ',       hl: false, tag: '', tagBg: '' },
+    { text: 'GL', bg: '#1D4ED8', label: 'Gleneagles', hl: false, tag: '', tagBg: '' },
+  ]);
   var centerHtml = centers.map(function(ct) {
     return '<div class="center-item">' +
       '<div class="center-logo-box' + (ct.hl ? ' hl' : '') + '" style="background:' + ct.bg + '">' +
