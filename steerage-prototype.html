@@ -1591,6 +1591,11 @@ function wireApplyBtn() {
     this.style.background = '#22C55E';
     this.style.boxShadow = '0 4px 20px rgba(34,197,94,0.4)';
     this.style.cursor = 'default';
+    if (window.innerWidth <= 800) {
+      setTimeout(function() {
+        document.querySelector('.panel-right').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 700);
+    }
   });
 }
 
