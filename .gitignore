@@ -1,0 +1,8 @@
+board_meeting_extracted/
+*.pptx
+*.xlsx
+*.py
+*.sql
+docs/
+.superpowers/
+.DS_Store

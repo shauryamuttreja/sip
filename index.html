@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visit Steerage Intelligence Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      /* Visit brand */
+      --visit-purple:       #714FFF;
+      --visit-purple-dark:  #5840BB;
+      --visit-purple-light: #F0ECFF;
+      --visit-mint:         #47E5B1;
+      --visit-bg:           #F4F3FF;
+      --visit-orange:       #FF754C;
+      --visit-blue:         #3F8CFF;
+      --visit-red:          #FF4C4C;
+      --visit-green:        #22C55E;
+
+      /* Dashboard (left panel) */
+      --dash-bg:            #0F1523;
+      --dash-card:          #1A2236;
+      --dash-card-border:   #2A3550;
+      --dash-text:          #E8EBF2;
+      --dash-text-muted:    #8A93A8;
+      --dash-amber:         #FF9500;
+      --dash-amber-bg:      rgba(255,149,0,0.08);
+      --dash-amber-border:  rgba(255,149,0,0.35);
+
+      /* Misc */
+      --radius-sm:  8px;
+      --radius-md:  14px;
+      --radius-lg:  20px;
+      --radius-xl:  28px;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.12);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,0.18);
+    }
+
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: 'Inter', Arial, sans-serif;
+      background: #080E1C;
+      color: var(--dash-text);
+      overflow: hidden;
+    }
+
+    /* ── Layout ── */
+    #app {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ── Left panel ── */
+    .panel-left {
+      width: 56%;
+      background: var(--dash-bg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-right: 1px solid var(--dash-card-border);
+    }
+
+    .panel-left-inner {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 32px 32px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--dash-card-border) transparent;
+    }
+
+    /* ── Left panel header ── */
+    .dash-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      border-bottom: 1px solid var(--dash-card-border);
+      background: rgba(15,21,35,0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .dash-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dash-logo {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .dash-logo-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--dash-card-border);
+    }
+
+    .dash-platform-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--dash-text-muted);
+      letter-spacing: 0.2px;
+    }
+
+    .dash-client-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--dash-card);
+      border: 1px solid var(--dash-card-border);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--dash-text-muted);
+    }
+
+    .dash-client-tag .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--visit-mint);
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--dash-text-muted);
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+    .section-label:first-child { margin-top: 0; }
+
+    /* ── AI Insight Card ── */
+    .insight-card {
+      background: var(--dash-card);
+      border: 1px solid var(--dash-amber-border);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      box-shadow: 0 0 0 1px var(--dash-amber-border), 0 4px 24px rgba(255,149,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .insight-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--dash-amber), transparent);
+    }
+
+    .insight-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--dash-amber-bg);
+      border: 1px solid var(--dash-amber-border);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--dash-amber);
+      letter-spacing: 0.3px;
+      margin-bottom: 14px;
+    }
+
+    .insight-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .insight-subtitle {
+      font-size: 13px;
+      color: var(--dash-text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .insight-subtitle strong {
+      color: #c4cad8;
+      font-weight: 500;
+    }
+
+    .insight-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat-chip {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--dash-card-border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      text-align: center;
+    }
+
+    .stat-chip .stat-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-chip .stat-value.amber { color: var(--dash-amber); }
+    .stat-chip .stat-value.red   { color: #FF6B6B; }
+
+    .stat-chip .stat-label {
+      font-size: 11px;
+      color: var(--dash-text-muted);
+      line-height: 1.3;
+    }
+
+    .insight-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: rgba(255,107,107,0.06);
+      border: 1px solid rgba(255,107,107,0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #c4cad8;
+      line-height: 1.5;
+    }
+
+    .insight-note .note-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Action Panel ── */
+    .action-card {
+      background: var(--dash-card);
+      border: 1px solid var(--dash-card-border);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+    }
+
+    .action-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+
+    .action-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .action-row:last-of-type { border-bottom: none; padding-bottom: 0; }
+
+    .action-text { flex: 1; }
+
+    .action-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e8ebf2;
+      margin-bottom: 4px;
+    }
+
+    .action-desc {
+      font-size: 12px;
+      color: var(--dash-text-muted);
+      line-height: 1.5;
+    }
+
+    /* Toggle */
+    .toggle-wrap {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .toggle input { display: none; }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      transition: background 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .toggle input:checked + .toggle-track {
+      background: var(--visit-purple);
+      border-color: var(--visit-purple);
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .toggle input:checked ~ .toggle-thumb { transform: translateX(20px); }
+
+    /* CTA */
+    .apply-btn {
+      width: 100%;
+      margin-top: 22px;
+      padding: 15px;
+      background: var(--visit-purple);
+      border: none;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      letter-spacing: 0.2px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(113,79,255,0.4);
+    }
+
+    .apply-btn:hover {
+      background: var(--visit-purple-dark);
+      box-shadow: 0 6px 28px rgba(113,79,255,0.55);
+    }
+
+    .apply-btn:active { transform: scale(0.98); }
+
+    /* Success banner */
+    .success-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #4ade80;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .success-banner.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Right panel ── */
+    .panel-right {
+      flex: 1;
+      background: #080E1C;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      gap: 16px;
+      position: relative;
+    }
+
+    .panel-right::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(113,79,255,0.08) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .panel-right-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #3A4560;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    /* Phone frame */
+    .phone-wrap {
+      position: relative;
+    }
+
+    .phone-frame {
+      width: 340px;
+      height: 680px;
+      background: #111827;
+      border-radius: 44px;
+      border: 6px solid #1F2A3E;
+      box-shadow:
+        0 0 0 1px #0A0F1A,
+        0 20px 60px rgba(0,0,0,0.6),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Notch */
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 26px;
+      background: #111827;
+      border-radius: 0 0 18px 18px;
+      z-index: 20;
+    }
+
+    /* Status bar */
+    .phone-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      position: relative;
+      z-index: 5;
+      flex-shrink: 0;
+      height: 36px;
+    }
+
+    .status-time { color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 700; }
+    .status-icons { display: flex; gap: 5px; align-items: center; }
+    .status-icons svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.6); }
+
+    /* Phone screen content area */
+    .phone-screen {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      background: var(--visit-bg);
+    }
+
+    /* Home indicator */
+    .phone-home {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111827;
+      flex-shrink: 0;
+    }
+
+    .phone-home-bar {
+      width: 100px;
+      height: 4px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 2px;
+    }
+
+    /* Push notification */
+    .push-notification {
+      position: absolute;
+      top: -200px;
+      left: 12px;
+      right: 12px;
+      background: rgba(30, 20, 70, 0.96);
+      backdrop-filter: blur(20px);
+      border-radius: 14px;
+      padding: 12px 14px;
+      z-index: 50;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      transition: top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1px solid rgba(113,79,255,0.3);
+    }
+
+    .push-notification.visible { top: 10px; }
+
+    .push-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--visit-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .push-content { flex: 1; }
+    .push-app { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.45); margin-bottom: 2px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .push-text { font-size: 12px; color: #fff; line-height: 1.4; font-weight: 500; }
+    .push-time { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+    /* ── Visit App screen contents ── */
+    .app-screen {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: var(--visit-bg);
+      font-family: 'Inter', Arial, sans-serif;
+      position: absolute;
+      inset: 0;
+    }
+
+    /* App header */
+    .app-header {
+      background: linear-gradient(135deg, var(--visit-purple) 0%, var(--visit-purple-dark) 100%);
+      padding: 12px 16px 16px;
+      flex-shrink: 0;
+    }
+
+    .app-header-top {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .app-back {
+      color: rgba(255,255,255,0.8);
+      font-size: 18px;
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    .app-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      flex: 1;
+    }
+
+    .app-location-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .app-search {
+      margin: 12px 16px 0;
+      flex-shrink: 0;
+    }
+
+    .app-search-input {
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid #E8E4FF;
+      border-radius: 12px;
+      padding: 10px 14px 10px 36px;
+      font-size: 13px;
+      color: #374151;
+      font-family: inherit;
+      outline: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%239CA3AF' viewBox='0 0 24 24'%3E%3Cpath d='M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z' stroke='%239CA3AF' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: 10px center;
+      background-size: 16px;
+    }
+
+    /* Clinic list */
+    .app-list-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 12px;
+      scrollbar-width: none;
+    }
+
+    .app-list-area::-webkit-scrollbar { display: none; }
+
+    .app-list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+
+    .app-list-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .app-list-count {
+      font-size: 12px;
+      color: #9CA3AF;
+      font-weight: 500;
+    }
+
+    /* Clinic card */
+    .clinic-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+      transition: border 0.4s ease, box-shadow 0.4s ease;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clinic-card.preferred {
+      border-color: var(--visit-purple);
+      box-shadow: 0 2px 12px rgba(113,79,255,0.15), 0 0 0 1px rgba(113,79,255,0.1);
+    }
+
+    .clinic-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .clinic-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .clinic-logo.careclinics { background: #EEF2FF; }
+    .clinic-logo.pantai      { background: #FFF0F0; }
+    .clinic-logo.kpj         { background: #F0FFF4; }
+
+    .clinic-info { flex: 1; }
+
+    .clinic-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+
+    .clinic-specialty {
+      font-size: 11px;
+      color: #6B7280;
+      font-weight: 500;
+    }
+
+    .preferred-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #DCFCE7;
+      border: 1px solid #86EFAC;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #16A34A;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 0;
+      padding: 0;
+      border-width: 0;
+      opacity: 0;
+      transition: max-width 0.4s ease 0.2s, padding 0.4s ease 0.2s,
+                  border-width 0.4s ease 0.2s, opacity 0.4s ease 0.2s;
+    }
+
+    .preferred-badge.visible {
+      max-width: 160px;
+      padding: 3px 9px;
+      border-width: 1px;
+      opacity: 1;
+    }
+
+    .clinic-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .clinic-tags {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .clinic-tag {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      color: #6B7280;
+      font-weight: 500;
+    }
+
+    .tag-dot { width: 3px; height: 3px; border-radius: 50%; background: #D1D5DB; }
+
+    .clinic-price-area { text-align: right; }
+
+    .clinic-copay-label {
+      font-size: 10px;
+      color: #9CA3AF;
+      margin-bottom: 2px;
+    }
+
+    .clinic-copay {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--visit-purple);
+    }
+
+    .clinic-copay.expensive { color: #EF4444; }
+
+    .book-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 9px;
+      background: var(--visit-purple-light);
+      border: 1.5px solid rgba(113,79,255,0.2);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--visit-purple);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .book-btn:hover { background: #e4dcff; }
+    .book-btn.primary {
+      background: var(--visit-purple);
+      color: #fff;
+      border-color: var(--visit-purple);
+    }
+
+    /* Bottom nav */
+    .app-bottom-nav {
+      background: #fff;
+      border-top: 1px solid #F3F4F6;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 8px 0 10px;
+      flex-shrink: 0;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 500;
+      color: #9CA3AF;
+      cursor: pointer;
+    }
+
+    .nav-item.active { color: var(--visit-purple); }
+
+    .nav-icon { font-size: 18px; }
+
+    /* ── Home-care screen ── */
+    .app-home-header {
+      background: linear-gradient(135deg, var(--visit-purple) 0%, var(--visit-purple-dark) 100%);
+      padding: 14px 16px 20px;
+      flex-shrink: 0;
+    }
+    .app-home-greeting { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 2px; }
+    .app-home-name { font-size: 20px; font-weight: 800; color: #fff; }
+
+    .care-home-card {
+      background: linear-gradient(135deg, #4F35CC 0%, #714FFF 100%);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .care-home-card::before {
+      content: '';
+      position: absolute;
+      right: -20px; top: -20px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .care-home-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+    .care-home-name { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+    .care-home-sub { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 14px; }
+    .care-home-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      width: 100%;
+    }
+    .care-home-placeholder {
+      background: rgba(113,79,255,0.06);
+      border: 1.5px dashed rgba(113,79,255,0.2);
+      border-radius: 16px;
+      padding: 20px 16px;
+      margin-bottom: 12px;
+      text-align: center;
+      color: #9CA3AF;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .app-section-title { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 10px; padding: 0 4px; }
+    .condition-tags { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+    .condition-tag { background: #FFF0F0; border: 1px solid #FECACA; border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: #DC2626; }
+    .visit-history-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F3F4F6; font-size: 12px; }
+    .visit-history-row:last-child { border-bottom: none; }
+    .visit-clinic-name { font-weight: 600; color: #111827; }
+    .visit-date { color: #9CA3AF; }
+    .visit-type { color: #6B7280; }
+
+    /* ── Benefits screen ── */
+    .expiry-banner {
+      background: linear-gradient(135deg, #FF754C, #FF4C4C);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      color: #fff;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .expiry-icon { font-size: 22px; flex-shrink: 0; }
+    .expiry-title { font-size: 13px; font-weight: 800; margin-bottom: 3px; }
+    .expiry-sub { font-size: 11px; color: rgba(255,255,255,0.85); line-height: 1.4; margin-bottom: 10px; }
+    .expiry-cta {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+    }
+    .benefit-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border: 1.5px solid transparent;
+    }
+    .benefit-card.highlighted { border-color: var(--visit-purple); box-shadow: 0 2px 12px rgba(113,79,255,0.12); }
+    .benefit-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .benefit-name { font-size: 14px; font-weight: 700; color: #111827; }
+    .benefit-status { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+    .benefit-status.unused  { background: #FEF3C7; color: #D97706; }
+    .benefit-status.expiring { background: #FEE2E2; color: #DC2626; }
+    .benefit-status.used    { background: #DCFCE7; color: #16A34A; }
+    .benefit-value { font-size: 12px; color: #6B7280; margin-bottom: 10px; }
+    .benefit-value strong { color: var(--visit-purple); font-weight: 700; }
+    .benefit-book-btn { width: 100%; padding: 9px; background: var(--visit-purple); border: none; border-radius: 10px; font-family: inherit; font-size: 13px; font-weight: 700; color: #fff; cursor: pointer; }
+
+    /* ── Polish ── */
+
+    /* Add divider glow to left panel */
+    .panel-left {
+      box-shadow: 4px 0 32px rgba(113,79,255,0.08);
+    }
+
+    /* ── Case tabs ── */
+    .case-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--dash-card-border);
+      background: var(--dash-bg);
+      padding: 0 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .case-tabs::-webkit-scrollbar { display: none; }
+
+    .case-tab {
+      padding: 12px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dash-text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+      user-select: none;
+    }
+    .case-tab:hover { color: var(--dash-text); }
+    .case-tab.active {
+      color: var(--visit-purple);
+      border-bottom-color: var(--visit-purple);
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="panel-left">
+      <div class="dash-header">
+        <div class="dash-header-left">
+          <div class="dash-logo">
+            <svg width="75" height="24" viewBox="0 0 75 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_4676_17144)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.9554 5.75222C17.3298 6.66494 16.2678 7.26544 15.0629 7.26544C14.9493 7.26544 14.8369 7.26005 14.726 7.24961C14.9917 7.89257 15.1381 8.59556 15.1381 9.33213C15.1381 12.394 12.6097 14.8761 9.49052 14.8761C6.37149 14.8761 3.84294 12.394 3.84294 9.33213C3.84294 6.27031 6.37149 3.7882 9.49052 3.7882C10.2348 3.7882 10.9455 3.92964 11.5963 4.18648C11.5849 4.07436 11.5791 3.96064 11.5791 3.8456C11.5791 2.67532 12.178 1.64237 13.0912 1.02584C11.994 0.571528 10.7883 0.320312 9.52263 0.320312C4.44789 0.320312 0.333984 4.35869 0.333984 9.34035C0.333984 14.3219 4.44789 18.3604 9.52263 18.3604C14.5975 18.3604 18.7113 14.3219 18.7113 9.34035C18.7113 8.06517 18.4416 6.85187 17.9554 5.75222Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16.8987 19.9727H2.14657C1.1455 19.9727 0.333984 20.8379 0.333984 21.9055C0.333984 22.973 1.1455 23.8384 2.14657 23.8384H16.8987C17.8998 23.8384 18.7113 22.973 18.7113 21.9055C18.7113 20.8379 17.8998 19.9727 16.8987 19.9727Z" fill="white"/>
+<path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M9.68792 12.5619C7.78487 12.5619 6.24219 11.0476 6.24219 9.17944C6.24219 7.31127 7.78487 5.79688 9.68792 5.79688C11.5909 5.79688 13.1337 7.31127 13.1337 9.17944C13.1337 11.0476 11.5909 12.5619 9.68792 12.5619ZM9.67263 7.06459C8.49652 7.06459 7.54318 8.00045 7.54318 9.15493C7.54318 10.3095 8.49652 11.2453 9.67263 11.2453C10.8486 11.2453 11.8021 10.3095 11.8021 9.15493C11.8021 8.00045 10.8486 7.06459 9.67263 7.06459Z" fill="white"/>
+<path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M15.168 6.60584C15.0077 6.60584 14.8233 6.58833 14.6113 6.54816V3.57058C14.6113 3.57058 14.7692 2.41797 15.8751 2.41797C16.9807 2.41797 18.5154 2.41797 18.5154 2.41797L18.5492 3.2344C18.5492 3.2344 18.583 4.13489 17.5337 4.13489C16.4843 4.13489 16.4843 4.13489 16.4843 4.13489C16.4843 4.13489 16.4627 4.12546 16.4322 4.12546C16.3595 4.12546 16.2361 4.1792 16.2361 4.54308C16.2361 5.05935 16.2361 5.80372 16.2361 5.80372C16.2361 5.80372 16.2534 6.60584 15.168 6.60584Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14.7898 0.802086C14.7898 0.802086 14.7898 1.54647 14.7898 2.06276C14.7898 2.57902 14.5415 2.47094 14.5415 2.47094C14.5415 2.47094 14.5415 2.47094 13.4922 2.47094C12.4428 2.47094 12.4767 3.37145 12.4767 3.37145L12.5105 4.18789C12.5105 4.18789 14.0451 4.18789 15.1508 4.18789C16.2566 4.18789 16.4146 3.03526 16.4146 3.03526V0.0576906C14.7672 -0.254498 14.7898 0.802086 14.7898 0.802086Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M30.0557 17.5606L25.7714 7.42556C25.677 7.20152 25.6016 6.97766 25.6016 6.73469C25.6016 5.93209 26.2433 5.31641 27.0549 5.31641C27.8097 5.31641 28.3004 5.74536 28.5269 6.32412L31.8296 14.7794L35.1703 6.23074C35.359 5.7643 35.8685 5.31641 36.5669 5.31641C37.3594 5.31641 38.0013 5.91354 38.0013 6.69739C38.0013 6.92143 37.9258 7.1642 37.8502 7.332L33.5282 17.5606C33.2263 18.27 32.679 18.6991 31.8863 18.6991H31.6976C30.905 18.6991 30.3576 18.27 30.0557 17.5606Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M40.1074 6.7637C40.1074 5.95529 40.7272 5.31641 41.5112 5.31641C42.295 5.31641 42.9148 5.95529 42.9148 6.7637V17.2515C42.9148 18.0599 42.295 18.6991 41.5112 18.6991C40.7272 18.6991 40.1074 18.0599 40.1074 17.2515V6.7637Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M46.0319 17.1378C45.7132 16.9148 45.4883 16.5057 45.4883 16.0597C45.4883 15.3161 46.0882 14.7398 46.8382 14.7398C47.2131 14.7398 47.4757 14.8703 47.6631 15.0001C48.6569 15.725 49.7445 16.171 51.0198 16.171C52.2008 16.171 52.9135 15.7065 52.9135 14.9444V14.9073C52.9135 14.1823 52.4634 13.8106 50.2696 13.2532C47.6257 12.584 45.9195 11.8589 45.9195 9.27546V9.2383C45.9195 6.87773 47.8321 5.31641 50.5134 5.31641C52.107 5.31641 53.4946 5.72528 54.6759 6.46887C54.9949 6.65464 55.3135 7.0452 55.3135 7.60267C55.3135 8.3459 54.7136 8.92222 53.9634 8.92222C53.6822 8.92222 53.4572 8.84774 53.2321 8.71798C52.276 8.16013 51.3758 7.84407 50.4758 7.84407C49.3696 7.84407 48.7882 8.3459 48.7882 8.97786V9.01539C48.7882 9.87008 49.3507 10.149 51.6196 10.7251C54.2821 11.4127 55.7823 12.3608 55.7823 14.6285V14.6657C55.7823 17.2494 53.7948 18.6991 50.9631 18.6991C49.2383 18.6991 47.4944 18.1785 46.0319 17.1378Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M58.3555 6.7637C58.3555 5.95529 58.9754 5.31641 59.7594 5.31641C60.5434 5.31641 61.163 5.95529 61.163 6.7637V17.2515C61.163 18.0599 60.5434 18.6991 59.7594 18.6991C58.9754 18.6991 58.3555 18.0599 58.3555 17.2515V6.7637Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M67.7195 8.39422H65.029C64.3201 8.39422 63.7383 7.80909 63.7383 7.09573C63.7383 6.38218 64.3201 5.79688 65.029 5.79688H73.2094C73.9186 5.79688 74.5003 6.38218 74.5003 7.09573C74.5003 7.80909 73.9186 8.39422 73.2094 8.39422H70.5191V17.3014C70.5191 18.0881 69.901 18.71 69.1193 18.71C68.3376 18.71 67.7195 18.0881 67.7195 17.3014V8.39422Z" fill="white"/>
+</g>
+<defs><clipPath id="clip0_4676_17144"><rect width="75" height="24" fill="white"/></clipPath></defs>
+            </svg>
+          </div>
+          <div class="dash-logo-sep"></div>
+          <div class="dash-platform-name">Steerage Intelligence Platform</div>
+        </div>
+        <div class="dash-client-tag">
+          <div class="dot"></div>
+          Sumitomo · CareClinics Malaysia
+        </div>
+      </div>
+      <div class="case-tabs" id="case-tabs"></div>
+      <div class="panel-left-inner" id="panel-left-inner"></div>
+    </div>
+    <div class="panel-right">
+      <div class="panel-right-label">Visit App — Member View</div>
+      <div class="phone-wrap">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar">
+            <span class="status-time">9:41</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+            </div>
+          </div>
+          <div class="phone-screen" id="phone-screen">
+            <!-- App screen rendered by JS in Task 6 -->
+            <div class="push-notification" id="push-notif">
+              <div class="push-icon">🏥</div>
+              <div class="push-content">
+                <div class="push-app">Visit Health</div>
+                <div class="push-text" id="push-text"></div>
+                <div class="push-time">now</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-home"><div class="phone-home-bar"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+const CASES = [
+  {
+    id: 'opd',
+    tab: 'OPD Utilisation',
+    badge: '\u2756 AI Insight \u00b7 OPD Utilisation',
+    title: 'CareClinics Bangsar \u2014 Underutilisation Detected',
+    subtitle: 'Members in this catchment are defaulting to <strong>Pantai Hospital KL</strong> (+2.4 km, 3\u00d7 higher claim cost).',
+    stats: [
+      { value: '40%',      cls: 'amber', label: 'Clinic capacity utilised' },
+      { value: '124',      cls: '',      label: 'Members booked elsewhere this month' },
+      { value: 'RM 18.6K', cls: 'red',  label: 'Estimated revenue leakage' },
+    ],
+    note: 'Members in Bangsar, Bukit Bintang, and Mid Valley catchments are 2.8\u00d7 more likely to choose non-panel providers for OPD consults.',
+    actions: [
+      { id: 'a0', name: 'Boost CareClinics Bangsar in OPD rankings',   desc: 'Surfaces as #1 result for members within 5 km catchment, ahead of non-panel providers' },
+      { id: 'a1', name: 'Send targeted nudge to 124 catchment members', desc: 'In-app push notification + home screen card directing members to CareClinics Bangsar' },
+    ],
+    pushText: 'Your plan recommends CareClinics Bangsar \u2014 nearest clinic, lowest copay. Tap to book \u2192',
+    screenType: 'clinic-list',
+    appTitle: 'Find a Clinic',
+    clinics: [
+      { id: 'pantai',      name: 'Pantai Hospital KL',     specialty: 'General Practice \u00b7 OPD', emoji: '\ud83c\udfe5', logoClass: 'pantai',      distance: '2.4 km', copay: 'RM 80', copayClass: 'expensive', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1 },
+      { id: 'kpj',         name: 'KPJ Bangsar Specialist', specialty: 'General Practice \u00b7 OPD', emoji: '\ud83c\udfe8', logoClass: 'kpj',         distance: '3.1 km', copay: 'RM 60', copayClass: '',          btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2 },
+      { id: 'careclinics', name: 'CareClinics Bangsar',    specialty: 'General Practice \u00b7 OPD', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '0.8 km', copay: 'RM 30', copayClass: '',          btnClass: 'primary', preferred: true,  beforeRank: 2, afterRank: 0 },
+    ],
+  },
+  {
+    id: 'referral',
+    tab: 'Referral Capture',
+    badge: '\u2756 AI Insight \u00b7 Specialist Referrals',
+    title: '67 GP Referrals Leaking to External Specialists',
+    subtitle: 'CareClinics GPs are referring to <strong>Pantai & KPJ specialists</strong> \u2014 avg claim RM 420 vs RM 180 within CareClinics network.',
+    stats: [
+      { value: '67',       cls: 'amber', label: 'External referrals last month' },
+      { value: 'RM 240',   cls: 'red',   label: 'Avg cost saving per redirected referral' },
+      { value: 'RM 16.1K', cls: 'red',   label: 'Monthly savings potential' },
+    ],
+    note: 'Cardiology and orthopaedics account for 74% of referral leakage. CareClinics has in-network specialists for both.',
+    actions: [
+      { id: 'b0', name: 'Route GP referrals to CareClinics specialist panel', desc: 'App surfaces in-network specialists first when GP initiates a referral' },
+      { id: 'b1', name: 'Enable in-app referral tracker for members',          desc: 'Members see recommended specialist + one-tap booking after GP consult' },
+    ],
+    pushText: 'Your GP has referred you to a specialist \u2014 book within CareClinics network for cashless coverage. Tap to view \u2192',
+    screenType: 'clinic-list',
+    appTitle: 'Book a Specialist',
+    clinics: [
+      { id: 'pantai-spec',      name: 'Pantai Specialist Centre',     specialty: 'Cardiology \u00b7 Specialist', emoji: '\ud83c\udfe5', logoClass: 'pantai',      distance: '3.2 km', copay: 'RM 150', copayClass: 'expensive', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1 },
+      { id: 'kpj-spec',         name: 'KPJ Damansara Specialist',     specialty: 'Cardiology \u00b7 Specialist', emoji: '\ud83c\udfe8', logoClass: 'kpj',         distance: '4.1 km', copay: 'RM 120', copayClass: '',          btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2 },
+      { id: 'careclinics-spec', name: 'CareClinics Heart & Vascular', specialty: 'Cardiology \u00b7 Specialist', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '1.2 km', copay: 'RM 60',  copayClass: '',          btnClass: 'primary', preferred: true,  beforeRank: 2, afterRank: 0 },
+    ],
+  },
+  {
+    id: 'chronic',
+    tab: 'Chronic Care',
+    badge: '\u2756 AI Insight \u00b7 Care Continuity',
+    title: '312 High-Utiliser Members with Fragmented Care',
+    subtitle: 'Members with <strong>diabetes & hypertension</strong> are visiting 3+ different clinics \u2014 no continuity, higher total claims.',
+    stats: [
+      { value: '312',    cls: 'amber', label: 'Members with fragmented care' },
+      { value: '3.4\u00d7', cls: 'red', label: 'Avg clinics visited per member' },
+      { value: 'RM 31K', cls: 'red',   label: 'Excess spend vs. continuity benchmark' },
+    ],
+    note: 'Members with a consistent home clinic have 41% lower annual claim costs. None of these 312 members have a designated care home.',
+    actions: [
+      { id: 'c0', name: 'Assign CareClinics as home clinic for 312 members', desc: 'Nearest CareClinics location becomes their designated care home in the Visit app' },
+      { id: 'c1', name: 'Enable 30-day recurring appointment reminder',       desc: 'Members receive automated nudge before their next medication cycle ends' },
+    ],
+    pushText: 'Your care home is now set \u2014 CareClinics Bangsar. Book your next follow-up before your medication runs out. Tap to schedule \u2192',
+    screenType: 'home-care',
+    appTitle: 'My Health',
+  },
+  {
+    id: 'benefits',
+    tab: 'Benefits Expiry',
+    badge: '\u2756 AI Insight \u00b7 Benefits Utilisation',
+    title: '847 Members with Expiring Screening Benefits',
+    subtitle: '<strong>RM 63K</strong> in unused annual health screening entitlements expire in the next 31 days.',
+    stats: [
+      { value: '847',    cls: 'amber', label: 'Members with unclaimed benefits' },
+      { value: '31',     cls: 'red',   label: 'Days until benefits expire' },
+      { value: 'RM 63K', cls: 'red',   label: 'Entitlement value at risk' },
+    ],
+    note: '62% of members who miss annual screenings develop a claimable condition within 18 months \u2014 early detection saves 3\u20135\u00d7 in downstream claims.',
+    actions: [
+      { id: 'd0', name: 'Send expiry alert to 847 members',          desc: 'Urgent in-app banner + push notification with countdown to benefit expiry' },
+      { id: 'd1', name: 'Surface CareClinics as screening provider', desc: 'CareClinics health screening packages shown as the default booking option' },
+    ],
+    pushText: 'Your health screening benefit expires in 31 days \u2014 RM 500 value unused. Book at CareClinics now. Tap to claim \u2192',
+    screenType: 'benefits',
+    appTitle: 'My Benefits',
+  },
+];
+
+let currentIdx = 0;
+let applied    = false;
+
+function renderInsightCard(c) {
+  var stats = c.stats.map(function(s) {
+    return '<div class="stat-chip"><div class="stat-value ' + s.cls + '">' + s.value + '</div><div class="stat-label">' + s.label + '</div></div>';
+  }).join('');
+  return '<div class="insight-card">' +
+    '<div class="insight-badge">' + c.badge + '</div>' +
+    '<div class="insight-title">' + c.title + '</div>' +
+    '<div class="insight-subtitle">' + c.subtitle + '</div>' +
+    '<div class="insight-stats">' + stats + '</div>' +
+    '<div class="insight-note"><span class="note-icon">\u26a0</span>' + c.note + '</div>' +
+    '</div>';
+}
+
+function renderActionCard(c) {
+  var rows = c.actions.map(function(a) {
+    return '<div class="action-row">' +
+      '<div class="action-text"><div class="action-name">' + a.name + '</div><div class="action-desc">' + a.desc + '</div></div>' +
+      '<label class="toggle toggle-wrap"><input type="checkbox" id="toggle-' + a.id + '"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>' +
+      '</div>';
+  }).join('');
+  return '<div class="action-card">' +
+    '<div class="action-card-title">Recommended Steerage Actions</div>' +
+    rows +
+    '<button class="apply-btn" id="apply-btn">Apply Steerage Changes</button>' +
+    '<div class="success-banner" id="success-banner">\u2713\u00a0\u00a0Changes live \u00b7 Propagating to Visit app</div>' +
+    '</div>';
+}
+
+function renderClinicCard(clinic, isAfter) {
+  var showPreferred = isAfter && clinic.preferred;
+  return '<div class="clinic-card' + (showPreferred ? ' preferred' : '') + '" id="card-' + clinic.id + '">' +
+    '<div class="clinic-card-header">' +
+    '<div class="clinic-logo ' + clinic.logoClass + '">' + clinic.emoji + '</div>' +
+    '<div class="clinic-info"><div class="clinic-name">' + clinic.name + '</div><div class="clinic-specialty">' + clinic.specialty + '</div></div>' +
+    '<div class="preferred-badge' + (showPreferred ? ' visible' : '') + '">\u2605 Preferred by your plan</div>' +
+    '</div>' +
+    '<div class="clinic-meta">' +
+    '<div class="clinic-tags"><div class="clinic-tag">\ud83d\udccd ' + clinic.distance + '</div><div class="tag-dot"></div><div class="clinic-tag">\u23f1 Open now</div></div>' +
+    '<div class="clinic-price-area"><div class="clinic-copay-label">You pay</div><div class="clinic-copay ' + clinic.copayClass + '">' + clinic.copay + '</div></div>' +
+    '</div>' +
+    '<button class="book-btn ' + clinic.btnClass + '">Book Now</button>' +
+    '</div>';
+}
+
+function renderClinicListScreen(c, isAfter) {
+  var sorted = c.clinics.slice().sort(function(a, b) {
+    return (isAfter ? a.afterRank : a.beforeRank) - (isAfter ? b.afterRank : b.beforeRank);
+  });
+  var cards = sorted.map(function(cl) { return renderClinicCard(cl, isAfter); }).join('');
+  return '<div class="app-screen">' +
+    '<div class="app-header">' +
+    '<div class="app-header-top"><span class="app-back">\u2039</span><div class="app-title">' + c.appTitle + '</div></div>' +
+    '<div class="app-location-chip">\ud83d\udccd Bangsar, Kuala Lumpur \u25be</div>' +
+    '</div>' +
+    '<div class="app-search"><input class="app-search-input" placeholder="Search clinics, specialities..." /></div>' +
+    '<div class="app-list-area">' +
+    '<div class="app-list-header"><div class="app-list-title">Clinics Near You</div><div class="app-list-count">3 results</div></div>' +
+    '<div class="clinic-cards-list">' + cards + '</div>' +
+    '</div>' +
+    '<div class="app-bottom-nav">' +
+    '<div class="nav-item"><div class="nav-icon">\ud83c\udfe0</div>Home</div>' +
+    '<div class="nav-item active"><div class="nav-icon">\ud83c\udfe5</div>Services</div>' +
+    '<div class="nav-item"><div class="nav-icon">\ud83d\udccb</div>Orders</div>' +
+    '<div class="nav-item"><div class="nav-icon">\ud83d\udc64</div>Profile</div>' +
+    '</div>' +
+    '</div>';
+}
+
+function renderHomeCareScreen(c, isAfter) {
+  var careSection = isAfter
+    ? '<div class="care-home-card">' +
+        '<div class="care-home-label">Your Care Home</div>' +
+        '<div class="care-home-name">CareClinics Bangsar</div>' +
+        '<div class="care-home-sub">\ud83d\udccd 0.8 km \u00b7 Dr. Priya Nair (GP) \u00b7 Next slot: Today 3pm</div>' +
+        '<button class="care-home-btn">Book Follow-up</button>' +
+      '</div>'
+    : '<div class="care-home-placeholder">No care home assigned yet</div>';
+  return '<div class="app-screen">' +
+    '<div class="app-home-header">' +
+      '<div class="app-home-greeting">Good morning,</div>' +
+      '<div class="app-home-name">Ahmad Rizwan</div>' +
+    '</div>' +
+    '<div class="app-list-area">' +
+      careSection +
+      '<div class="app-section-title">Active Conditions</div>' +
+      '<div class="condition-tags">' +
+        '<div class="condition-tag">Type 2 Diabetes</div>' +
+        '<div class="condition-tag">Hypertension</div>' +
+      '</div>' +
+      '<div class="app-section-title">Recent Visits</div>' +
+      '<div class="visit-history-row"><div><div class="visit-clinic-name">Klinik Dr. Ahmad</div><div class="visit-type">OPD Consult</div></div><div class="visit-date">12 Mar</div></div>' +
+      '<div class="visit-history-row"><div><div class="visit-clinic-name">Pantai Hospital KL</div><div class="visit-type">OPD Consult</div></div><div class="visit-date">18 Feb</div></div>' +
+      '<div class="visit-history-row"><div><div class="visit-clinic-name">KPJ Bangsar</div><div class="visit-type">OPD Consult</div></div><div class="visit-date">02 Feb</div></div>' +
+      '<div class="visit-history-row"><div><div class="visit-clinic-name">Klinik Mediviron</div><div class="visit-type">OPD Consult</div></div><div class="visit-date">14 Jan</div></div>' +
+    '</div>' +
+    '<div class="app-bottom-nav">' +
+      '<div class="nav-item active"><div class="nav-icon">\ud83c\udfe0</div>Home</div>' +
+      '<div class="nav-item"><div class="nav-icon">\ud83c\udfe5</div>Services</div>' +
+      '<div class="nav-item"><div class="nav-icon">\ud83d\udccb</div>Orders</div>' +
+      '<div class="nav-item"><div class="nav-icon">\ud83d\udc64</div>Profile</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderBenefitsScreen(c, isAfter) {
+  var banner = isAfter
+    ? '<div class="expiry-banner">' +
+        '<div class="expiry-icon">\u23f0</div>' +
+        '<div>' +
+          '<div class="expiry-title">Benefit Expiring in 31 Days!</div>' +
+          '<div class="expiry-sub">Your annual health screening (RM 500) hasn\'t been used. Don\'t lose it.</div>' +
+          '<button class="expiry-cta">Book at CareClinics Now</button>' +
+        '</div>' +
+      '</div>'
+    : '';
+  var screeningBtn = isAfter
+    ? '<button class="benefit-book-btn">Book at CareClinics Bangsar \u2192</button>'
+    : '<button class="benefit-book-btn" style="background:var(--visit-purple-light);color:var(--visit-purple);border:1.5px solid rgba(113,79,255,0.2)">View Providers</button>';
+  return '<div class="app-screen">' +
+    '<div class="app-header">' +
+      '<div class="app-header-top"><span class="app-back">\u2039</span><div class="app-title">My Benefits</div></div>' +
+    '</div>' +
+    '<div class="app-list-area">' +
+      banner +
+      '<div class="benefit-card' + (isAfter ? ' highlighted' : '') + '">' +
+        '<div class="benefit-header"><div class="benefit-name">Annual Health Screening</div><div class="benefit-status ' + (isAfter ? 'expiring' : 'unused') + '">' + (isAfter ? 'Expiring' : 'Unused') + '</div></div>' +
+        '<div class="benefit-value">Entitlement: <strong>RM 500</strong> \u00b7 Expires 7 May 2026</div>' +
+        screeningBtn +
+      '</div>' +
+      '<div class="benefit-card">' +
+        '<div class="benefit-header"><div class="benefit-name">OPD Cashless</div><div class="benefit-status used">Active</div></div>' +
+        '<div class="benefit-value">Limit: <strong>RM 2,000 / year</strong> \u00b7 RM 1,340 remaining</div>' +
+      '</div>' +
+      '<div class="benefit-card">' +
+        '<div class="benefit-header"><div class="benefit-name">Specialist Referral</div><div class="benefit-status used">Active</div></div>' +
+        '<div class="benefit-value">Limit: <strong>RM 5,000 / year</strong> \u00b7 RM 4,200 remaining</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="app-bottom-nav">' +
+      '<div class="nav-item"><div class="nav-icon">\ud83c\udfe0</div>Home</div>' +
+      '<div class="nav-item"><div class="nav-icon">\ud83c\udfe5</div>Services</div>' +
+      '<div class="nav-item"><div class="nav-icon">\ud83d\udccb</div>Orders</div>' +
+      '<div class="nav-item active"><div class="nav-icon">\ud83d\udc64</div>Profile</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderAppScreen(c, isAfter) {
+  if (c.screenType === 'clinic-list') return renderClinicListScreen(c, isAfter);
+  if (c.screenType === 'home-care')   return renderHomeCareScreen(c, isAfter);
+  if (c.screenType === 'benefits')    return renderBenefitsScreen(c, isAfter);
+  return renderClinicListScreen(c, isAfter);
+}
+
+function renderTabs() {
+  var tabs = CASES.map(function(c, i) {
+    return '<div class="case-tab' + (i === currentIdx ? ' active' : '') + '" onclick="switchCase(' + i + ')">' + c.tab + '</div>';
+  }).join('');
+  document.getElementById('case-tabs').innerHTML = tabs;
+}
+
+function renderLeftContent() {
+  var c = CASES[currentIdx];
+  document.getElementById('panel-left-inner').innerHTML =
+    '<div class="section-label">AI Insights</div>' +
+    renderInsightCard(c) +
+    '<div class="section-label">Steerage Actions</div>' +
+    renderActionCard(c);
+  wireApplyBtn();
+}
+
+function renderPhone(isAfter) {
+  var c = CASES[currentIdx];
+  var screen = document.getElementById('phone-screen');
+  var old = screen.querySelector('.app-screen');
+  if (old) old.remove();
+  screen.insertAdjacentHTML('beforeend', renderAppScreen(c, isAfter));
+  var pt = document.getElementById('push-text');
+  if (pt) pt.textContent = c.pushText;
+}
+
+function wireApplyBtn() {
+  var btn = document.getElementById('apply-btn');
+  if (!btn) return;
+  btn.addEventListener('click', function() {
+    if (applied) return;
+    applied = true;
+    var c = CASES[currentIdx];
+    c.actions.forEach(function(a) {
+      var el = document.getElementById('toggle-' + a.id);
+      if (el) el.checked = true;
+    });
+    setTimeout(function() {
+      var banner = document.getElementById('success-banner');
+      if (banner) banner.classList.add('visible');
+    }, 300);
+    setTimeout(function() {
+      var screen = document.getElementById('phone-screen');
+      var oldApp = screen.querySelector('.app-screen');
+      if (oldApp) {
+        oldApp.style.transition = 'opacity 0.3s ease';
+        oldApp.style.opacity = '0';
+        setTimeout(function() {
+          oldApp.remove();
+          screen.insertAdjacentHTML('beforeend', renderAppScreen(c, true));
+        }, 300);
+      }
+    }, 600);
+    setTimeout(function() {
+      var notif = document.getElementById('push-notif');
+      if (notif) notif.classList.add('visible');
+      setTimeout(function() {
+        if (notif) notif.classList.remove('visible');
+      }, 5000);
+    }, 1200);
+    this.textContent = 'Changes Applied';
+    this.style.background = '#22C55E';
+    this.style.boxShadow = '0 4px 20px rgba(34,197,94,0.4)';
+    this.style.cursor = 'default';
+  });
+}
+
+function switchCase(idx) {
+  if (idx === currentIdx) return;
+  currentIdx = idx;
+  applied = false;
+  var notif = document.getElementById('push-notif');
+  if (notif) notif.classList.remove('visible');
+  renderTabs();
+  renderLeftContent();
+  renderPhone(false);
+}
+
+renderTabs();
+renderLeftContent();
+renderPhone(false);
+  </script>
+</body>
+</html>
