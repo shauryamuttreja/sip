@@ -946,6 +946,136 @@
       border-bottom-color: var(--visit-purple);
     }
 
+/* ── Real Visit App – clinic list redesign ── */
+.app-screen-plain {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  font-family: 'Inter', Arial, sans-serif;
+  position: absolute;
+  inset: 0;
+}
+.app-hdr-plain {
+  background: #fff;
+  padding: 14px 14px 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+.app-hdr-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+.app-hdr-back-btn { font-size: 22px; color: #111827; line-height: 1; cursor: pointer; flex-shrink: 0; font-weight: 300; }
+.app-hdr-title-dark { font-size: 18px; font-weight: 800; color: #111827; line-height: 1.15; }
+.app-hdr-loc-row { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #6B7280; cursor: pointer; }
+.app-hdr-loc-row span { color: #374151; font-weight: 500; }
+.app-search-wrap { padding: 10px 12px; background: #fff; flex-shrink: 0; }
+.app-search-real {
+  width: 100%;
+  background: #F3F4F6;
+  border: none;
+  border-radius: 22px;
+  padding: 9px 14px 9px 34px;
+  font-size: 12px;
+  color: #9CA3AF;
+  font-family: inherit;
+  outline: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath d='M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round'/%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 14px;
+}
+.featured-sec { padding: 0 12px; background: #fff; flex-shrink: 0; }
+.featured-hdr { display: flex; align-items: center; justify-content: space-between; padding: 8px 0 10px; }
+.featured-hdr-ttl { font-size: 13px; font-weight: 700; color: #111827; }
+.featured-view-all { font-size: 12px; font-weight: 600; color: var(--visit-purple); }
+.centers-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+.centers-row::-webkit-scrollbar { display: none; }
+.center-item { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; cursor: pointer; }
+.center-logo-box {
+  width: 58px; height: 58px; border-radius: 14px;
+  border: 1.5px solid #E5E7EB;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.center-logo-box.hl { background: var(--visit-purple-light) !important; border-color: var(--visit-purple); }
+.center-new-tag {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: #22C55E; color: #fff;
+  font-size: 8px; font-weight: 800; text-align: center; padding: 2px 0;
+}
+.center-lbl { font-size: 10px; font-weight: 500; color: #374151; text-align: center; width: 60px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filter-chips-row {
+  display: flex; gap: 7px; padding: 0 12px 10px; overflow-x: auto;
+  scrollbar-width: none; flex-shrink: 0;
+  border-bottom: 1px solid #F3F4F6; background: #fff;
+}
+.filter-chips-row::-webkit-scrollbar { display: none; }
+.fchip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #fff; border: 1.5px solid #E5E7EB; border-radius: 20px;
+  padding: 5px 11px; font-size: 11px; font-weight: 600; color: #374151;
+  white-space: nowrap; cursor: pointer; flex-shrink: 0;
+}
+.doc-list { flex: 1; overflow-y: auto; padding: 10px 12px; scrollbar-width: none; background: #F4F4F8; }
+.doc-list::-webkit-scrollbar { display: none; }
+.doc-card {
+  background: #EDEAF8; border-radius: 14px; padding: 11px 13px 13px;
+  margin-bottom: 10px; border: 1.5px solid transparent;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.doc-card.preferred { border-color: var(--visit-purple); box-shadow: 0 2px 16px rgba(113,79,255,0.16); }
+.doc-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.doc-prev-tag { font-size: 11px; font-style: italic; color: #9CA3AF; }
+.doc-badges { display: flex; align-items: center; gap: 5px; }
+.doc-rec-badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: var(--visit-purple-light); border: 1px solid rgba(113,79,255,0.35);
+  border-radius: 20px; font-size: 10px; font-weight: 700; color: var(--visit-purple);
+  white-space: nowrap; overflow: hidden;
+  max-width: 0; padding: 0; border-width: 0; opacity: 0;
+  transition: max-width 0.45s ease 0.15s, padding 0.45s ease 0.15s,
+              border-width 0.45s ease 0.15s, opacity 0.45s ease 0.15s;
+}
+.doc-rec-badge.visible { max-width: 150px; padding: 2px 7px; border-width: 1px; opacity: 1; }
+.doc-panel-badge {
+  display: inline-flex; background: #DCFCE7; border: 1px solid #86EFAC;
+  border-radius: 20px; font-size: 10px; font-weight: 700; color: #16A34A; padding: 2px 7px;
+}
+.doc-body { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+.doc-photo-wrap { flex-shrink: 0; width: 62px; }
+.doc-photo-bg { width: 62px; height: 62px; border-radius: 11px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.doc-exp-badge { margin-top: 3px; background: var(--visit-purple); color: #fff; font-size: 8px; font-weight: 800; padding: 2px 0; border-radius: 4px; text-align: center; width: 100%; }
+.doc-info { flex: 1; min-width: 0; }
+.doc-name { font-size: 14px; font-weight: 800; color: #111827; margin-bottom: 2px; line-height: 1.2; }
+.doc-spec { font-size: 11px; color: #374151; margin-bottom: 1px; }
+.doc-quals { font-size: 10px; color: #6B7280; margin-bottom: 4px; }
+.doc-hosp { font-size: 11px; color: #374151; font-weight: 500; line-height: 1.3; }
+.doc-divider { height: 1px; background: rgba(0,0,0,0.07); margin: 8px 0; }
+.doc-paid-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.doc-paid-left { display: flex; align-items: center; gap: 3px; font-size: 11px; color: #374151; }
+.doc-price-right { text-align: right; display: flex; align-items: baseline; gap: 3px; }
+.doc-price-orig { font-size: 10px; color: #9CA3AF; text-decoration: line-through; }
+.doc-price-final { font-size: 14px; font-weight: 800; color: #111827; }
+.doc-followup {
+  background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 7px;
+  padding: 5px 8px; font-size: 10px; font-weight: 600; color: #92400E;
+  display: flex; align-items: center; gap: 4px; margin-bottom: 8px;
+}
+.doc-slot-row { display: flex; align-items: center; justify-content: space-between; }
+.doc-slot-label { font-size: 10px; color: #9CA3AF; margin-bottom: 1px; }
+.doc-slot-time { font-size: 12px; font-weight: 700; color: #111827; }
+.doc-book-btn {
+  background: #fff; border: 2px solid var(--visit-purple); border-radius: 20px;
+  padding: 6px 14px; font-family: inherit; font-size: 12px; font-weight: 700;
+  color: var(--visit-purple); cursor: pointer; white-space: nowrap;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.doc-book-btn:hover { background: var(--visit-purple-light); }
+
     /* ── Mobile responsive ── */
     @media (max-width: 800px) {
       /* Allow full-page scroll */
@@ -1104,9 +1234,12 @@ const CASES = [
     screenType: 'clinic-list',
     appTitle: 'Find a Clinic',
     clinics: [
-      { id: 'pantai',      name: 'Pantai Hospital KL',     specialty: 'General Practice \u00b7 OPD', emoji: '\ud83c\udfe5', logoClass: 'pantai',      distance: '2.4 km', copay: 'RM 80', copayClass: 'expensive', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1 },
-      { id: 'kpj',         name: 'KPJ Bangsar Specialist', specialty: 'General Practice \u00b7 OPD', emoji: '\ud83c\udfe8', logoClass: 'kpj',         distance: '3.1 km', copay: 'RM 60', copayClass: '',          btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2 },
-      { id: 'careclinics', name: 'CareClinics Bangsar',    specialty: 'General Practice \u00b7 OPD', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '0.8 km', copay: 'RM 30', copayClass: '',          btnClass: 'primary', preferred: true,  beforeRank: 2, afterRank: 0 },
+      { id: 'pantai',      name: 'Pantai Hospital KL',     specialty: 'General Physician \u00b7 OPD', emoji: '\ud83c\udfe5', logoClass: 'pantai',      distance: '2.4 km', copay: 'RM 80', copayClass: 'expensive', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1,
+        doctorName: 'Dr. Ahmad Razif', quals: 'MBBS, Dip.Fam.Med', yearsExp: '15+ Years', slot: 'Today, 03:30 PM', photoBg: 'linear-gradient(135deg,#818CF8,#6366F1)', initials: 'AR' },
+      { id: 'kpj',         name: 'KPJ Bangsar Specialist', specialty: 'General Physician \u00b7 OPD', emoji: '\ud83c\udfe8', logoClass: 'kpj',         distance: '3.1 km', copay: 'RM 60', copayClass: '',          btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2,
+        doctorName: 'Dr. Priya Nadarajah', quals: 'MBBS, FRACGP', yearsExp: '10+ Years', slot: 'Today, 04:00 PM', photoBg: 'linear-gradient(135deg,#34D399,#059669)', initials: 'PN' },
+      { id: 'careclinics', name: 'CareClinics Bangsar',    specialty: 'General Physician \u00b7 OPD', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '0.8 km', copay: 'RM 30', copayClass: '',          btnClass: 'primary', preferred: true,  beforeRank: 2, afterRank: 0,
+        doctorName: 'Dr. Lee Wei Ming', quals: 'MBBS, MMed(Fam.Med)', yearsExp: '12+ Years', slot: 'Today, 11:00 AM', photoBg: 'linear-gradient(135deg,#A78BFA,#7C3AED)', initials: 'LW' },
     ],
   },
   {
@@ -1129,9 +1262,12 @@ const CASES = [
     screenType: 'clinic-list',
     appTitle: 'Book a Specialist',
     clinics: [
-      { id: 'pantai-spec',      name: 'Pantai Specialist Centre',     specialty: 'Cardiology \u00b7 Specialist', emoji: '\ud83c\udfe5', logoClass: 'pantai',      distance: '3.2 km', copay: 'RM 150', copayClass: 'expensive', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1 },
-      { id: 'kpj-spec',         name: 'KPJ Damansara Specialist',     specialty: 'Cardiology \u00b7 Specialist', emoji: '\ud83c\udfe8', logoClass: 'kpj',         distance: '4.1 km', copay: 'RM 120', copayClass: '',          btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2 },
-      { id: 'careclinics-spec', name: 'CareClinics Heart & Vascular', specialty: 'Cardiology \u00b7 Specialist', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '1.2 km', copay: 'RM 60',  copayClass: '',          btnClass: 'primary', preferred: true,  beforeRank: 2, afterRank: 0 },
+      { id: 'pantai-spec',      name: 'Pantai Specialist Centre',     specialty: 'Cardiologist', emoji: '\ud83c\udfe5', logoClass: 'pantai',      distance: '3.2 km', copay: 'RM 150', copayClass: 'expensive', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1,
+        doctorName: 'Dr. Farid Hassan', quals: 'MBBS, MRCP, FAMS', yearsExp: '20+ Years', slot: 'Tomorrow, 10:00 AM', photoBg: 'linear-gradient(135deg,#60A5FA,#2563EB)', initials: 'FH' },
+      { id: 'kpj-spec',         name: 'KPJ Damansara Specialist',     specialty: 'Cardiologist', emoji: '\ud83c\udfe8', logoClass: 'kpj',         distance: '4.1 km', copay: 'RM 120', copayClass: '',          btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2,
+        doctorName: 'Dr. Siti Norazuwa', quals: 'MBBS, MRCP(UK), FRCP', yearsExp: '18+ Years', slot: 'Tomorrow, 11:30 AM', photoBg: 'linear-gradient(135deg,#34D399,#0D9488)', initials: 'SN' },
+      { id: 'careclinics-spec', name: 'CareClinics Heart & Vascular', specialty: 'Cardiologist', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '1.2 km', copay: 'RM 60',  copayClass: '',          btnClass: 'primary', preferred: true,  beforeRank: 2, afterRank: 0,
+        doctorName: 'Dr. Rajiv Menon', quals: 'MBBS, FRCP, FACC', yearsExp: '15+ Years', slot: 'Today, 05:00 PM', photoBg: 'linear-gradient(135deg,#C084FC,#9333EA)', initials: 'RM' },
     ],
   },
   {
@@ -1209,18 +1345,47 @@ function renderActionCard(c) {
 
 function renderClinicCard(clinic, isAfter) {
   var showPreferred = isAfter && clinic.preferred;
-  return '<div class="clinic-card' + (showPreferred ? ' preferred' : '') + '" id="card-' + clinic.id + '">' +
-    '<div class="clinic-card-header">' +
-    '<div class="clinic-logo ' + clinic.logoClass + '">' + clinic.emoji + '</div>' +
-    '<div class="clinic-info"><div class="clinic-name">' + clinic.name + '</div><div class="clinic-specialty">' + clinic.specialty + '</div></div>' +
-    '<div class="preferred-badge' + (showPreferred ? ' visible' : '') + '">\u2605 Preferred by your plan</div>' +
+  var docName  = clinic.doctorName || clinic.name;
+  var quals    = clinic.quals    || '';
+  var yearsExp = clinic.yearsExp || '10+ Years';
+  var slot     = clinic.slot     || 'Today, 02:00 PM';
+  var photoBg  = clinic.photoBg  || 'linear-gradient(135deg,#A78BFA,#7C3AED)';
+  var initials = clinic.initials || 'DR';
+  var spec     = clinic.specialty ? clinic.specialty.split(' \u00b7')[0] : clinic.specialty;
+  var VSVG = '<svg width="42" height="13" viewBox="0 0 75 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path fill-rule="evenodd" clip-rule="evenodd" d="M17.9554 5.75222C17.3298 6.66494 16.2678 7.26544 15.0629 7.26544C14.9493 7.26544 14.8369 7.26005 14.726 7.24961C14.9917 7.89257 15.1381 8.59556 15.1381 9.33213C15.1381 12.394 12.6097 14.8761 9.49052 14.8761C6.37149 14.8761 3.84294 12.394 3.84294 9.33213C3.84294 6.27031 6.37149 3.7882 9.49052 3.7882C10.2348 3.7882 10.9455 3.92964 11.5963 4.18648C11.5849 4.07436 11.5791 3.96064 11.5791 3.8456C11.5791 2.67532 12.178 1.64237 13.0912 1.02584C11.994 0.571528 10.7883 0.320312 9.52263 0.320312C4.44789 0.320312 0.333984 4.35869 0.333984 9.34035C0.333984 14.3219 4.44789 18.3604 9.52263 18.3604C14.5975 18.3604 18.7113 14.3219 18.7113 9.34035C18.7113 8.06517 18.4416 6.85187 17.9554 5.75222Z" fill="#714FFF"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.8987 19.9727H2.14657C1.1455 19.9727 0.333984 20.8379 0.333984 21.9055C0.333984 22.973 1.1455 23.8384 2.14657 23.8384H16.8987C17.8998 23.8384 18.7113 22.973 18.7113 21.9055C18.7113 20.8379 17.8998 19.9727 16.8987 19.9727Z" fill="#714FFF"/><path d="M30.0557 17.5606L25.7714 7.42556C25.677 7.20152 25.6016 6.97766 25.6016 6.73469C25.6016 5.93209 26.2433 5.31641 27.0549 5.31641C27.8097 5.31641 28.3004 5.74536 28.5269 6.32412L31.8296 14.7794L35.1703 6.23074C35.359 5.7643 35.8685 5.31641 36.5669 5.31641C37.3594 5.31641 38.0013 5.91354 38.0013 6.69739C38.0013 6.92143 37.9258 7.1642 37.8502 7.332L33.5282 17.5606C33.2263 18.27 32.679 18.6991 31.8863 18.6991H31.6976C30.905 18.6991 30.3576 18.27 30.0557 17.5606Z" fill="#714FFF"/><path d="M40.1074 6.7637C40.1074 5.95529 40.7272 5.31641 41.5112 5.31641C42.295 5.31641 42.9148 5.95529 42.9148 6.7637V17.2515C42.9148 18.0599 42.295 18.6991 41.5112 18.6991C40.7272 18.6991 40.1074 18.0599 40.1074 17.2515V6.7637Z" fill="#714FFF"/><path d="M46.0319 17.1378C45.7132 16.9148 45.4883 16.5057 45.4883 16.0597C45.4883 15.3161 46.0882 14.7398 46.8382 14.7398C47.2131 14.7398 47.4757 14.8703 47.6631 15.0001C48.6569 15.725 49.7445 16.171 51.0198 16.171C52.2008 16.171 52.9135 15.7065 52.9135 14.9444V14.9073C52.9135 14.1823 52.4634 13.8106 50.2696 13.2532C47.6257 12.584 45.9195 11.8589 45.9195 9.27546V9.2383C45.9195 6.87773 47.8321 5.31641 50.5134 5.31641C52.107 5.31641 53.4946 5.72528 54.6759 6.46887C54.9949 6.65464 55.3135 7.0452 55.3135 7.60267C55.3135 8.3459 54.7136 8.92222 53.9634 8.92222C53.6822 8.92222 53.4572 8.84774 53.2321 8.71798C52.276 8.16013 51.3758 7.84407 50.4758 7.84407C49.3696 7.84407 48.7882 8.3459 48.7882 8.97786V9.01539C48.7882 9.87008 49.3507 10.149 51.6196 10.7251C54.2821 11.4127 55.7823 12.3608 55.7823 14.6285V14.6657C55.7823 17.2494 53.7948 18.6991 50.9631 18.6991C49.2383 18.6991 47.4944 18.1785 46.0319 17.1378Z" fill="#714FFF"/><path d="M58.3555 6.7637C58.3555 5.95529 58.9754 5.31641 59.7594 5.31641C60.5434 5.31641 61.163 5.95529 61.163 6.7637V17.2515C61.163 18.0599 60.5434 18.6991 59.7594 18.6991C58.9754 18.6991 58.3555 18.0599 58.3555 17.2515V6.7637Z" fill="#714FFF"/><path d="M67.7195 8.39422H65.029C64.3201 8.39422 63.7383 7.80909 63.7383 7.09573C63.7383 6.38218 64.3201 5.79688 65.029 5.79688H73.2094C73.9186 5.79688 74.5003 6.38218 74.5003 7.09573C74.5003 7.80909 73.9186 8.39422 73.2094 8.39422H70.5191V17.3014C70.5191 18.0881 69.901 18.71 69.1193 18.71C68.3376 18.71 67.7195 18.0881 67.7195 17.3014V8.39422Z" fill="#714FFF"/></g></svg>';
+  return '<div class="doc-card' + (showPreferred ? ' preferred' : '') + '" id="card-' + clinic.id + '">' +
+    '<div class="doc-card-top">' +
+      '<div class="doc-prev-tag">Previously Visited</div>' +
+      '<div class="doc-badges">' +
+        '<div class="doc-rec-badge' + (showPreferred ? ' visible' : '') + '">\u2605 Recommended for you</div>' +
+        '<div class="doc-panel-badge">Panel Clinic \u2713</div>' +
+      '</div>' +
     '</div>' +
-    '<div class="clinic-meta">' +
-    '<div class="clinic-tags"><div class="clinic-tag">\ud83d\udccd ' + clinic.distance + '</div><div class="tag-dot"></div><div class="clinic-tag">\u23f1 Open now</div></div>' +
-    '<div class="clinic-price-area"><div class="clinic-copay-label">You pay</div><div class="clinic-copay ' + clinic.copayClass + '">' + clinic.copay + '</div></div>' +
+    '<div class="doc-body">' +
+      '<div class="doc-photo-wrap">' +
+        '<div class="doc-photo-bg" style="background:' + photoBg + '">' +
+          '<span style="color:#fff;font-weight:800;font-size:18px;letter-spacing:-0.5px">' + initials + '</span>' +
+        '</div>' +
+        '<div class="doc-exp-badge">' + yearsExp + '</div>' +
+      '</div>' +
+      '<div class="doc-info">' +
+        '<div class="doc-name">' + docName + '</div>' +
+        '<div class="doc-spec">' + spec + '</div>' +
+        '<div class="doc-quals">' + quals + '</div>' +
+        '<div class="doc-hosp">' + clinic.name + ' \u00b7 ' + clinic.distance + '</div>' +
+      '</div>' +
     '</div>' +
-    '<button class="book-btn ' + clinic.btnClass + '">Book Now</button>' +
-    '</div>';
+    '<div class="doc-divider"></div>' +
+    '<div class="doc-paid-row">' +
+      '<div class="doc-paid-left">Paid by ' + VSVG + '</div>' +
+      '<div class="doc-price-right"><span class="doc-price-orig">' + clinic.copay + '</span><span class="doc-price-final"> RM\u00a00</span></div>' +
+    '</div>' +
+    '<div class="doc-followup">\u26a1 100% cashless coverage under your plan</div>' +
+    '<div class="doc-slot-row">' +
+      '<div><div class="doc-slot-label">Next slot at</div><div class="doc-slot-time">' + slot + '</div></div>' +
+      '<button class="doc-book-btn">Book Now</button>' +
+    '</div>' +
+  '</div>';
 }
 
 function renderClinicListScreen(c, isAfter) {
@@ -1228,23 +1393,52 @@ function renderClinicListScreen(c, isAfter) {
     return (isAfter ? a.afterRank : a.beforeRank) - (isAfter ? b.afterRank : b.beforeRank);
   });
   var cards = sorted.map(function(cl) { return renderClinicCard(cl, isAfter); }).join('');
-  return '<div class="app-screen">' +
-    '<div class="app-header">' +
-    '<div class="app-header-top"><span class="app-back">\u2039</span><div class="app-title">' + c.appTitle + '</div></div>' +
-    '<div class="app-location-chip">\ud83d\udccd Bangsar, Kuala Lumpur \u25be</div>' +
-    '</div>' +
-    '<div class="app-search"><input class="app-search-input" placeholder="Search clinics, specialities..." /></div>' +
-    '<div class="app-list-area">' +
-    '<div class="app-list-header"><div class="app-list-title">Clinics Near You</div><div class="app-list-count">3 results</div></div>' +
-    '<div class="clinic-cards-list">' + cards + '</div>' +
-    '</div>' +
-    '<div class="app-bottom-nav">' +
-    '<div class="nav-item"><div class="nav-icon">\ud83c\udfe0</div>Home</div>' +
-    '<div class="nav-item active"><div class="nav-icon">\ud83c\udfe5</div>Services</div>' +
-    '<div class="nav-item"><div class="nav-icon">\ud83d\udccb</div>Orders</div>' +
-    '<div class="nav-item"><div class="nav-icon">\ud83d\udc64</div>Profile</div>' +
-    '</div>' +
+  var centers = [
+    { text: 'CC', bg: '#714FFF', label: 'CareClinics', hl: true,  isNew: true  },
+    { text: 'CA', bg: '#2563EB', label: 'Columbia',    hl: false, isNew: false },
+    { text: 'SM', bg: '#F97316', label: 'Sunway',      hl: false, isNew: false },
+    { text: 'KPJ', bg: '#059669', label: 'KPJ',        hl: false, isNew: false },
+    { text: 'GL', bg: '#1D4ED8', label: 'Gleneagles',  hl: false, isNew: false },
+  ];
+  var centerHtml = centers.map(function(ct) {
+    return '<div class="center-item">' +
+      '<div class="center-logo-box' + (ct.hl ? ' hl' : '') + '" style="background:' + ct.bg + '">' +
+        '<span style="font-weight:900;font-size:' + (ct.text.length > 2 ? '10' : '14') + 'px;color:#fff;letter-spacing:-0.5px">' + ct.text + '</span>' +
+        (ct.isNew ? '<div class="center-new-tag">New</div>' : '') +
+      '</div>' +
+      '<div class="center-lbl">' + ct.label + '</div>' +
     '</div>';
+  }).join('');
+  return '<div class="app-screen-plain">' +
+    '<div class="app-hdr-plain">' +
+      '<div class="app-hdr-nav">' +
+        '<span class="app-hdr-back-btn">\u2039</span>' +
+        '<div class="app-hdr-title-dark">' + c.appTitle + '</div>' +
+      '</div>' +
+      '<div class="app-hdr-loc-row">' +
+        '<svg width="11" height="11" viewBox="0 0 24 24" fill="#6B7280"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>' +
+        'Home : <span>Bangsar, Kuala Lumpur</span> \u25be' +
+      '</div>' +
+    '</div>' +
+    '<div class="app-search-wrap"><input class="app-search-real" placeholder="Search for CareClinics" /></div>' +
+    '<div class="featured-sec">' +
+      '<div class="featured-hdr"><div class="featured-hdr-ttl">Featured Centers Near you</div><div class="featured-view-all">View all \u203a</div></div>' +
+      '<div class="centers-row">' + centerHtml + '</div>' +
+    '</div>' +
+    '<div class="filter-chips-row">' +
+      '<div class="fchip">Sort \u25be</div>' +
+      '<div class="fchip">\u2261 Filter \u25be</div>' +
+      '<div class="fchip">Nearest</div>' +
+      '<div class="fchip">Panel Only</div>' +
+    '</div>' +
+    '<div class="doc-list">' + cards + '</div>' +
+    '<div class="app-bottom-nav">' +
+      '<div class="nav-item"><div class="nav-icon">\ud83c\udfe0</div>Home</div>' +
+      '<div class="nav-item active"><div class="nav-icon">\ud83c\udfe5</div>Services</div>' +
+      '<div class="nav-item"><div class="nav-icon">\ud83d\udccb</div>Orders</div>' +
+      '<div class="nav-item"><div class="nav-icon">\ud83d\udc64</div>Profile</div>' +
+    '</div>' +
+  '</div>';
 }
 
 function renderHomeCareScreen(c, isAfter) {
