@@ -1040,7 +1040,7 @@
   transition: max-width 0.45s ease 0.15s, padding 0.45s ease 0.15s,
               border-width 0.45s ease 0.15s, opacity 0.45s ease 0.15s;
 }
-.doc-rec-badge.visible { max-width: 120px; padding: 2px 7px; border-width: 1px; opacity: 1; }
+.doc-rec-badge.visible { max-width: 120px; padding: 2px 8px; border-width: 1px; opacity: 1; }
 .doc-panel-badge {
   display: inline-flex; background: #DCFCE7; border: 1px solid #86EFAC;
   border-radius: 20px; font-size: 10px; font-weight: 700; color: #16A34A; padding: 2px 7px;
@@ -1149,6 +1149,250 @@
         border-radius: 36px;
       }
     }
+
+    /* ── Steerage Intelligence Panel ── */
+    .intel-card {
+      background: var(--dash-card);
+      border: 1px solid var(--dash-card-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+    }
+    .intel-section-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .intel-title { font-size: 14px; font-weight: 600; color: #fff; }
+    .intel-sources-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .intel-source-label { font-size: 11px; color: var(--dash-text-muted); font-weight: 500; margin-right: 2px; flex-shrink: 0; }
+    .intel-source-chip {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(113,79,255,0.08);
+      border: 1px solid rgba(113,79,255,0.18);
+      border-radius: 20px;
+      padding: 3px 9px;
+      font-size: 11px;
+      color: #a0a8c0;
+      font-weight: 500;
+    }
+    .weight-alloc { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .weight-row { display: flex; align-items: center; gap: 10px; }
+    .weight-factor-name { font-size: 12px; color: var(--dash-text-muted); font-weight: 500; width: 130px; flex-shrink: 0; }
+    .weight-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+    .weight-bar-fill { height: 100%; background: var(--visit-purple); border-radius: 3px; transition: width 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .weight-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .weight-btn {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(255,255,255,0.07); border: 1px solid var(--dash-card-border);
+      color: var(--dash-text); font-size: 13px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      line-height: 1; transition: background 0.15s, border-color 0.15s; user-select: none;
+      flex-shrink: 0;
+    }
+    .weight-btn:hover { background: rgba(113,79,255,0.2); border-color: var(--visit-purple); }
+    .weight-btn:disabled { opacity: 0.3; cursor: default; }
+    .weight-pct { font-size: 13px; font-weight: 700; color: var(--visit-purple); width: 36px; text-align: center; flex-shrink: 0; }
+    .weight-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .weight-driver { font-size: 11px; color: var(--dash-text-muted); }
+    .weight-driver strong { color: var(--dash-amber); font-weight: 600; }
+    .weight-total { font-size: 11px; font-weight: 600; color: var(--visit-mint); }
+    .generate-btn {
+      width: 100%; margin-top: 16px;
+      padding: 13px;
+      background: transparent;
+      border: 1.5px solid var(--visit-purple);
+      border-radius: 14px;
+      font-family: inherit; font-size: 14px; font-weight: 700;
+      color: var(--visit-purple); cursor: pointer; letter-spacing: 0.2px;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .generate-btn:hover { background: rgba(113,79,255,0.12); box-shadow: 0 0 0 3px rgba(113,79,255,0.15); }
+    .generate-btn.generating { opacity: 0.6; cursor: default; }
+    .actions-pending {
+      background: var(--dash-card); border: 1px dashed rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg); padding: 32px 24px; text-align: center;
+    }
+    .actions-pending-icon { font-size: 28px; margin-bottom: 10px; opacity: 0.4; }
+    .actions-pending-text { font-size: 13px; color: var(--dash-text-muted); line-height: 1.5; }
+    .actions-generated-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(71,229,177,0.1); border: 1px solid rgba(71,229,177,0.25);
+      border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 600;
+      color: var(--visit-mint); margin-bottom: 12px;
+    }
+    .action-driver-note {
+      display: flex; align-items: flex-start; gap: 8px;
+      background: rgba(113,79,255,0.07); border: 1px solid rgba(113,79,255,0.18);
+      border-radius: var(--radius-sm); padding: 9px 12px; margin-bottom: 14px;
+      font-size: 12px; color: #c4cad8; line-height: 1.5; transition: opacity 0.3s ease;
+    }
+    .action-driver-note .dn-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── App-screen action badges ── */
+    .cost-save-badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #DCFCE7; border: 1px solid #86EFAC; border-radius: 20px;
+      padding: 2px 8px; font-size: 10px; font-weight: 700; color: #16A34A;
+    }
+    .quality-badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #FEF9C3; border: 1px solid #FDE047; border-radius: 20px;
+      padding: 2px 8px; font-size: 10px; font-weight: 700; color: #854D0E;
+    }
+    .nearest-banner {
+      background: linear-gradient(90deg, rgba(113,79,255,0.12), rgba(71,229,177,0.08));
+      border: 1px solid rgba(113,79,255,0.2); border-radius: 10px;
+      padding: 8px 12px; margin: 0 0 8px; display: flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; color: var(--visit-purple);
+    }
+    .preferred-clinic-label {
+      font-size: 10px; font-weight: 700; color: #7C3AED;
+      background: #EDE9FE; border: 1px solid #C4B5FD; border-radius: 20px;
+      padding: 2px 8px; display: inline-block; margin-bottom: 6px;
+    }
+    .cashless-savings-row {
+      background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 7px;
+      padding: 5px 8px; font-size: 10px; font-weight: 600; color: #15803D;
+      display: flex; align-items: center; gap: 4px; margin-bottom: 8px;
+    }
+    .excl-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(255,149,0,0.06);
+      border: 1px solid rgba(255,149,0,0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+    }
+    .excl-banner-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .excl-banner-body { flex: 1; }
+    .excl-banner-title { font-size: 12px; font-weight: 600; color: var(--dash-amber); margin-bottom: 5px; }
+    .excl-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .excl-chip {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .excl-chip.doctor    { background: rgba(59,130,246,0.1);  color: #93C5FD; border: 1px solid rgba(59,130,246,0.2); }
+    .excl-chip.referral  { background: rgba(251,191,36,0.1);  color: #FCD34D; border: 1px solid rgba(251,191,36,0.2); }
+    .excl-chip.condition { background: rgba(248,113,113,0.1); color: #FCA5A5; border: 1px solid rgba(248,113,113,0.2); }
+    .excl-manage-link { font-size: 11px; color: var(--visit-purple); cursor: pointer; text-decoration: underline; margin-top: 5px; display: inline-block; }
+
+    /* ── Exclusion Rules Tab ── */
+    .excl-tab-wrap { display: flex; flex-direction: column; gap: 20px; }
+    .upload-success {
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #4ade80;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .upload-success.visible { display: flex; }
+    .upload-zone {
+      background: rgba(113,79,255,0.04);
+      border: 2px dashed rgba(113,79,255,0.22);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .upload-zone:hover { border-color: var(--visit-purple); background: rgba(113,79,255,0.08); }
+    .upload-icon { font-size: 26px; margin-bottom: 8px; }
+    .upload-title { font-size: 14px; font-weight: 600; color: #e8ebf2; margin-bottom: 4px; }
+    .upload-sub { font-size: 12px; color: var(--dash-text-muted); margin-bottom: 12px; line-height: 1.5; }
+    .upload-format-chips { display: flex; justify-content: center; gap: 6px; margin-bottom: 12px; }
+    .upload-fmt-chip { background: var(--dash-card); border: 1px solid var(--dash-card-border); border-radius: 6px; padding: 3px 10px; font-size: 11px; color: var(--dash-text-muted); font-weight: 500; }
+    .upload-btn { background: var(--visit-purple); border: none; border-radius: 10px; padding: 9px 18px; font-family: inherit; font-size: 13px; font-weight: 600; color: #fff; cursor: pointer; transition: background 0.2s; }
+    .upload-btn:hover { background: var(--visit-purple-dark); }
+    .or-divider { display: flex; align-items: center; gap: 10px; color: var(--dash-text-muted); font-size: 12px; }
+    .or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: var(--dash-card-border); }
+    .manual-add-form { background: var(--dash-card); border: 1px solid var(--dash-card-border); border-radius: var(--radius-md); padding: 16px; }
+    .manual-add-title { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+    .manual-fields { display: flex; gap: 8px; flex-wrap: wrap; }
+    .excl-input {
+      flex: 1;
+      min-width: 120px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--dash-card-border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-family: inherit;
+      font-size: 12px;
+      color: var(--dash-text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .excl-input:focus { border-color: var(--visit-purple); }
+    .excl-input::placeholder { color: var(--dash-text-muted); }
+    .excl-reason-sel {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--dash-card-border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-family: inherit;
+      font-size: 12px;
+      color: var(--dash-text);
+      outline: none;
+      cursor: pointer;
+      min-width: 160px;
+    }
+    .excl-reason-sel option { background: #1A2236; }
+    .excl-add-btn { background: var(--visit-purple); border: none; border-radius: 10px; padding: 9px 16px; font-family: inherit; font-size: 12px; font-weight: 700; color: #fff; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+    .excl-add-btn:hover { background: var(--visit-purple-dark); }
+    .excl-members-card { background: var(--dash-card); border: 1px solid var(--dash-card-border); border-radius: var(--radius-md); overflow: hidden; }
+    .excl-members-hdr { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--dash-card-border); }
+    .excl-members-ttl { font-size: 13px; font-weight: 600; color: #fff; }
+    .excl-count-pill { background: rgba(113,79,255,0.15); border: 1px solid rgba(113,79,255,0.3); border-radius: 20px; padding: 2px 10px; font-size: 12px; font-weight: 600; color: var(--visit-purple); }
+    .excl-member-row { display: flex; align-items: center; gap: 12px; padding: 11px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.15s; }
+    .excl-member-row:last-child { border-bottom: none; }
+    .excl-member-row:hover { background: rgba(255,255,255,0.02); }
+    .excl-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .excl-mname { font-size: 13px; font-weight: 600; color: var(--dash-text); }
+    .excl-mid { font-size: 11px; color: var(--dash-text-muted); }
+    .excl-rtag { margin-left: auto; display: inline-flex; align-items: center; border-radius: 20px; padding: 3px 9px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+    .excl-rtag.doctor    { background: rgba(59,130,246,0.12);  color: #93C5FD; border: 1px solid rgba(59,130,246,0.25); }
+    .excl-rtag.referral  { background: rgba(251,191,36,0.12);  color: #FCD34D; border: 1px solid rgba(251,191,36,0.25); }
+    .excl-rtag.condition { background: rgba(248,113,113,0.12); color: #FCA5A5; border: 1px solid rgba(248,113,113,0.25); }
+    .excl-del-btn { background: none; border: none; color: var(--dash-text-muted); cursor: pointer; font-size: 14px; padding: 4px 6px; border-radius: 6px; transition: color 0.15s, background 0.15s; flex-shrink: 0; }
+    .excl-del-btn:hover { color: #FF6B6B; background: rgba(255,107,107,0.1); }
+
+    /* Quick book row */
+    .quick-book-row { background:#F0FDF4;border:1px solid #86EFAC;border-radius:7px;padding:6px 10px;font-size:11px;font-weight:700;color:#15803D;display:flex;align-items:center;gap:5px;margin-bottom:8px; }
+    /* Nearest in-network badge */
+    .nearest-net-badge { display:inline-flex;align-items:center;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:700;color:#1D4ED8; }
+    /* Cost breakdown row */
+    .cost-breakdown-row { background:#FFFBEB;border:1px solid #FDE68A;border-radius:7px;padding:5px 8px;font-size:10px;font-weight:600;color:#92400E;display:flex;align-items:center;gap:4px;margin-bottom:8px; }
+    /* Care coordinator row */
+    .coordinator-row { background:#F5F3FF;border:1px solid #DDD6FE;border-radius:7px;padding:5px 8px;font-size:10px;font-weight:600;color:#5B21B6;display:flex;align-items:center;gap:4px;margin-bottom:8px; }
+    /* Chronic care extras */
+    .reminder-active-row { background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:500;color:#15803D;margin-top:8px; }
+    .cost-summary-row { background:#FFF7ED;border:1px solid #FED7AA;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:500;color:#9A3412;margin-top:8px; }
+    .followup-reminder-row { background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:500;color:#1D4ED8;margin-top:8px; }
+    .programme-badge { background:rgba(113,79,255,0.12);border:1px solid rgba(113,79,255,0.3);border-radius:8px;padding:7px 10px;font-size:11px;font-weight:600;color:#7C3AED;margin-bottom:10px; }
+    /* Benefits extras */
+    .entitlement-home-card { background:linear-gradient(135deg,#714FFF,#5840BB);border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px; }
+    .entitlement-home-card span { font-size:12px;font-weight:700;color:#fff; }
+    .entitlement-home-card button { background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.35);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap; }
+    .reminder-set-chip { display:inline-flex;align-items:center;gap:4px;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;color:#1D4ED8;margin-top:8px; }
+    .high-priority-flag { background:#FEE2E2;border:1px solid #FECACA;border-radius:20px;padding:2px 8px;font-size:11px;font-weight:700;color:#DC2626; }
+    .matched-package-row { background:#F0FDF4;border:1px solid #86EFAC;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:600;color:#15803D;display:flex;align-items:center;gap:4px;margin-top:6px; }
   </style>
 </head>
 <body>
@@ -1213,19 +1457,215 @@
     </div>
   </div>
   <script>
+// Factor definitions — 4 factors, weights always sum to 100
+const FACTOR_NAMES = ['Proximity', 'Cost Efficiency', 'Care Continuity', 'Clinical Outcomes'];
+const FACTOR_KEYS  = ['proximity', 'cost', 'continuity', 'outcomes'];
+
+// Tracks which factor key was used when actions were last generated (null = not yet generated)
+const GENERATED_FACTOR = { opd: null, referral: null, chronic: null, benefits: null };
+
+// Mutable weights per case (multiples of 10, sum = 100)
+const FACTOR_STATE = {
+  opd:      [40, 30, 10, 20],
+  referral: [10, 40, 20, 30],
+  chronic:  [10, 10, 50, 30],
+  benefits: [20, 40, 10, 30],
+};
+
+const CASE_INTEL = {
+  opd: {
+    dataSources: ['Claims history', 'App usage data', 'GPS proximity', 'Panel pricing'],
+    factorActions: {
+      proximity: {
+        note: 'Steering 124 members to CareClinics Bangsar (0.8 km) — nearest in-panel provider in catchment.',
+        actions: [
+          { id: 'op1', name: 'Boost CareClinics Bangsar in search rankings', desc: 'Pin as #1 result for any member within 2 km of the clinic — above non-panel alternatives' },
+          { id: 'op2', name: 'Trigger location-aware push when near the KLCC branch', desc: 'Notify members within 500m of the KLCC branch with a redirect to CareClinics Bangsar' },
+          { id: 'op3', name: 'Surface "Nearest Panel Clinic" card on app home screen', desc: 'Persistent home screen card showing CareClinics distance and next available slot' },
+        ],
+      },
+      cost: {
+        note: 'Targeting RM 45 copay vs RM 65 at KLCC branch — RM 20 saving per visit, RM 2.5K total across 124 members.',
+        actions: [
+          { id: 'oc1', name: 'Show cost comparison badge on clinic cards', desc: 'Display "Save RM 20 vs KLCC branch" label directly on CareClinics Bangsar listing' },
+          { id: 'oc2', name: 'Send cost-savings nudge to 124 members', desc: 'In-app push: "Your plan covers CareClinics Bangsar at RM 45 — lowest in network"' },
+          { id: 'oc3', name: 'Highlight cashless coverage on booking screen', desc: 'Show RM 0 out-of-pocket summary at checkout when CareClinics is selected' },
+        ],
+      },
+      continuity: {
+        note: 'Consolidating 124 members to a single panel provider — reducing multi-clinic fragmentation.',
+        actions: [
+          { id: 'ov1', name: 'Assign CareClinics Bangsar as preferred OPD clinic', desc: 'Set as default OPD provider for 124 catchment members in their Visit app profile' },
+          { id: 'ov2', name: 'Enable preferred-clinic fast-booking widget', desc: 'One-tap booking shortcut for CareClinics Bangsar on the app home screen' },
+          { id: 'ov3', name: 'Send nudge encouraging members to consolidate visits', desc: '"Staying with one clinic gives your doctor better context — book at CareClinics Bangsar"' },
+        ],
+      },
+      outcomes: {
+        note: 'Routing members to CareClinics Bangsar — highest-rated GP panel clinic in this catchment (4.8★).',
+        actions: [
+          { id: 'oo1', name: 'Surface CareClinics Bangsar with quality badge', desc: 'Display 4.8★ member rating and "Top Rated in Bangsar" label on the clinic card' },
+          { id: 'oo2', name: 'Promote Dr. Lee Wei Ming as top-rated GP', desc: 'Feature recommended doctor card for members selecting a GP in this catchment' },
+          { id: 'oo3', name: 'Send outcomes-led nudge to 124 members', desc: '"Members at CareClinics Bangsar report 94% satisfaction — book your next OPD visit here"' },
+        ],
+      },
+    },
+    exclusions: { total: 9, items: [
+      { count: 4, label: 'Doctor preference',          type: 'doctor'    },
+      { count: 3, label: 'Active specialist referral', type: 'referral'  },
+      { count: 2, label: 'Condition care plan',        type: 'condition' },
+    ]},
+  },
+  referral: {
+    dataSources: ['GP referral logs', 'Specialist availability', 'Claims data', 'Network directory'],
+    factorActions: {
+      proximity: {
+        note: 'Routing 67 referrals to CareClinics Heart & Vascular (1.2 km) — nearest in-network specialist.',
+        actions: [
+          { id: 'rp1', name: 'Surface in-network specialists first on referral screen', desc: 'CareClinics specialists ranked #1 when GP initiates a referral from within the app' },
+          { id: 'rp2', name: 'Show distance-to-specialist on referral card', desc: 'Display "1.2 km — same network as your GP" on CareClinics specialist listings' },
+          { id: 'rp3', name: 'Auto-fill nearest CareClinics specialist on referral form', desc: 'Pre-populate the closest in-network specialist when GP completes the referral' },
+        ],
+      },
+      cost: {
+        note: 'Capturing 67 referrals into network — RM 240 avg saving per case, RM 16.1K monthly impact.',
+        actions: [
+          { id: 'rc1', name: 'Route GP referrals to CareClinics specialist panel', desc: 'App surfaces Heart &amp; Vascular first with "Save RM 70 vs KLCC hub" cost comparison' },
+          { id: 'rc2', name: 'Show cost breakdown on referral confirmation screen', desc: 'Display Heart &amp; Vascular vs KLCC hub cost split before member confirms referral booking' },
+          { id: 'rc3', name: 'Alert GP when referral would go to KLCC hub', desc: 'Flag to GP at point of referral: "KLCC hub costs RM 70 more — Heart &amp; Vascular has availability"' },
+        ],
+      },
+      continuity: {
+        note: 'Keeping 67 referred members within CareClinics network — specialist continuity with their referring GP.',
+        actions: [
+          { id: 'rv1', name: 'Enable in-app referral tracker for members', desc: 'Members see their GP referral status + recommended specialist with one-tap booking' },
+          { id: 'rv2', name: 'Share visit notes between GP and specialist within network', desc: 'Enable clinical note handoff from referring GP to CareClinics specialist at booking' },
+          { id: 'rv3', name: 'Assign a specialist care coordinator for referred members', desc: 'Dedicated coordinator contacts member within 24h of GP referral to confirm specialist booking' },
+        ],
+      },
+      outcomes: {
+        note: 'Routing to CareClinics specialists — matched on clinical outcomes and in-network quality scores.',
+        actions: [
+          { id: 'ro1', name: 'Match members to CareClinics specialists by condition', desc: 'Surface specialist with highest outcomes score for the referred condition (cardiology, ortho, etc.)' },
+          { id: 'ro2', name: 'Show specialist credentials and outcome ratings', desc: 'Display fellowship, years of experience, and CareClinics outcome scores on specialist card' },
+          { id: 'ro3', name: 'Send post-referral outcomes survey to members', desc: 'Collect member-reported outcomes 30 days post-specialist visit to refine future recommendations' },
+        ],
+      },
+    },
+    exclusions: { total: 6, items: [
+      { count: 2, label: 'Existing specialist relationship', type: 'doctor'    },
+      { count: 3, label: 'Active referral pending',          type: 'referral'  },
+      { count: 1, label: 'Condition-specific plan',          type: 'condition' },
+    ]},
+  },
+  chronic: {
+    dataSources: ['Claims history', 'Condition flags', 'Visit frequency', 'Continuity score'],
+    factorActions: {
+      proximity: {
+        note: 'Assigning nearest CareClinics location as care home for 312 members across catchments.',
+        actions: [
+          { id: 'chp1', name: 'Assign nearest CareClinics as care home for 312 members', desc: 'Each member assigned to their closest CareClinics location as designated care home' },
+          { id: 'chp2', name: 'Surface care home on app home screen with distance', desc: 'Persistent care home card showing CareClinics location, distance, and next available slot' },
+          { id: 'chp3', name: 'Enable location-triggered medication reminder', desc: 'Notify members when they are near their care home and due for a follow-up' },
+        ],
+      },
+      cost: {
+        note: 'Reducing RM 31K excess spend by consolidating 312 members to a single designated care home.',
+        actions: [
+          { id: 'chc1', name: 'Assign CareClinics as care home to reduce claim fragmentation', desc: 'Consolidate 312 members to one clinic — eliminating duplicate consults across 3.4 avg providers' },
+          { id: 'chc2', name: 'Show care cost summary at booking — consolidated vs fragmented', desc: 'Display projected annual savings when member books via their assigned care home' },
+          { id: 'chc3', name: 'Alert members when visiting outside their care home network', desc: '"You\'re visiting outside your care plan — your medication history won\'t be available here"' },
+        ],
+      },
+      continuity: {
+        note: 'Eliminating 3.4× fragmentation — each member gets a dedicated care home and named GP at CareClinics.',
+        actions: [
+          { id: 'chv1', name: 'Assign CareClinics as care home + name a dedicated GP', desc: 'Each of 312 members assigned a named GP at their CareClinics care home for all chronic care' },
+          { id: 'chv2', name: 'Enable 30-day recurring appointment reminder', desc: 'Members receive automated nudge before their next medication cycle ends with one-tap booking' },
+          { id: 'chv3', name: 'Build shared condition timeline visible to care home GP', desc: 'Consolidate visit history, condition flags, and medication records into a single care timeline' },
+        ],
+      },
+      outcomes: {
+        note: 'Members with a consistent care home show 41% lower annual claims — targeting 312 high-utilisers.',
+        actions: [
+          { id: 'cho1', name: 'Assign CareClinics care home based on chronic condition outcomes', desc: 'Match 312 members to the CareClinics location with highest outcomes for their condition' },
+          { id: 'cho2', name: 'Enrol members in CareClinics chronic disease management programme', desc: 'Flag 312 members to CareClinics for structured DM/hypertension management protocol' },
+          { id: 'cho3', name: 'Send outcomes-driven care nudge to 312 members', desc: '"Members with a care home have 41% lower annual health costs — your care home is set"' },
+        ],
+      },
+    },
+    exclusions: { total: 18, items: [
+      { count: 7, label: 'Active specialist relationship', type: 'doctor'    },
+      { count: 6, label: 'Patient-stated preference',      type: 'doctor'    },
+      { count: 5, label: 'Condition care plan',            type: 'condition' },
+    ]},
+  },
+  benefits: {
+    dataSources: ['Benefits ledger', 'App usage data', 'Expiry calendar', 'Booking history'],
+    factorActions: {
+      proximity: {
+        note: 'Surfacing nearest CareClinics screening centre for 847 members with expiring benefits.',
+        actions: [
+          { id: 'bp1', name: 'Surface nearest CareClinics screening centre by location', desc: 'Show each member their closest CareClinics screening location with live slot availability' },
+          { id: 'bp2', name: 'Enable one-tap booking for nearest CareClinics screening', desc: 'Pre-fill nearest CareClinics location on the screening booking screen for all 847 members' },
+          { id: 'bp3', name: 'Send location-targeted expiry alert', desc: 'Push notification with CareClinics screening centre address nearest to each member\'s home location' },
+        ],
+      },
+      cost: {
+        note: 'Capturing RM 63K in expiring entitlements — RM 500 avg benefit value, zero member cost.',
+        actions: [
+          { id: 'bc1', name: 'Send benefit expiry alert to 847 members', desc: 'Urgent in-app banner + push: "RM 500 health screening benefit expires in 31 days — use it at CareClinics"' },
+          { id: 'bc2', name: 'Surface CareClinics as default screening provider', desc: 'CareClinics health screening packages shown first with "Fully covered by your plan" label' },
+          { id: 'bc3', name: 'Show unused entitlement value on app home screen', desc: 'Persistent "RM 500 unused" card on home screen for all 847 members until benefit is claimed' },
+        ],
+      },
+      continuity: {
+        note: 'Building an annual screening relationship at CareClinics — setting precedent for ongoing care.',
+        actions: [
+          { id: 'bv1', name: 'Establish CareClinics as annual screening provider for members', desc: 'Set CareClinics as the preferred screening provider in each member\'s Visit health profile' },
+          { id: 'bv2', name: 'Enable annual screening reminder for next benefit cycle', desc: 'After booking confirmed, schedule an automated reminder 11 months out for the next cycle' },
+          { id: 'bv3', name: 'Connect screening results to member health timeline', desc: 'Surface screening outcomes in the member\'s health record — visible at next GP visit' },
+        ],
+      },
+      outcomes: {
+        note: '62% of missed screenings lead to claimable conditions within 18 months — prioritising early detection.',
+        actions: [
+          { id: 'bo1', name: 'Send risk-led expiry alert to 847 members', desc: 'Push: "Members who skip annual screenings are 62% more likely to develop a claimable condition"' },
+          { id: 'bo2', name: 'Prioritise high-risk members for proactive outreach', desc: 'Flag members with chronic condition history or 2+ missed screenings for direct ops outreach' },
+          { id: 'bo3', name: 'Surface condition-specific screening packages at CareClinics', desc: 'Match each member to the CareClinics screening package most relevant to their risk profile' },
+        ],
+      },
+    },
+    exclusions: { total: 23, items: [
+      { count: 12, label: 'Already booked screening', type: 'referral'  },
+      { count:  8, label: 'Condition-specific plan',  type: 'condition' },
+      { count:  3, label: 'Doctor preference',        type: 'doctor'    },
+    ]},
+  },
+};
+
+const EXCLUDED_MEMBERS = [
+  { initials: 'AR', name: 'Ahmad Rizwan',   id: 'MY-10042', reason: 'Doctor Preference',    type: 'doctor',    bg: '#7C3AED' },
+  { initials: 'PN', name: 'Priya Nair',     id: 'MY-10087', reason: 'Specialist Continuity', type: 'referral',  bg: '#0D9488' },
+  { initials: 'LW', name: 'Lee Wei Ming',   id: 'MY-10156', reason: 'Condition Care Plan',   type: 'condition', bg: '#DC2626' },
+  { initials: 'SF', name: 'Siti Fatimah',   id: 'MY-10219', reason: 'Doctor Preference',    type: 'doctor',    bg: '#2563EB' },
+  { initials: 'RK', name: 'Ramesh Kumar',   id: 'MY-10293', reason: 'Active Referral',       type: 'referral',  bg: '#D97706' },
+  { initials: 'CM', name: 'Chen Min Hui',   id: 'MY-10341', reason: 'Condition Care Plan',   type: 'condition', bg: '#7C3AED' },
+  { initials: 'ZA', name: 'Zulaikha Ahmad', id: 'MY-10408', reason: 'Doctor Preference',    type: 'doctor',    bg: '#059669' },
+];
+
 const CASES = [
   {
     id: 'opd',
     tab: 'OPD Utilisation',
     badge: '\u2756 AI Insight \u00b7 OPD Utilisation',
     title: 'CareClinics Bangsar \u2014 Underutilisation Detected',
-    subtitle: 'Members in this catchment are defaulting to <strong>Pantai Hospital KL</strong> (+2.4 km, 3\u00d7 higher claim cost).',
+    subtitle: 'Members in this catchment are defaulting to <strong>CareClinics KLCC</strong> (+1.3 km, 44% higher claim cost) despite Bangsar being closer and under-capacity.',
     stats: [
       { value: '40%',      cls: 'amber', label: 'Clinic capacity utilised' },
       { value: '124',      cls: '',      label: 'Members booked elsewhere this month' },
       { value: 'RM 18.6K', cls: 'red',  label: 'Estimated revenue leakage' },
     ],
-    note: 'Members in Bangsar, Bukit Bintang, and Mid Valley catchments are 2.8\u00d7 more likely to choose non-panel providers for OPD consults.',
+    note: 'Members in Bangsar, Bukit Bintang, and Mid Valley catchments book 2.8\u00d7 more at the KLCC branch \u2014 CareClinics Bangsar is operating at 40% capacity.',
     actions: [
       { id: 'a0', name: 'Boost CareClinics Bangsar in OPD rankings',   desc: 'Surfaces as #1 result for members within 5 km catchment, ahead of non-panel providers' },
       { id: 'a1', name: 'Send targeted nudge to 124 catchment members', desc: 'In-app push notification + home screen card directing members to CareClinics Bangsar' },
@@ -1234,10 +1674,10 @@ const CASES = [
     screenType: 'clinic-list',
     appTitle: 'Find a Clinic',
     clinics: [
-      { id: 'pantai',      name: 'Pantai Hospital KL',     specialty: 'General Physician \u00b7 OPD', emoji: '\ud83c\udfe5', logoClass: 'pantai',      distance: '2.4 km', copay: 'RM 80', copayClass: 'expensive', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1,
-        doctorName: 'Dr. Ahmad Razif', quals: 'MBBS, Dip.Fam.Med', yearsExp: '15+ Years', slot: 'Today, 03:30 PM', photoBg: 'linear-gradient(135deg,#818CF8,#6366F1)', initials: 'AR' },
-      { id: 'kpj',         name: 'KPJ Bangsar Specialist', specialty: 'General Physician \u00b7 OPD', emoji: '\ud83c\udfe8', logoClass: 'kpj',         distance: '3.1 km', copay: 'RM 60', copayClass: '',          btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2,
-        doctorName: 'Dr. Priya Nadarajah', quals: 'MBBS, FRACGP', yearsExp: '10+ Years', slot: 'Today, 04:00 PM', photoBg: 'linear-gradient(135deg,#34D399,#059669)', initials: 'PN' },
+      { id: 'careclinics-klcc',      name: 'CareClinics KLCC',     specialty: 'General Physician \u00b7 OPD', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '2.1 km', copay: 'RM 65 claim', copayClass: '', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1,
+        doctorName: 'Dr. Amirul Hadi', quals: 'MBBS, Dip.Fam.Med', yearsExp: '8+ Years', slot: 'Today, 02:30 PM', photoBg: 'linear-gradient(135deg,#60A5FA,#2563EB)', initials: 'AH' },
+      { id: 'careclinics-midvalley', name: 'CareClinics Mid Valley', specialty: 'General Physician \u00b7 OPD', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '3.2 km', copay: 'RM 55 claim', copayClass: '', btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2,
+        doctorName: 'Dr. Nurul Izzah', quals: 'MBBS, MMed', yearsExp: '6+ Years', slot: 'Today, 03:00 PM', photoBg: 'linear-gradient(135deg,#34D399,#059669)', initials: 'NI' },
       { id: 'careclinics', name: 'CareClinics Bangsar',    specialty: 'General Physician \u00b7 OPD', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '0.8 km', copay: 'RM 30', copayClass: '',          btnClass: 'primary', preferred: true,  beforeRank: 2, afterRank: 0,
         doctorName: 'Dr. Lee Wei Ming', quals: 'MBBS, MMed(Fam.Med)', yearsExp: '12+ Years', slot: 'Today, 11:00 AM', photoBg: 'linear-gradient(135deg,#A78BFA,#7C3AED)', initials: 'LW' },
     ],
@@ -1247,13 +1687,13 @@ const CASES = [
     tab: 'Referral Capture',
     badge: '\u2756 AI Insight \u00b7 Specialist Referrals',
     title: '67 GP Referrals Leaking to External Specialists',
-    subtitle: 'CareClinics GPs are referring to <strong>Pantai & KPJ specialists</strong> \u2014 avg claim RM 420 vs RM 180 within CareClinics network.',
+    subtitle: 'CareClinics GPs are referring to <strong>CareClinics Specialist Hub KLCC</strong> \u2014 avg claim RM 250 vs RM 180 at CareClinics Heart &amp; Vascular.',
     stats: [
       { value: '67',       cls: 'amber', label: 'External referrals last month' },
       { value: 'RM 240',   cls: 'red',   label: 'Avg cost saving per redirected referral' },
       { value: 'RM 16.1K', cls: 'red',   label: 'Monthly savings potential' },
     ],
-    note: 'Cardiology and orthopaedics account for 74% of referral leakage. CareClinics has in-network specialists for both.',
+    note: 'Cardiology accounts for 74% of referral leakage to the KLCC hub. CareClinics Heart &amp; Vascular has equivalent outcomes at RM 70 lower per case.',
     actions: [
       { id: 'b0', name: 'Route GP referrals to CareClinics specialist panel', desc: 'App surfaces in-network specialists first when GP initiates a referral' },
       { id: 'b1', name: 'Enable in-app referral tracker for members',          desc: 'Members see recommended specialist + one-tap booking after GP consult' },
@@ -1262,10 +1702,10 @@ const CASES = [
     screenType: 'clinic-list',
     appTitle: 'Book a Specialist',
     clinics: [
-      { id: 'pantai-spec',      name: 'Pantai Specialist Centre',     specialty: 'Cardiologist', emoji: '\ud83c\udfe5', logoClass: 'pantai',      distance: '3.2 km', copay: 'RM 150', copayClass: 'expensive', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1,
-        doctorName: 'Dr. Farid Hassan', quals: 'MBBS, MRCP, FAMS', yearsExp: '20+ Years', slot: 'Tomorrow, 10:00 AM', photoBg: 'linear-gradient(135deg,#60A5FA,#2563EB)', initials: 'FH' },
-      { id: 'kpj-spec',         name: 'KPJ Damansara Specialist',     specialty: 'Cardiologist', emoji: '\ud83c\udfe8', logoClass: 'kpj',         distance: '4.1 km', copay: 'RM 120', copayClass: '',          btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2,
-        doctorName: 'Dr. Siti Norazuwa', quals: 'MBBS, MRCP(UK), FRCP', yearsExp: '18+ Years', slot: 'Tomorrow, 11:30 AM', photoBg: 'linear-gradient(135deg,#34D399,#0D9488)', initials: 'SN' },
+      { id: 'careclinics-klcc-spec',  name: 'CareClinics Specialist Hub KLCC',    specialty: 'Cardiologist', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '3.2 km', copay: 'RM 250 claim', copayClass: 'expensive', btnClass: '',        preferred: false, beforeRank: 0, afterRank: 1,
+        doctorName: 'Dr. Kamarul Ariffin', quals: 'MBBS, MRCP, FACC', yearsExp: '18+ Years', slot: 'Tomorrow, 10:00 AM', photoBg: 'linear-gradient(135deg,#60A5FA,#2563EB)', initials: 'KA' },
+      { id: 'careclinics-sports',     name: 'CareClinics Orthopaedic & Sports',   specialty: 'Cardiologist', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '4.1 km', copay: 'RM 220 claim', copayClass: '',          btnClass: '',        preferred: false, beforeRank: 1, afterRank: 2,
+        doctorName: 'Dr. Sharifah Lina', quals: 'MBBS, MRCP(UK)', yearsExp: '14+ Years', slot: 'Tomorrow, 11:30 AM', photoBg: 'linear-gradient(135deg,#34D399,#0D9488)', initials: 'SL' },
       { id: 'careclinics-spec', name: 'CareClinics Heart & Vascular', specialty: 'Cardiologist', emoji: '\ud83d\udc8a', logoClass: 'careclinics', distance: '1.2 km', copay: 'RM 60',  copayClass: '',          btnClass: 'primary', preferred: true,  beforeRank: 2, afterRank: 0,
         doctorName: 'Dr. Rajiv Menon', quals: 'MBBS, FRCP, FACC', yearsExp: '15+ Years', slot: 'Today, 05:00 PM', photoBg: 'linear-gradient(135deg,#C084FC,#9333EA)', initials: 'RM' },
     ],
@@ -1312,8 +1752,9 @@ const CASES = [
   },
 ];
 
-let currentIdx = 0;
-let applied    = false;
+let currentIdx    = 0;
+let applied       = false;
+let ACTIVE_ACTIONS = [];  // action IDs toggled on at Apply time
 
 function renderInsightCard(c) {
   var stats = c.stats.map(function(s) {
@@ -1329,21 +1770,251 @@ function renderInsightCard(c) {
 }
 
 function renderActionCard(c) {
-  var rows = c.actions.map(function(a) {
+  var intel    = CASE_INTEL[c.id];
+  var genKey   = GENERATED_FACTOR[c.id];
+  // Not yet generated
+  if (!genKey) {
+    return '<div class="action-card" id="action-card">' +
+      '<div class="action-card-title">Steerage Actions</div>' +
+      '<div class="actions-pending">' +
+        '<div class="actions-pending-icon">&#9881;</div>' +
+        '<div class="actions-pending-text">Adjust the factor weights above,<br>then generate your steerage action options.</div>' +
+      '</div>' +
+    '</div>';
+  }
+  var factorSet = intel ? intel.factorActions[genKey] : null;
+  var actions   = factorSet ? factorSet.actions : c.actions;
+  var note      = factorSet ? factorSet.note : '';
+  var topName   = FACTOR_NAMES[FACTOR_KEYS.indexOf(genKey)] || genKey;
+  var rows = actions.map(function(a) {
     return '<div class="action-row">' +
-      '<div class="action-text"><div class="action-name">' + a.name + '</div><div class="action-desc">' + a.desc + '</div></div>' +
-      '<label class="toggle toggle-wrap"><input type="checkbox" id="toggle-' + a.id + '"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>' +
+      '<div class="action-text"><div class="action-name">' + esc(a.name) + '</div><div class="action-desc">' + esc(a.desc) + '</div></div>' +
+      '<label class="toggle toggle-wrap"><input type="checkbox" id="toggle-' + esc(a.id) + '"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>' +
       '</div>';
   }).join('');
-  return '<div class="action-card">' +
-    '<div class="action-card-title">Recommended Steerage Actions</div>' +
+  return '<div class="action-card" id="action-card">' +
+    '<div class="action-card-title">Steerage Actions</div>' +
+    '<div class="actions-generated-tag">&#10003;&nbsp; Generated &mdash; Primary driver: ' + esc(topName) + '</div>' +
+    '<div class="action-driver-note"><span class="dn-icon">&#9670;</span>' + esc(note) + '</div>' +
     rows +
     '<button class="apply-btn" id="apply-btn">Apply Steerage Changes</button>' +
     '<div class="success-banner" id="success-banner">\u2713\u00a0\u00a0Changes live \u00b7 Propagating to Visit app</div>' +
     '</div>';
 }
 
-function renderClinicCard(clinic, isAfter) {
+function generateActions(caseId) {
+  var btn = document.getElementById('gen-btn-' + caseId);
+  if (btn) { btn.textContent = 'Generating\u2026'; btn.classList.add('generating'); btn.disabled = true; }
+  setTimeout(function() {
+    var topKey = FACTOR_KEYS[getTopFactorIdx(caseId)];
+    GENERATED_FACTOR[caseId] = topKey;
+    applied = false;
+    var c = CASES[currentIdx];
+    var actionWrap = document.getElementById('action-wrap');
+    if (actionWrap) actionWrap.innerHTML = renderActionCard(c);
+    wireApplyBtn();
+    if (actionWrap) { actionWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  }, 600);
+}
+
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function getTopFactorIdx(caseId) {
+  var weights = FACTOR_STATE[caseId];
+  var maxIdx = 0;
+  weights.forEach(function(w, i) { if (w > weights[maxIdx]) maxIdx = i; });
+  return maxIdx;
+}
+
+function adjustWeight(caseId, idx, delta) {
+  var weights = FACTOR_STATE[caseId];
+  var newVal = weights[idx] + delta;
+  if (newVal < 10 || newVal > 70) return;
+  // Find the best other factor to take from / give to
+  var others = [0, 1, 2, 3].filter(function(i) { return i !== idx; });
+  if (delta > 0) {
+    // Reduce the highest other factor
+    var srcIdx = others.reduce(function(a, b) { return weights[a] >= weights[b] ? a : b; });
+    if (weights[srcIdx] - delta < 10) return;
+    weights[idx] += delta;
+    weights[srcIdx] -= delta;
+  } else {
+    // Increase the lowest other factor
+    var dstIdx = others.reduce(function(a, b) { return weights[a] <= weights[b] ? a : b; });
+    if (weights[dstIdx] - delta > 70) return;
+    weights[idx] += delta;
+    weights[dstIdx] -= delta;
+  }
+  refreshWeightUI(caseId);
+  refreshActionNote(caseId);
+}
+
+function refreshWeightUI(caseId) {
+  var weights = FACTOR_STATE[caseId];
+  weights.forEach(function(w, i) {
+    var fill = document.getElementById('wbar-' + caseId + '-' + i);
+    var pct  = document.getElementById('wpct-' + caseId + '-' + i);
+    var btnM = document.getElementById('wbtnm-' + caseId + '-' + i);
+    var btnP = document.getElementById('wbtnp-' + caseId + '-' + i);
+    if (fill) fill.style.width = w + '%';
+    if (pct)  pct.textContent  = w + '%';
+    if (btnM) btnM.disabled = (w <= 10);
+    if (btnP) btnP.disabled = (w >= 70);
+  });
+  var topIdx    = getTopFactorIdx(caseId);
+  var driverEl  = document.getElementById('wdriver-' + caseId);
+  if (driverEl) driverEl.innerHTML = 'Primary driver: <strong>' + esc(FACTOR_NAMES[topIdx]) + '</strong>';
+}
+
+function refreshActionNote(caseId) {
+  // Actions only update on explicit Generate — nothing to do here
+}
+
+function renderIntelligencePanel(c) {
+  var intel   = CASE_INTEL[c.id];
+  if (!intel) return '';
+  var weights = FACTOR_STATE[c.id];
+  var topIdx  = getTopFactorIdx(c.id);
+  var sourceChips = intel.dataSources.map(function(s) {
+    return '<div class="intel-source-chip">' + esc(s) + '</div>';
+  }).join('');
+  var weightRows = FACTOR_NAMES.map(function(name, i) {
+    var w = weights[i];
+    return '<div class="weight-row">' +
+      '<div class="weight-factor-name">' + esc(name) + '</div>' +
+      '<div class="weight-bar-wrap"><div class="weight-bar-fill" id="wbar-' + esc(c.id) + '-' + i + '" style="width:' + w + '%"></div></div>' +
+      '<div class="weight-controls">' +
+        '<button class="weight-btn" id="wbtnm-' + esc(c.id) + '-' + i + '" onclick="adjustWeight(\'' + esc(c.id) + '\',' + i + ',-10)"' + (w <= 10 ? ' disabled' : '') + '>&#8722;</button>' +
+        '<div class="weight-pct" id="wpct-' + esc(c.id) + '-' + i + '">' + w + '%</div>' +
+        '<button class="weight-btn" id="wbtnp-' + esc(c.id) + '-' + i + '" onclick="adjustWeight(\'' + esc(c.id) + '\',' + i + ',10)"' + (w >= 70 ? ' disabled' : '') + '>&#43;</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+  var exclChips = intel.exclusions.items.map(function(item) {
+    return '<div class="excl-chip ' + esc(item.type) + '">' + item.count + ' · ' + esc(item.label) + '</div>';
+  }).join('');
+  return '<div class="intel-card">' +
+    '<div class="intel-section-hdr"><div class="intel-title">Steerage Intelligence</div></div>' +
+    '<div class="intel-sources-row"><span class="intel-source-label">Data sources:</span>' + sourceChips + '</div>' +
+    '<div class="weight-alloc">' + weightRows + '</div>' +
+    '<div class="weight-footer">' +
+      '<div class="weight-driver" id="wdriver-' + esc(c.id) + '">Primary driver: <strong>' + esc(FACTOR_NAMES[topIdx]) + '</strong></div>' +
+      '<div class="weight-total">&#x2713; Total: 100%</div>' +
+    '</div>' +
+    '<button class="generate-btn" id="gen-btn-' + esc(c.id) + '" onclick="generateActions(\'' + esc(c.id) + '\')">&#9881;&nbsp; Generate Steerage Actions</button>' +
+    '<div style="margin-top:14px"></div>' +
+    '<div class="excl-banner">' +
+      '<div class="excl-banner-icon">&#8856;</div>' +
+      '<div class="excl-banner-body">' +
+        '<div class="excl-banner-title">' + intel.exclusions.total + ' members excluded from this action</div>' +
+        '<div class="excl-chips">' + exclChips + '</div>' +
+        '<div class="excl-manage-link" onclick="switchCase(4)">Manage exclusions &#8594;</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderExclusionMemberRows() {
+  return EXCLUDED_MEMBERS.map(function(m, i) {
+    return '<div class="excl-member-row">' +
+      '<div class="excl-avatar" style="background:' + esc(m.bg) + '">' + esc(m.initials) + '</div>' +
+      '<div><div class="excl-mname">' + esc(m.name) + '</div><div class="excl-mid">' + esc(m.id) + '</div></div>' +
+      '<div class="excl-rtag ' + esc(m.type) + '">' + esc(m.reason) + '</div>' +
+      '<button class="excl-del-btn" onclick="removeExclusion(' + i + ')">&#x2715;</button>' +
+    '</div>';
+  }).join('');
+}
+
+function renderExclusionTab() {
+  return '<div class="excl-tab-wrap">' +
+    '<div class="upload-success" id="upload-success">&#x2713;&nbsp;&nbsp;CSV uploaded &#8212; 3 member exclusions imported</div>' +
+    '<div class="upload-zone" onclick="simulateUpload()">' +
+      '<div class="upload-icon">&#128228;</div>' +
+      '<div class="upload-title">Bulk Upload Member Exclusions</div>' +
+      '<div class="upload-sub">Drag &amp; drop a CSV file, or click to browse.<br>Include Member ID, Name, and Exclusion Reason.</div>' +
+      '<div class="upload-format-chips">' +
+        '<div class="upload-fmt-chip">CSV</div>' +
+        '<div class="upload-fmt-chip">XLSX</div>' +
+        '<div class="upload-fmt-chip">Member ID list</div>' +
+      '</div>' +
+      '<button class="upload-btn" onclick="event.stopPropagation();simulateUpload()">Choose File</button>' +
+    '</div>' +
+    '<div class="or-divider">or add individually</div>' +
+    '<div class="manual-add-form">' +
+      '<div class="manual-add-title">Add Single Exclusion</div>' +
+      '<div class="manual-fields">' +
+        '<input class="excl-input" id="excl-name-input" placeholder="Member name or ID" />' +
+        '<select class="excl-reason-sel" id="excl-reason-sel">' +
+          '<option value="doctor">Doctor Preference</option>' +
+          '<option value="referral">Active Referral</option>' +
+          '<option value="condition">Condition Care Plan</option>' +
+          '<option value="doctor">Patient Request</option>' +
+        '</select>' +
+        '<button class="excl-add-btn" onclick="addExclusion()">+ Add</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="excl-members-card">' +
+      '<div class="excl-members-hdr">' +
+        '<div class="excl-members-ttl">Excluded Members</div>' +
+        '<div class="excl-count-pill" id="excl-count-pill">' + EXCLUDED_MEMBERS.length + ' members</div>' +
+      '</div>' +
+      '<div id="excl-members-list">' + renderExclusionMemberRows() + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function reRenderExclusionList() {
+  var list = document.getElementById('excl-members-list');
+  var pill = document.getElementById('excl-count-pill');
+  if (list) list.innerHTML = renderExclusionMemberRows();
+  if (pill) pill.textContent = EXCLUDED_MEMBERS.length + ' members';
+}
+
+function removeExclusion(idx) {
+  EXCLUDED_MEMBERS.splice(idx, 1);
+  reRenderExclusionList();
+}
+
+function addExclusion() {
+  var nameEl   = document.getElementById('excl-name-input');
+  var reasonEl = document.getElementById('excl-reason-sel');
+  if (!nameEl || !reasonEl || !nameEl.value.trim()) return;
+  var name = nameEl.value.trim().slice(0, 80);
+  var type = reasonEl.value;
+  var reasonMap = { doctor: 'Doctor Preference', referral: 'Active Referral', condition: 'Condition Care Plan' };
+  var bgMap     = { doctor: '#7C3AED', referral: '#D97706', condition: '#DC2626' };
+  var initials  = name.split(' ').map(function(w) { return w[0] || ''; }).join('').toUpperCase().slice(0, 2);
+  var id        = 'MY-' + (10500 + Math.floor(Math.random() * 499));
+  EXCLUDED_MEMBERS.unshift({
+    initials: initials || '?',
+    name: name,
+    id: id,
+    reason: reasonMap[type] || 'Patient Request',
+    type: type,
+    bg: bgMap[type] || '#7C3AED'
+  });
+  nameEl.value = '';
+  reRenderExclusionList();
+}
+
+function simulateUpload() {
+  var success = document.getElementById('upload-success');
+  if (success) { success.classList.add('visible'); setTimeout(function() { success.classList.remove('visible'); }, 4000); }
+  var bulk = [
+    { initials: 'MH', name: 'Mohamed Hassan', id: 'MY-10512', reason: 'Doctor Preference',  type: 'doctor',    bg: '#6366F1' },
+    { initials: 'TL', name: 'Tan Li Wen',     id: 'MY-10538', reason: 'Condition Care Plan', type: 'condition', bg: '#DC2626' },
+    { initials: 'NR', name: 'Nurul Rahman',   id: 'MY-10561', reason: 'Active Referral',      type: 'referral',  bg: '#D97706' },
+  ];
+  bulk.forEach(function(m) {
+    if (!EXCLUDED_MEMBERS.find(function(e) { return e.id === m.id; })) EXCLUDED_MEMBERS.unshift(m);
+  });
+  reRenderExclusionList();
+}
+
+function renderClinicCard(clinic, isAfter, activeActions) {
+  activeActions = activeActions || [];
   var showPreferred = isAfter && clinic.preferred;
   var docName  = clinic.doctorName || clinic.name;
   var quals    = clinic.quals    || '';
@@ -1352,6 +2023,27 @@ function renderClinicCard(clinic, isAfter) {
   var photoBg  = clinic.photoBg  || 'linear-gradient(135deg,#A78BFA,#7C3AED)';
   var initials = clinic.initials || 'DR';
   var spec     = clinic.specialty ? clinic.specialty.split(' \u00b7')[0] : clinic.specialty;
+  // Action-driven extras — only on preferred/CareClinics card in after state
+  var has = function(id) { return isAfter && showPreferred && activeActions.indexOf(id) !== -1; };
+  var costBadge       = has('oc1') ? '<span class="cost-save-badge">&#128176; Save RM 20 \u00b7 Lowest in network</span>' : '';
+  var qualityBadge    = has('oo1') ? '<span class="quality-badge">&#9733; 4.8 Top Rated in Bangsar</span>' : '';
+  var prefLabel       = has('ov1') ? '<div class="preferred-clinic-label">&#10003; Your Preferred OPD Clinic</div>' : '';
+  var cashlessSavings = has('oc3') ? '<div class="cashless-savings-row">&#9989; RM 0 out-of-pocket &nbsp;·&nbsp; lowest claim cost in network</div>' : '';
+  // Referral case
+  var refCostBadge    = has('rc1') ? '<span class="cost-save-badge">&#128176; Save RM 70 vs KLCC hub</span>' : '';
+  var refQualBadge    = has('ro2') ? '<span class="quality-badge">&#9733; FRCP &nbsp;·&nbsp; 15 yrs outcomes data</span>' : '';
+  var refPrefLabel    = has('rv1') ? '<div class="preferred-clinic-label">&#128203; In-network referral tracker active</div>' : '';
+  var nearestNetBadge = has('rp2') ? '<span class="nearest-net-badge">&#128205; Nearest in-network specialist</span>' : '';
+  var combinedBadges  = costBadge || refCostBadge || qualityBadge || refQualBadge || nearestNetBadge;
+  var combinedLabel   = prefLabel || refPrefLabel;
+  // oo2 — top-rated GP suffix
+  var topRatedSuffix  = has('oo2') ? ' <span style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:20px;padding:1px 7px;font-size:10px;font-weight:700;color:#92400E;">&#9733; Top Rated GP</span>' : '';
+  // ov2 — fast-booking widget (rendered inline before slot row)
+  var quickBookRow    = has('ov2') ? '<div class="quick-book-row">&#9889; Quick Book \u2014 next slot confirmed: ' + slot + '</div>' : '';
+  // rc2 — cost breakdown row (rendered after doc-divider)
+  var costBreakdownRow = has('rc2') ? '<div class="cost-breakdown-row">In-network: RM 180 &nbsp;\u00b7&nbsp; KLCC hub: RM 250 &nbsp;\u00b7&nbsp; You save RM 70</div>' : '';
+  // rv3 — care coordinator banner (rendered after doc-followup)
+  var coordinatorRow  = has('rv3') ? '<div class="coordinator-row">&#128100; Care coordinator assigned \u00b7 Will contact you within 24h</div>' : '';
   var VSVG = '<svg width="42" height="13" viewBox="0 0 75 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path fill-rule="evenodd" clip-rule="evenodd" d="M17.9554 5.75222C17.3298 6.66494 16.2678 7.26544 15.0629 7.26544C14.9493 7.26544 14.8369 7.26005 14.726 7.24961C14.9917 7.89257 15.1381 8.59556 15.1381 9.33213C15.1381 12.394 12.6097 14.8761 9.49052 14.8761C6.37149 14.8761 3.84294 12.394 3.84294 9.33213C3.84294 6.27031 6.37149 3.7882 9.49052 3.7882C10.2348 3.7882 10.9455 3.92964 11.5963 4.18648C11.5849 4.07436 11.5791 3.96064 11.5791 3.8456C11.5791 2.67532 12.178 1.64237 13.0912 1.02584C11.994 0.571528 10.7883 0.320312 9.52263 0.320312C4.44789 0.320312 0.333984 4.35869 0.333984 9.34035C0.333984 14.3219 4.44789 18.3604 9.52263 18.3604C14.5975 18.3604 18.7113 14.3219 18.7113 9.34035C18.7113 8.06517 18.4416 6.85187 17.9554 5.75222Z" fill="#714FFF"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.8987 19.9727H2.14657C1.1455 19.9727 0.333984 20.8379 0.333984 21.9055C0.333984 22.973 1.1455 23.8384 2.14657 23.8384H16.8987C17.8998 23.8384 18.7113 22.973 18.7113 21.9055C18.7113 20.8379 17.8998 19.9727 16.8987 19.9727Z" fill="#714FFF"/><path d="M30.0557 17.5606L25.7714 7.42556C25.677 7.20152 25.6016 6.97766 25.6016 6.73469C25.6016 5.93209 26.2433 5.31641 27.0549 5.31641C27.8097 5.31641 28.3004 5.74536 28.5269 6.32412L31.8296 14.7794L35.1703 6.23074C35.359 5.7643 35.8685 5.31641 36.5669 5.31641C37.3594 5.31641 38.0013 5.91354 38.0013 6.69739C38.0013 6.92143 37.9258 7.1642 37.8502 7.332L33.5282 17.5606C33.2263 18.27 32.679 18.6991 31.8863 18.6991H31.6976C30.905 18.6991 30.3576 18.27 30.0557 17.5606Z" fill="#714FFF"/><path d="M40.1074 6.7637C40.1074 5.95529 40.7272 5.31641 41.5112 5.31641C42.295 5.31641 42.9148 5.95529 42.9148 6.7637V17.2515C42.9148 18.0599 42.295 18.6991 41.5112 18.6991C40.7272 18.6991 40.1074 18.0599 40.1074 17.2515V6.7637Z" fill="#714FFF"/><path d="M46.0319 17.1378C45.7132 16.9148 45.4883 16.5057 45.4883 16.0597C45.4883 15.3161 46.0882 14.7398 46.8382 14.7398C47.2131 14.7398 47.4757 14.8703 47.6631 15.0001C48.6569 15.725 49.7445 16.171 51.0198 16.171C52.2008 16.171 52.9135 15.7065 52.9135 14.9444V14.9073C52.9135 14.1823 52.4634 13.8106 50.2696 13.2532C47.6257 12.584 45.9195 11.8589 45.9195 9.27546V9.2383C45.9195 6.87773 47.8321 5.31641 50.5134 5.31641C52.107 5.31641 53.4946 5.72528 54.6759 6.46887C54.9949 6.65464 55.3135 7.0452 55.3135 7.60267C55.3135 8.3459 54.7136 8.92222 53.9634 8.92222C53.6822 8.92222 53.4572 8.84774 53.2321 8.71798C52.276 8.16013 51.3758 7.84407 50.4758 7.84407C49.3696 7.84407 48.7882 8.3459 48.7882 8.97786V9.01539C48.7882 9.87008 49.3507 10.149 51.6196 10.7251C54.2821 11.4127 55.7823 12.3608 55.7823 14.6285V14.6657C55.7823 17.2494 53.7948 18.6991 50.9631 18.6991C49.2383 18.6991 47.4944 18.1785 46.0319 17.1378Z" fill="#714FFF"/><path d="M58.3555 6.7637C58.3555 5.95529 58.9754 5.31641 59.7594 5.31641C60.5434 5.31641 61.163 5.95529 61.163 6.7637V17.2515C61.163 18.0599 60.5434 18.6991 59.7594 18.6991C58.9754 18.6991 58.3555 18.0599 58.3555 17.2515V6.7637Z" fill="#714FFF"/><path d="M67.7195 8.39422H65.029C64.3201 8.39422 63.7383 7.80909 63.7383 7.09573C63.7383 6.38218 64.3201 5.79688 65.029 5.79688H73.2094C73.9186 5.79688 74.5003 6.38218 74.5003 7.09573C74.5003 7.80909 73.9186 8.39422 73.2094 8.39422H70.5191V17.3014C70.5191 18.0881 69.901 18.71 69.1193 18.71C68.3376 18.71 67.7195 18.0881 67.7195 17.3014V8.39422Z" fill="#714FFF"/></g></svg>';
   return '<div class="doc-card' + (showPreferred ? ' preferred' : '') + '" id="card-' + clinic.id + '">' +
     '<div class="doc-card-top">' +
@@ -1361,6 +2053,8 @@ function renderClinicCard(clinic, isAfter) {
         '<div class="doc-panel-badge">Panel Clinic \u2713</div>' +
       '</div>' +
     '</div>' +
+    (combinedLabel ? '<div style="padding:0 2px 4px">' + combinedLabel + '</div>' : '') +
+    (combinedBadges ? '<div style="display:flex;flex-wrap:wrap;gap:5px;padding:0 2px 8px">' + combinedBadges + '</div>' : '') +
     '<div class="doc-body">' +
       '<div class="doc-photo-wrap">' +
         '<div class="doc-photo-bg" style="background:' + photoBg + '">' +
@@ -1369,18 +2063,21 @@ function renderClinicCard(clinic, isAfter) {
         '<div class="doc-exp-badge">' + yearsExp + '</div>' +
       '</div>' +
       '<div class="doc-info">' +
-        '<div class="doc-name">' + docName + '</div>' +
+        '<div class="doc-name">' + docName + topRatedSuffix + '</div>' +
         '<div class="doc-spec">' + spec + '</div>' +
         '<div class="doc-quals">' + quals + '</div>' +
         '<div class="doc-hosp">' + clinic.name + ' \u00b7 ' + clinic.distance + '</div>' +
       '</div>' +
     '</div>' +
     '<div class="doc-divider"></div>' +
+    costBreakdownRow +
     '<div class="doc-paid-row">' +
       '<div class="doc-paid-left">Paid by ' + VSVG + '</div>' +
       '<div class="doc-price-right"><span class="doc-price-orig">' + clinic.copay + '</span><span class="doc-price-final"> RM\u00a00</span></div>' +
     '</div>' +
-    '<div class="doc-followup">\u26a1 100% cashless coverage under your plan</div>' +
+    (cashlessSavings || '<div class="doc-followup">\u26a1 100% cashless coverage under your plan</div>') +
+    coordinatorRow +
+    quickBookRow +
     '<div class="doc-slot-row">' +
       '<div><div class="doc-slot-label">Next slot at</div><div class="doc-slot-time">' + slot + '</div></div>' +
       '<button class="doc-book-btn">Book Now</button>' +
@@ -1388,12 +2085,17 @@ function renderClinicCard(clinic, isAfter) {
   '</div>';
 }
 
-function renderClinicListScreen(c, isAfter) {
+function renderClinicListScreen(c, isAfter, activeActions) {
+  activeActions = activeActions || [];
   var sorted = c.clinics.slice().sort(function(a, b) {
     return (isAfter ? a.afterRank : a.beforeRank) - (isAfter ? b.afterRank : b.beforeRank);
   });
-  var cards = sorted.map(function(cl) { return renderClinicCard(cl, isAfter); }).join('');
-  var centers = (isAfter ? [{ text: 'CC', bg: '#714FFF', label: 'CareClinics', hl: true, tag: '★ #1', tagBg: '#714FFF' }] : []).concat([
+  var cards = sorted.map(function(cl) { return renderClinicCard(cl, isAfter, activeActions); }).join('');
+  // op3: "Nearest Panel Clinic" card at top of list
+  var nearestBanner = (isAfter && activeActions.indexOf('op3') !== -1)
+    ? '<div class="nearest-banner">&#128205;&nbsp; CareClinics Bangsar is your nearest panel clinic &mdash; 0.8 km &nbsp;·&nbsp; Next slot: Today 11:00 AM</div>'
+    : '';
+  var centers = (isAfter ? [{ text: 'CC', bg: '#714FFF', label: 'CareClinics', hl: true, tag: '\u2605 #1', tagBg: '#714FFF' }] : []).concat([
     { text: 'CA', bg: '#2563EB', label: 'Columbia',   hl: false, tag: '', tagBg: '' },
     { text: 'SM', bg: '#F97316', label: 'Sunway',     hl: false, tag: '', tagBg: '' },
     { text: 'KPJ', bg: '#059669', label: 'KPJ',       hl: false, tag: '', tagBg: '' },
@@ -1430,7 +2132,7 @@ function renderClinicListScreen(c, isAfter) {
       '<div class="fchip">Nearest</div>' +
       '<div class="fchip">Panel Only</div>' +
     '</div>' +
-    '<div class="doc-list">' + cards + '</div>' +
+    '<div class="doc-list">' + nearestBanner + cards + '</div>' +
     '<div class="app-bottom-nav">' +
       '<div class="nav-item"><div class="nav-icon">\ud83c\udfe0</div>Home</div>' +
       '<div class="nav-item active"><div class="nav-icon">\ud83c\udfe5</div>Services</div>' +
@@ -1440,14 +2142,24 @@ function renderClinicListScreen(c, isAfter) {
   '</div>';
 }
 
-function renderHomeCareScreen(c, isAfter) {
+function renderHomeCareScreen(c, isAfter, activeActions) {
+  activeActions = activeActions || [];
+  var hasA = function(id) { return isAfter && activeActions.indexOf(id) !== -1; };
+  var programmeBadge    = hasA('cho2') ? '<div class="programme-badge">&#127973; Enrolled: CareClinics Chronic Disease Management Programme</div>' : '';
+  var reminderActiveRow = hasA('chp3') ? '<div class="reminder-active-row">&#128205; Location reminder active \u00b7 You\'ll be notified when near CareClinics Bangsar</div>' : '';
+  var costSummaryRow    = hasA('chc2') ? '<div class="cost-summary-row">&#128176; Consolidated care saves est. RM 100/year vs visiting multiple clinics</div>' : '';
+  var followupReminderRow = hasA('chv2') ? '<div class="followup-reminder-row">&#128276; Next reminder: 7 May 2026 \u00b7 before your medication cycle ends</div>' : '';
   var careSection = isAfter
     ? '<div class="care-home-card">' +
+        programmeBadge +
         '<div class="care-home-label">Your Care Home</div>' +
         '<div class="care-home-name">CareClinics Bangsar</div>' +
         '<div class="care-home-sub">\ud83d\udccd 0.8 km \u00b7 Dr. Priya Nair (GP) \u00b7 Next slot: Today 3pm</div>' +
         '<button class="care-home-btn">Book Follow-up</button>' +
-      '</div>'
+      '</div>' +
+      reminderActiveRow +
+      costSummaryRow +
+      followupReminderRow
     : '<div class="care-home-placeholder">No care home assigned yet</div>';
   return '<div class="app-screen">' +
     '<div class="app-home-header">' +
@@ -1476,7 +2188,21 @@ function renderHomeCareScreen(c, isAfter) {
   '</div>';
 }
 
-function renderBenefitsScreen(c, isAfter) {
+function renderBenefitsScreen(c, isAfter, activeActions) {
+  activeActions = activeActions || [];
+  var hasA = function(id) { return isAfter && activeActions.indexOf(id) !== -1; };
+  var entitlementCard = hasA('bc3')
+    ? '<div class="entitlement-home-card"><span>&#128179; RM 500 unused benefit \u00b7 Expires in 31 days</span><button>Claim Now \u2192</button></div>'
+    : '';
+  var reminderSetChip = hasA('bv2')
+    ? '<div class="reminder-set-chip">&#128276; Annual screening reminder set \u00b7 May 2027</div>'
+    : '';
+  var highPriorityFlag = hasA('bo2')
+    ? '<span class="high-priority-flag">&#9876; High Priority</span>'
+    : '';
+  var matchedPackageRow = hasA('bo3')
+    ? '<div class="matched-package-row">&#128302; Matched package: Metabolic Screening \u00b7 Based on your health profile</div>'
+    : '';
   var banner = isAfter
     ? '<div class="expiry-banner">' +
         '<div class="expiry-icon">\u23f0</div>' +
@@ -1495,11 +2221,14 @@ function renderBenefitsScreen(c, isAfter) {
       '<div class="app-header-top"><span class="app-back">\u2039</span><div class="app-title">My Benefits</div></div>' +
     '</div>' +
     '<div class="app-list-area">' +
+      entitlementCard +
       banner +
       '<div class="benefit-card' + (isAfter ? ' highlighted' : '') + '">' +
-        '<div class="benefit-header"><div class="benefit-name">Annual Health Screening</div><div class="benefit-status ' + (isAfter ? 'expiring' : 'unused') + '">' + (isAfter ? 'Expiring' : 'Unused') + '</div></div>' +
+        '<div class="benefit-header"><div class="benefit-name">Annual Health Screening</div>' + highPriorityFlag + '<div class="benefit-status ' + (isAfter ? 'expiring' : 'unused') + '">' + (isAfter ? 'Expiring' : 'Unused') + '</div></div>' +
         '<div class="benefit-value">Entitlement: <strong>RM 500</strong> \u00b7 Expires 7 May 2026</div>' +
+        matchedPackageRow +
         screeningBtn +
+        reminderSetChip +
       '</div>' +
       '<div class="benefit-card">' +
         '<div class="benefit-header"><div class="benefit-name">OPD Cashless</div><div class="benefit-status used">Active</div></div>' +
@@ -1519,27 +2248,35 @@ function renderBenefitsScreen(c, isAfter) {
   '</div>';
 }
 
-function renderAppScreen(c, isAfter) {
-  if (c.screenType === 'clinic-list') return renderClinicListScreen(c, isAfter);
-  if (c.screenType === 'home-care')   return renderHomeCareScreen(c, isAfter);
-  if (c.screenType === 'benefits')    return renderBenefitsScreen(c, isAfter);
-  return renderClinicListScreen(c, isAfter);
+function renderAppScreen(c, isAfter, activeActions) {
+  activeActions = activeActions || [];
+  if (c.screenType === 'clinic-list') return renderClinicListScreen(c, isAfter, activeActions);
+  if (c.screenType === 'home-care')   return renderHomeCareScreen(c, isAfter, activeActions);
+  if (c.screenType === 'benefits')    return renderBenefitsScreen(c, isAfter, activeActions);  // activeActions already passed
+  return renderClinicListScreen(c, isAfter, activeActions);
 }
 
 function renderTabs() {
   var tabs = CASES.map(function(c, i) {
     return '<div class="case-tab' + (i === currentIdx ? ' active' : '') + '" onclick="switchCase(' + i + ')">' + c.tab + '</div>';
   }).join('');
+  tabs += '<div class="case-tab' + (currentIdx === 4 ? ' active' : '') + '" onclick="switchCase(4)" style="margin-left:auto;' + (currentIdx === 4 ? '' : 'color:var(--dash-amber)') + '">&#8856; Exclusion Rules</div>';
   document.getElementById('case-tabs').innerHTML = tabs;
 }
 
 function renderLeftContent() {
+  if (currentIdx === 4) {
+    document.getElementById('panel-left-inner').innerHTML = renderExclusionTab();
+    return;
+  }
   var c = CASES[currentIdx];
   document.getElementById('panel-left-inner').innerHTML =
     '<div class="section-label">AI Insights</div>' +
     renderInsightCard(c) +
+    '<div class="section-label">Steerage Intelligence</div>' +
+    renderIntelligencePanel(c) +
     '<div class="section-label">Steerage Actions</div>' +
-    renderActionCard(c);
+    '<div id="action-wrap">' + renderActionCard(c) + '</div>';
   wireApplyBtn();
 }
 
@@ -1557,13 +2294,22 @@ function wireApplyBtn() {
   var btn = document.getElementById('apply-btn');
   if (!btn) return;
   btn.addEventListener('click', function() {
-    if (applied) return;
-    applied = true;
+    if (btn.disabled) return;
+    // Lock during animation
+    btn.disabled = true;
+    btn.textContent = 'Applying\u2026';
+    btn.style.background = '#22C55E';
+    btn.style.boxShadow = '0 4px 20px rgba(34,197,94,0.4)';
     var c = CASES[currentIdx];
-    c.actions.forEach(function(a) {
+    // Collect which action toggles are currently checked
+    var intel = CASE_INTEL[c.id];
+    var genKey = GENERATED_FACTOR[c.id];
+    var actionSet = (intel && genKey && intel.factorActions[genKey])
+      ? intel.factorActions[genKey].actions : c.actions;
+    ACTIVE_ACTIONS = actionSet.filter(function(a) {
       var el = document.getElementById('toggle-' + a.id);
-      if (el) el.checked = true;
-    });
+      return el && el.checked;
+    }).map(function(a) { return a.id; });
     setTimeout(function() {
       var banner = document.getElementById('success-banner');
       if (banner) banner.classList.add('visible');
@@ -1576,24 +2322,32 @@ function wireApplyBtn() {
         oldApp.style.opacity = '0';
         setTimeout(function() {
           oldApp.remove();
-          screen.insertAdjacentHTML('beforeend', renderAppScreen(c, true));
+          screen.insertAdjacentHTML('beforeend', renderAppScreen(c, true, ACTIVE_ACTIONS));
         }, 300);
       }
     }, 2000);
-    setTimeout(function() {
-      var notif = document.getElementById('push-notif');
-      if (notif) notif.classList.add('visible');
+    // Only fire push if a nudge/notification action was toggled on
+    var PUSH_ACTION_IDS = ['op2','oc2','ov3','oo3','rp1','rp3','rc1','rv3','cho3','bp3','bc1','bo1'];
+    var shouldPush = PUSH_ACTION_IDS.some(function(id) { return ACTIVE_ACTIONS.indexOf(id) !== -1; });
+    if (shouldPush) {
       setTimeout(function() {
-        if (notif) notif.classList.remove('visible');
-      }, 5000);
-    }, 2600);
-    this.textContent = 'Changes Applied';
-    this.style.background = '#22C55E';
-    this.style.boxShadow = '0 4px 20px rgba(34,197,94,0.4)';
-    this.style.cursor = 'default';
+        var notif = document.getElementById('push-notif');
+        if (notif) notif.classList.add('visible');
+        setTimeout(function() {
+          if (notif) notif.classList.remove('visible');
+        }, 5000);
+      }, 2600);
+    }
     if (window.innerWidth <= 800) {
       document.querySelector('.panel-right').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    // Re-enable button after animation completes so user can apply again
+    setTimeout(function() {
+      btn.disabled = false;
+      btn.textContent = 'Apply Changes';
+      btn.style.background = 'var(--visit-purple)';
+      btn.style.boxShadow = '0 4px 20px rgba(113,79,255,0.4)';
+    }, 2500);
   });
 }
 
@@ -1601,11 +2355,15 @@ function switchCase(idx) {
   if (idx === currentIdx) return;
   currentIdx = idx;
   applied = false;
+  ACTIVE_ACTIONS = [];
   var notif = document.getElementById('push-notif');
   if (notif) notif.classList.remove('visible');
+  // Reset generated state for the new case so user must re-generate
+  var c = CASES[idx];
+  if (c && GENERATED_FACTOR[c.id] !== undefined) GENERATED_FACTOR[c.id] = null;
   renderTabs();
   renderLeftContent();
-  renderPhone(false);
+  if (idx < 4) renderPhone(false);
 }
 
 renderTabs();
