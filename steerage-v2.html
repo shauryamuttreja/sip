@@ -2045,6 +2045,7 @@
             <button class="landing-browse-btn" onclick="event.stopPropagation(); simulateLandingUpload()">Browse file</button>
           </div>
           <button class="landing-analyse-btn" id="landing-analyse-btn" onclick="launchDashboard()">Analyse Cohort &rarr;</button>
+          <div style="text-align:center;margin-top:14px"><span onclick="launchDashboard();setTimeout(function(){switchCase(5);},50)" style="font-size:12px;color:var(--dash-text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px">Skip to Platform settings &rarr;</span></div>
         </div>
       </div>
     </div>
@@ -3121,7 +3122,7 @@ function renderPlatformTab() {
 function renderOpsConfigTab() {
   var html = '<div class="ops-config-wrap">';
   html += '<div class="ops-config-hdr"><div class="ops-config-hdr-title">Ops Configuration</div>';
-  html += '<div class="ops-config-hdr-sub">Configure steerage logic, panel tiers, cost thresholds, and escalation rules for your operations team.</div></div>';
+  html += '<div class="ops-config-hdr-sub">Configure steerage logic, panel tiers, cost thresholds, and escalation rules for your operations team.</div><div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;background:rgba(113,79,255,0.08);border:1px solid rgba(113,79,255,0.2);border-radius:20px;padding:3px 12px"><span style="width:6px;height:6px;border-radius:50%;background:#22C55E;display:inline-block;animation:pulse-dot 1.5s ease-in-out infinite"></span><span style="font-size:11px;font-weight:600;color:#A78BFA">Global settings — applies to all 47,000 PMCare members</span></div></div>';
   html += '<div class="ops-card"><div class="ops-card-hdr"><div class="ops-card-icon blue">&#127941;</div><div><div class="ops-card-title">Preferred Panel Management</div><div class="ops-card-desc">Tag and tier providers to control steerage priority. Tier 1 surfaced first; Tier 3 deprioritised.</div></div></div>';
   html += '<div class="ops-card-controls"><div style="font-size:11px;color:var(--dash-text-muted);margin-bottom:4px">Assign tier to selected provider</div><div class="ops-input-row"><input class="ops-input" placeholder="Provider name or ID" /></div>';
   html += '<div class="ops-tier-row"><button class="ops-tier-btn t1">&#9679; Tier 1 \u2014 Preferred</button><button class="ops-tier-btn t2">&#9679; Tier 2 \u2014 Standard</button><button class="ops-tier-btn t3">&#9679; Tier 3 \u2014 Deprioritised</button></div>';
