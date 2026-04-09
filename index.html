@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visit Steerage Intelligence Platform</title>
+  <title>Visit Steerage Intelligence Platform v2</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ── Design tokens ── */
@@ -1263,6 +1263,101 @@
       padding: 5px 8px; font-size: 10px; font-weight: 600; color: #15803D;
       display: flex; align-items: center; gap: 4px; margin-bottom: 8px;
     }
+    /* ── Data Source Groups ── */
+    .ds-groups { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .ds-group { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 10px 12px; }
+    .ds-group-hdr { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+    .ds-group-label { font-size: 11px; font-weight: 700; color: var(--dash-text-muted); text-transform: uppercase; letter-spacing: 0.6px; }
+    .ds-group-side { margin-left: auto; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+    .ds-group-side.provider { background: rgba(63,140,255,0.12); color: #60A5FA; border: 1px solid rgba(63,140,255,0.2); }
+    .ds-group-side.patient  { background: rgba(71,229,177,0.1); color: var(--visit-mint); border: 1px solid rgba(71,229,177,0.2); }
+    .ds-chip-row { display: flex; flex-wrap: wrap; gap: 5px; }
+    .ds-chip { display: inline-flex; align-items: center; background: rgba(113,79,255,0.08); border: 1px solid rgba(113,79,255,0.18); border-radius: 20px; padding: 2px 8px; font-size: 10px; color: #a0a8c0; font-weight: 500; }
+    /* ── Care Journey Stage ── */
+    .cjs-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; }
+    .cjs-label { font-size: 11px; font-weight: 600; color: var(--dash-text-muted); white-space: nowrap; flex-shrink: 0; }
+    .cjs-stages { display: flex; flex: 1; gap: 4px; }
+    .cjs-stage { flex: 1; text-align: center; padding: 4px 6px; border-radius: 7px; font-size: 10px; font-weight: 600; border: 1px solid transparent; background: rgba(255,255,255,0.04); color: var(--dash-text-muted); }
+    .cjs-stage.active.new-ep { background: rgba(71,229,177,0.12); border-color: rgba(71,229,177,0.3); color: var(--visit-mint); }
+    .cjs-stage.active.mid-tx { background: rgba(255,149,0,0.12); border-color: rgba(255,149,0,0.3); color: var(--dash-amber); }
+    .cjs-stage.active.follow  { background: rgba(113,79,255,0.12); border-color: rgba(113,79,255,0.3); color: #A78BFA; }
+    .cjs-note { font-size: 10px; color: var(--dash-text-muted); margin-top: 4px; line-height: 1.4; }
+    /* ── Ops Config Tab ── */
+    .ops-config-wrap { display: flex; flex-direction: column; gap: 16px; }
+    .ops-config-hdr { margin-bottom: 4px; }
+    .ops-config-hdr-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .ops-config-hdr-sub { font-size: 12px; color: var(--dash-text-muted); line-height: 1.5; }
+    .ops-card { background: var(--dash-card); border: 1px solid var(--dash-card-border); border-radius: var(--radius-md); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+    .ops-card-hdr { display: flex; align-items: flex-start; gap: 12px; }
+    .ops-card-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .ops-card-icon.blue   { background: rgba(63,140,255,0.12); }
+    .ops-card-icon.amber  { background: rgba(255,149,0,0.12); }
+    .ops-card-icon.green  { background: rgba(34,197,94,0.1); }
+    .ops-card-icon.red    { background: rgba(255,76,76,0.1); }
+    .ops-card-icon.purple { background: rgba(113,79,255,0.12); }
+    .ops-card-icon.teal   { background: rgba(71,229,177,0.1); }
+    .ops-card-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .ops-card-desc  { font-size: 12px; color: var(--dash-text-muted); line-height: 1.5; }
+    .ops-card-controls { display: flex; flex-direction: column; gap: 8px; }
+    .ops-tier-row { display: flex; gap: 6px; }
+    .ops-tier-btn { flex: 1; padding: 7px; border-radius: 8px; font-family: inherit; font-size: 11px; font-weight: 700; border: 1.5px solid; cursor: pointer; text-align: center; transition: all 0.15s; }
+    .ops-tier-btn.t1 { background: rgba(71,229,177,0.1); border-color: rgba(71,229,177,0.3); color: var(--visit-mint); }
+    .ops-tier-btn.t2 { background: rgba(63,140,255,0.1); border-color: rgba(63,140,255,0.25); color: #60A5FA; }
+    .ops-tier-btn.t3 { background: rgba(255,149,0,0.08); border-color: rgba(255,149,0,0.25); color: var(--dash-amber); }
+    .ops-input-row { display: flex; align-items: center; gap: 8px; }
+    .ops-input-label { font-size: 11px; color: var(--dash-text-muted); flex-shrink: 0; }
+    .ops-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--dash-card-border); border-radius: 8px; padding: 7px 10px; font-family: inherit; font-size: 12px; font-weight: 600; color: var(--dash-text); outline: none; }
+    .ops-input:focus { border-color: var(--visit-purple); }
+    .ops-toggle-row { display: flex; align-items: center; justify-content: space-between; }
+    .ops-toggle-label { font-size: 12px; color: var(--dash-text-muted); }
+    .ops-stat-row { display: flex; gap: 10px; }
+    .ops-stat { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 8px 10px; }
+    .ops-stat-val { font-size: 18px; font-weight: 800; color: #fff; }
+    .ops-stat-val.amber { color: var(--dash-amber); }
+    .ops-stat-val.red   { color: #FF6B6B; }
+    .ops-stat-lbl { font-size: 10px; color: var(--dash-text-muted); margin-top: 1px; }
+    .ops-override-list { display: flex; flex-direction: column; gap: 6px; }
+    .ops-override-row { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 7px; padding: 8px 10px; font-size: 11px; color: var(--dash-text-muted); }
+    .ops-override-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .ops-override-dot.amber { background: var(--dash-amber); }
+    .ops-override-dot.red   { background: #FF6B6B; }
+    .ops-save-btn { width: 100%; padding: 10px; background: var(--visit-purple); border: none; border-radius: 10px; font-family: inherit; font-size: 13px; font-weight: 700; color: #fff; cursor: pointer; transition: background 0.2s; }
+    .ops-save-btn:hover { background: var(--visit-purple-dark); }
+    .ops-save-btn.saved { background: #16A34A !important; cursor: default; }
+    /* ops toast */
+    .ops-toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(12px); background: #1A2236; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px 20px; display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; color: var(--dash-text); box-shadow: 0 8px 32px rgba(0,0,0,0.4); z-index: 9999; opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none; }
+    .ops-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .ops-toast-icon { font-size: 16px; flex-shrink: 0; }
+    /* tab dot indicator */
+    .case-tab .tab-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--dash-amber); margin-left: 5px; vertical-align: middle; animation: pulse-dot 1.5s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    /* New app-side action overlays */
+    .cost-compare-popup { background: #fff; border: 1.5px solid #FDE68A; border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+    .ccp-hdr { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+    .ccp-icon { font-size: 14px; }
+    .ccp-title { font-size: 12px; font-weight: 700; color: #92400E; }
+    .ccp-body { font-size: 11px; color: #374151; line-height: 1.5; margin-bottom: 10px; }
+    .ccp-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 8px; border-radius: 7px; margin-bottom: 4px; font-size: 11px; font-weight: 600; }
+    .ccp-row.this { background: #FEF2F2; color: #DC2626; }
+    .ccp-row.alt  { background: #F0FDF4; color: #16A34A; }
+    .ccp-switch-btn { width: 100%; padding: 8px; background: var(--visit-purple); border: none; border-radius: 9px; font-family: inherit; font-size: 12px; font-weight: 700; color: #fff; cursor: pointer; }
+    .pre-booking-nudge { background: linear-gradient(135deg, #EDE9FE, #F0ECFF); border: 1.5px solid rgba(113,79,255,0.3); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; }
+    .pbn-hdr { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+    .pbn-icon { font-size: 14px; }
+    .pbn-title { font-size: 12px; font-weight: 700; color: #4C1D95; }
+    .pbn-row { display: flex; justify-content: space-between; font-size: 11px; padding: 4px 0; border-bottom: 1px solid rgba(113,79,255,0.1); }
+    .pbn-row:last-of-type { border-bottom: none; }
+    .pbn-key { color: #6D28D9; }
+    .pbn-val { font-weight: 700; color: #4C1D95; }
+    .pbn-book-btn { width: 100%; margin-top: 10px; padding: 8px; background: var(--visit-purple); border: none; border-radius: 9px; font-family: inherit; font-size: 12px; font-weight: 700; color: #fff; cursor: pointer; }
+    .virtual-first-banner { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); border: 1.5px solid #6EE7B7; border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; }
+    .vfb-hdr { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .vfb-icon { font-size: 14px; }
+    .vfb-title { font-size: 12px; font-weight: 700; color: #065F46; }
+    .vfb-body  { font-size: 11px; color: #047857; line-height: 1.5; margin-bottom: 8px; }
+    .vfb-meta  { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+    .vfb-tag   { background: rgba(6,95,70,0.1); border: 1px solid rgba(6,95,70,0.2); border-radius: 20px; padding: 2px 8px; font-size: 10px; font-weight: 700; color: #065F46; }
+    .vfb-cta { width: 100%; padding: 8px; background: #059669; border: none; border-radius: 9px; font-family: inherit; font-size: 12px; font-weight: 700; color: #fff; cursor: pointer; }
     .excl-banner {
       display: flex;
       align-items: flex-start;
@@ -1394,6 +1489,108 @@
     .high-priority-flag { background:#FEE2E2;border:1px solid #FECACA;border-radius:20px;padding:2px 8px;font-size:11px;font-weight:700;color:#DC2626; }
     .matched-package-row { background:#F0FDF4;border:1px solid #86EFAC;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:600;color:#15803D;display:flex;align-items:center;gap:4px;margin-top:6px; }
 
+    /* ── Platform Tab (Subnav, KPI, Idle) ── */
+    .platform-subnav { display: flex; gap: 4px; margin-bottom: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--dash-card-border); border-radius: 12px; padding: 4px; }
+    .platform-subnav-item { flex: 1; padding: 8px 10px; border-radius: 9px; font-family: inherit; font-size: 12px; font-weight: 600; color: var(--dash-text-muted); background: none; border: none; cursor: pointer; transition: all 0.15s; text-align: center; }
+    .platform-subnav-item.active { background: var(--dash-card); color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .kpi-card { background: var(--dash-card); border: 1px solid var(--dash-card-border); border-radius: var(--radius-md); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+    .kpi-card-hdr { display: flex; align-items: center; justify-content: space-between; }
+    .kpi-card-name { font-size: 11px; font-weight: 600; color: var(--dash-text-muted); line-height: 1.3; }
+    .kpi-status-pill { border-radius: 20px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+    .kpi-status-pill.green { background: rgba(34,197,94,0.12); color: #4ADE80; border: 1px solid rgba(34,197,94,0.25); }
+    .kpi-status-pill.amber { background: rgba(255,149,0,0.1); color: var(--dash-amber); border: 1px solid rgba(255,149,0,0.25); }
+    .kpi-status-pill.red   { background: rgba(255,107,107,0.1); color: #FF6B6B; border: 1px solid rgba(255,107,107,0.25); }
+    .kpi-metric-val { font-size: 22px; font-weight: 800; color: #fff; line-height: 1; }
+    .kpi-metric-sub { font-size: 10px; color: var(--dash-text-muted); }
+    .kpi-cta-box { background: rgba(113,79,255,0.08); border: 1px solid rgba(113,79,255,0.2); border-radius: 8px; padding: 6px 10px; font-size: 10px; font-weight: 600; color: #A78BFA; line-height: 1.4; }
+    .feedback-section { margin-top: 4px; }
+    .feedback-section-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .feedback-section-sub { font-size: 11px; color: var(--dash-text-muted); margin-bottom: 14px; line-height: 1.5; }
+    .feedback-grid { display: flex; flex-direction: column; gap: 10px; }
+    .feedback-card { background: var(--dash-card); border: 1px solid var(--dash-card-border); border-radius: var(--radius-sm); padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; }
+    .feedback-card-icon { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+    .feedback-card-body { flex: 1; }
+    .feedback-card-title { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .feedback-card-desc { font-size: 11px; color: var(--dash-text-muted); line-height: 1.4; }
+    .feedback-arrow { font-size: 11px; color: #60A5FA; margin: 0 6px; }
+    /* Phone idle state */
+    .phone-idle { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 12px; opacity: 0.4; }
+    .phone-idle-icon { font-size: 32px; }
+    .phone-idle-text { font-size: 11px; color: var(--dash-text-muted); text-align: center; line-height: 1.5; }
+    /* ── Passive Steerage Tab ── */
+    .passive-feature-card { background: var(--dash-card); border: 1px solid var(--dash-card-border); border-radius: var(--radius-md); padding: 16px 18px; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+    .passive-feature-card.active { border-color: var(--visit-purple); background: rgba(113,79,255,0.06); }
+    .passive-feature-card:hover:not(.active) { border-color: rgba(255,255,255,0.15); }
+    .passive-card-hdr { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+    .passive-card-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .passive-card-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .passive-card-desc { font-size: 11px; color: var(--dash-text-muted); line-height: 1.5; }
+    .passive-config-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .passive-config-label { font-size: 11px; color: var(--dash-text-muted); flex-shrink: 0; }
+    .passive-config-pills { display: flex; gap: 4px; }
+    .passive-config-pill { padding: 3px 9px; border-radius: 20px; font-size: 10px; font-weight: 700; border: 1px solid rgba(255,255,255,0.12); background: none; font-family: inherit; color: var(--dash-text-muted); cursor: pointer; transition: all 0.15s; }
+    .passive-config-pill.active { background: var(--visit-purple); border-color: var(--visit-purple); color: #fff; }
+    .passive-preview-tag { margin-left: auto; flex-shrink: 0; font-size: 10px; font-weight: 700; color: var(--visit-purple); background: rgba(113,79,255,0.12); border: 1px solid rgba(113,79,255,0.2); border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
+    /* Passive phone screens */
+    .app-screen-passive { position: absolute; inset: 0; background: #F5F7FA; overflow-y: auto; border-radius: inherit; display: flex; flex-direction: column; }
+    .passive-push-banner { background: rgba(255,255,255,0.95); border-radius: 12px; margin: 10px 10px 0; padding: 8px 12px; display: flex; gap: 8px; align-items: center; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
+    .passive-push-icon { font-size: 18px; flex-shrink: 0; }
+    .passive-push-title { font-size: 10px; font-weight: 700; color: #111; }
+    .passive-push-msg { font-size: 10px; color: #555; line-height: 1.3; }
+    .passive-app-home { padding: 12px 12px 20px; display: flex; flex-direction: column; gap: 10px; }
+    .passive-home-greeting { font-size: 15px; font-weight: 700; color: #111; }
+    .passive-home-sub { font-size: 11px; color: #888; }
+    .passive-health-card { background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+    .passive-hc-badge { display: inline-flex; align-items: center; gap: 4px; background: #EEF2FF; color: #4338CA; border-radius: 20px; padding: 2px 9px; font-size: 10px; font-weight: 700; margin-bottom: 7px; }
+    .passive-hc-title { font-size: 13px; font-weight: 700; color: #111; margin-bottom: 3px; }
+    .passive-hc-body  { font-size: 11px; color: #555; margin-bottom: 8px; }
+    .passive-hc-lab { font-size: 11px; color: #374151; padding: 4px 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 5px; }
+    .passive-hc-cta { width: 100%; margin-top: 10px; padding: 9px; background: #714FFF; border: none; border-radius: 9px; font-family: inherit; font-size: 12px; font-weight: 700; color: #fff; cursor: pointer; }
+    .passive-cadence-row { font-size: 10px; color: #888; text-align: center; background: #fff; border-radius: 8px; padding: 6px 10px; }
+    .passive-search-hdr { background: #fff; padding: 12px 14px 10px; border-bottom: 1px solid #F3F4F6; flex-shrink: 0; }
+    .passive-search-back { font-size: 11px; color: #714FFF; margin-bottom: 2px; }
+    .passive-search-title { font-size: 14px; font-weight: 700; color: #111; }
+    .passive-provider-card { background: #fff; margin: 10px; border-radius: 14px; padding: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+    .passive-pcard-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+    .passive-pcard-name { font-size: 13px; font-weight: 700; color: #111; }
+    .passive-pcard-badge { background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 20px; padding: 2px 8px; font-size: 10px; font-weight: 700; color: #C2410C; }
+    .passive-pcard-dist { font-size: 11px; color: #888; margin-bottom: 10px; }
+    .passive-tooltip-box { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+    .passive-tooltip-title { font-size: 11px; font-weight: 700; color: #92400E; margin-bottom: 6px; }
+    .passive-tooltip-row { font-size: 11px; color: #78350F; padding: 2px 0; display: flex; align-items: center; gap: 6px; }
+    .passive-book-btn { width: 100%; padding: 9px; background: #714FFF; border: none; border-radius: 9px; font-family: inherit; font-size: 12px; font-weight: 700; color: #fff; cursor: pointer; }
+    .passive-confirm-hdr { background: #fff; padding: 20px 14px 16px; text-align: center; border-bottom: 1px solid #F3F4F6; flex-shrink: 0; }
+    .passive-confirm-check { width: 44px; height: 44px; background: #DCFCE7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #16A34A; margin: 0 auto 8px; }
+    .passive-confirm-title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 3px; }
+    .passive-confirm-sub { font-size: 11px; color: #888; }
+    .passive-reminder-nudge { background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 12px; margin: 12px; padding: 12px; display: flex; gap: 10px; }
+    .passive-nudge-icon { font-size: 18px; flex-shrink: 0; }
+    .passive-nudge-title { font-size: 12px; font-weight: 700; color: #92400E; margin-bottom: 3px; }
+    .passive-nudge-msg { font-size: 11px; color: #78350F; line-height: 1.4; }
+    .passive-nudge-link { color: #714FFF; text-decoration: underline; cursor: pointer; }
+    .passive-alt-provider { background: #fff; border-radius: 12px; margin: 0 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .passive-alt-name { font-size: 13px; font-weight: 700; color: #111; margin-bottom: 3px; }
+    .passive-alt-meta { font-size: 11px; color: #888; margin-bottom: 6px; }
+    .passive-alt-saving { font-size: 11px; font-weight: 700; color: #16A34A; background: #DCFCE7; border-radius: 20px; padding: 2px 9px; display: inline-block; }
+    .passive-profile-hdr { background: #fff; padding: 12px 14px 10px; border-bottom: 1px solid #F3F4F6; flex-shrink: 0; }
+    .passive-profile-back { font-size: 11px; color: #714FFF; margin-bottom: 2px; }
+    .passive-profile-title { font-size: 14px; font-weight: 700; color: #111; }
+    .passive-profile-sub { font-size: 11px; color: #888; padding: 8px 14px; background: #F9FAFB; border-bottom: 1px solid #F3F4F6; line-height: 1.4; flex-shrink: 0; }
+    .passive-mydoc-card { background: #fff; margin: 10px 12px 0; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .passive-mydoc-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg,#714FFF,#5840BB); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .passive-mydoc-name { font-size: 13px; font-weight: 700; color: #111; margin-bottom: 2px; }
+    .passive-mydoc-clinic { font-size: 11px; color: #555; margin-bottom: 1px; }
+    .passive-mydoc-type { font-size: 10px; color: #888; }
+    .passive-mydoc-fav { font-size: 20px; color: #F59E0B; margin-left: auto; }
+    .passive-sync-status { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #888; margin: 8px 12px 0; }
+    .passive-sync-dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; flex-shrink: 0; animation: pulse-dot 1.5s ease-in-out infinite; }
+    .passive-toggle { padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; border: none; font-family: inherit; cursor: pointer; transition: all 0.2s; flex-shrink: 0; letter-spacing: 0.03em; }
+    .passive-toggle.on  { background: rgba(34,197,94,0.15); color: #4ADE80; border: 1px solid rgba(34,197,94,0.3); }
+    .passive-toggle.off { background: rgba(255,255,255,0.05); color: var(--dash-text-muted); border: 1px solid rgba(255,255,255,0.1); }
+    .passive-toggle:hover.on  { background: rgba(34,197,94,0.25); }
+    .passive-toggle:hover.off { background: rgba(255,255,255,0.1); color: var(--dash-text); }
+    .passive-add-doc-btn { margin: 10px 12px 0; width: calc(100% - 24px); padding: 10px; background: none; border: 1.5px dashed rgba(113,79,255,0.4); border-radius: 10px; font-family: inherit; font-size: 12px; font-weight: 600; color: #714FFF; cursor: pointer; }
     /* ── Landing screen ── */
     #landing-screen {
       position: fixed;
@@ -1835,7 +2032,7 @@
         <div class="landing-card">
           <div class="landing-card-title">Upload Member List</div>
           <div class="landing-card-sub">Upload your member cohort to begin steerage analysis. Include Member ID and Name columns.</div>
-          <div class="landing-success" id="landing-success">&#x2713;&nbsp; 1,247 members loaded — Sumitomo Malaysia</div>
+          <div class="landing-success" id="landing-success">&#x2713;&nbsp; 1,247 members loaded — PMCare</div>
           <div class="landing-upload-zone" id="landing-upload-zone" onclick="simulateLandingUpload()">
             <div class="landing-upload-icon">📋</div>
             <div class="landing-upload-title">Drag &amp; drop your file here</div>
@@ -1860,7 +2057,7 @@
     <div class="landing-card" style="width:400px;">
       <div class="landing-card-title">Switch Member Cohort</div>
       <div class="landing-card-sub">Upload a new member list to re-run steerage analysis for a different cohort.</div>
-      <div class="landing-success" id="overlay-success">&#x2713;&nbsp; 1,247 members loaded — Sumitomo Malaysia</div>
+      <div class="landing-success" id="overlay-success">&#x2713;&nbsp; 1,247 members loaded — PMCare</div>
       <div class="landing-upload-zone" onclick="simulateOverlayUpload()">
         <div class="landing-upload-icon">📋</div>
         <div class="landing-upload-title">Drag &amp; drop your file here</div>
@@ -1905,9 +2102,9 @@
             <div class="cohort-chip-dot"></div>
             <span id="cohort-label">1,247 members</span>
           </div>
-          <div class="dash-client-tag">
-            <div class="dot"></div>
-            Sumitomo · CareClinics Malaysia
+          <div class="dash-client-tag" style="padding:4px 10px;gap:7px;">
+            <img src="pmcare_sdn_bhd_logo.jpeg" style="height:18px;width:auto;border-radius:2px;object-fit:contain;" alt="PMCare" />
+            <span style="font-size:13px;font-weight:700;color:#1a73e8;letter-spacing:-0.2px;">PMCare</span>
           </div>
           <button class="switch-cohort-btn" id="switch-cohort-btn" onclick="openUploadOverlay()" style="display:none;">&#8593; Switch cohort</button>
         </div>
@@ -1962,6 +2159,14 @@ const FACTOR_STATE = {
 const CASE_INTEL = {
   opd: {
     dataSources: ['Claims history', 'App usage data', 'GPS proximity', 'Panel pricing'],
+    dataSourceGroups: {
+      provider: [
+        { label: 'Clinical Quality', chips: ['Outcomes data', 'Complication rates', 'Credentials'] },
+        { label: 'Patient Experience', chips: ['NPS scores', 'Complaint history', 'Grievance rate'] },
+        { label: 'Utilisation Signals', chips: ['Over-investigation history', 'Utilisation vs peers'] },
+      ],
+      patient: { stage: 'new_episode', note: 'Full steerage logic applies — no active referral or ongoing treatment detected.' },
+    },
     factorActions: {
       proximity: {
         note: 'Steering 124 members to CareClinics Bangsar (0.8 km) — nearest in-panel provider in catchment.',
@@ -1972,11 +2177,11 @@ const CASE_INTEL = {
         ],
       },
       cost: {
-        note: 'Targeting RM 45 copay vs RM 65 at KLCC branch — RM 20 saving per visit, RM 2.5K total across 124 members.',
+        note: 'Targeting RM 45 copay vs RM 65 at KLCC branch — activating cost-comparison nudges and virtual-first prompts for 124 members.',
         actions: [
-          { id: 'oc1', name: 'Show cost comparison badge on clinic cards', desc: 'Display "Save RM 20 vs KLCC branch" label directly on CareClinics Bangsar listing' },
-          { id: 'oc2', name: 'Send cost-savings nudge to 124 members', desc: 'In-app push: "Your plan covers CareClinics Bangsar at RM 45 — lowest in network"' },
-          { id: 'oc3', name: 'Highlight cashless coverage on booking screen', desc: 'Show RM 0 out-of-pocket summary at checkout when CareClinics is selected' },
+          { id: 'occ1', name: 'Cost Comparison Pop-Up on non-preferred provider selection', desc: '"CareClinics KLCC charges ~30% more. CareClinics Bangsar is equally rated and covered under your plan." — shown when member taps KLCC card' },
+          { id: 'opbn1', name: 'Pre-Booking Nudge before appointment confirmation', desc: 'Banner showing estimated OOP cost with current selection vs. projected savings if member switches, with one-tap "Book Instead" action' },
+          { id: 'ovf1', name: 'Virtual-First Prompt for virtually-manageable conditions', desc: '"This condition can often be treated online. Would you like to consult a virtual doctor?" — surfaces teleconsult with cost differential and immediate availability' },
         ],
       },
       continuity: {
@@ -2004,6 +2209,14 @@ const CASE_INTEL = {
   },
   referral: {
     dataSources: ['GP referral logs', 'Specialist availability', 'Claims data', 'Network directory'],
+    dataSourceGroups: {
+      provider: [
+        { label: 'Clinical Quality', chips: ['Outcomes data', 'Re-admission rates', 'Credentials'] },
+        { label: 'Patient Experience', chips: ['NPS scores', 'Complaint history'] },
+        { label: 'Utilisation Signals', chips: ['Referral rate vs peers', 'Specialist utilisation'] },
+      ],
+      patient: { stage: 'mid_treatment', note: 'Active referral in progress — steerage nudges suppressed to avoid disrupting care continuity.' },
+    },
     factorActions: {
       proximity: {
         note: 'Routing 67 referrals to CareClinics Heart & Vascular (1.2 km) — nearest in-network specialist.',
@@ -2046,6 +2259,14 @@ const CASE_INTEL = {
   },
   chronic: {
     dataSources: ['Claims history', 'Condition flags', 'Visit frequency', 'Continuity score'],
+    dataSourceGroups: {
+      provider: [
+        { label: 'Clinical Quality', chips: ['Outcomes data', 'Complication rates', 'DM/HTN protocols'] },
+        { label: 'Patient Experience', chips: ['NPS scores', 'Grievance addressal rate'] },
+        { label: 'Utilisation Signals', chips: ['Over-investigation history', 'Utilisation vs peers'] },
+      ],
+      patient: { stage: 'follow_up', note: 'Follow-up care — light-touch steerage only if existing care home provider scores below quality threshold.' },
+    },
     factorActions: {
       proximity: {
         note: 'Assigning nearest CareClinics location as care home for 312 members across catchments.',
@@ -2088,6 +2309,14 @@ const CASE_INTEL = {
   },
   benefits: {
     dataSources: ['Benefits ledger', 'App usage data', 'Expiry calendar', 'Booking history'],
+    dataSourceGroups: {
+      provider: [
+        { label: 'Clinical Quality', chips: ['Screening outcomes', 'Credentials', 'Accreditation'] },
+        { label: 'Patient Experience', chips: ['NPS scores', 'Complaint history'] },
+        { label: 'Utilisation Signals', chips: ['Benefits uptake vs peers', 'Missed screening rate'] },
+      ],
+      patient: { stage: 'new_episode', note: 'No active treatment — full steerage logic applies. Benefits expiry creates urgency signal.' },
+    },
     factorActions: {
       proximity: {
         note: 'Surfacing nearest CareClinics screening centre for 847 members with expiring benefits.',
@@ -2359,6 +2588,27 @@ function refreshActionNote(caseId) {
   // Actions only update on explicit Generate — nothing to do here
 }
 
+function renderDataSourceGroups(intel) {
+  if (!intel.dataSourceGroups) return '';
+  var dsg = intel.dataSourceGroups;
+  var providerGroups = dsg.provider.map(function(g) {
+    var chips = g.chips.map(function(c) { return '<div class="ds-chip">' + esc(c) + '</div>'; }).join('');
+    return '<div class="ds-group"><div class="ds-group-hdr"><div class="ds-group-label">' + esc(g.label) + '</div><div class="ds-group-side provider">Provider</div></div><div class="ds-chip-row">' + chips + '</div></div>';
+  }).join('');
+  var stages = [
+    { key: 'new_episode',   label: 'New Episode',    cls: 'new-ep' },
+    { key: 'mid_treatment', label: 'Mid-Treatment',  cls: 'mid-tx' },
+    { key: 'follow_up',     label: 'Follow-up',      cls: 'follow'  },
+  ];
+  var stagePills = stages.map(function(s) {
+    var isActive = dsg.patient.stage === s.key;
+    return '<div class="cjs-stage' + (isActive ? ' active ' + s.cls : '') + '">' + esc(s.label) + '</div>';
+  }).join('');
+  var patientRow = '<div class="cjs-row"><div class="cjs-label">Care Journey:</div><div class="cjs-stages">' + stagePills + '</div></div>' +
+    (dsg.patient.note ? '<div class="cjs-note" style="margin:-4px 0 12px;padding:0 2px">' + esc(dsg.patient.note) + '</div>' : '');
+  return '<div class="ds-groups">' + providerGroups + '</div>' + patientRow;
+}
+
 function renderIntelligencePanel(c) {
   var intel   = CASE_INTEL[c.id];
   if (!intel) return '';
@@ -2385,6 +2635,7 @@ function renderIntelligencePanel(c) {
   return '<div class="intel-card">' +
     '<div class="intel-section-hdr"><div class="intel-title">Steerage Intelligence</div></div>' +
     '<div class="intel-sources-row"><span class="intel-source-label">Data sources:</span>' + sourceChips + '</div>' +
+    renderDataSourceGroups(intel) +
     '<div class="weight-alloc">' + weightRows + '</div>' +
     '<div class="weight-footer">' +
       '<div class="weight-driver" id="wdriver-' + esc(c.id) + '">Primary driver: <strong>' + esc(FACTOR_NAMES[topIdx]) + '</strong></div>' +
@@ -2397,7 +2648,7 @@ function renderIntelligencePanel(c) {
       '<div class="excl-banner-body">' +
         '<div class="excl-banner-title">' + intel.exclusions.total + ' members excluded from this action</div>' +
         '<div class="excl-chips">' + exclChips + '</div>' +
-        '<div class="excl-manage-link" onclick="switchCase(4)">Manage exclusions &#8594;</div>' +
+        '<div class="excl-manage-link" onclick="switchCase(5)">Manage exclusions &#8594;</div>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -2531,6 +2782,15 @@ function renderClinicCard(clinic, isAfter, activeActions) {
   var costBreakdownRow = has('rc2') ? '<div class="cost-breakdown-row">In-network: RM 180 &nbsp;\u00b7&nbsp; KLCC hub: RM 250 &nbsp;\u00b7&nbsp; You save RM 70</div>' : '';
   // rv3 — care coordinator banner (rendered after doc-followup)
   var coordinatorRow  = has('rv3') ? '<div class="coordinator-row">&#128100; Care coordinator assigned \u00b7 Will contact you within 24h</div>' : '';
+  // occ1: Cost Comparison Pop-Up on non-preferred card
+  var hasNonPref = function(id) { return isAfter && !showPreferred && activeActions.indexOf(id) !== -1; };
+  var costComparePopup = hasNonPref('occ1')
+    ? '<div class="cost-compare-popup"><div class="ccp-hdr"><div class="ccp-icon">&#9888;</div><div class="ccp-title">Cost Comparison</div></div><div class="ccp-body">CareClinics KLCC charges ~30% more. CareClinics Bangsar is equally rated and covered under your plan.</div><div class="ccp-row this">&#8679; ' + esc(clinic.name) + ' \u00b7 RM 65 \u00b7 +30% vs area avg</div><div class="ccp-row alt">&#10003; CareClinics Bangsar \u00b7 RM 45 \u00b7 Equally rated \u00b7 0.8 km</div><button class="ccp-switch-btn">Switch to CareClinics Bangsar \u2192</button></div>'
+    : '';
+  // opbn1: Pre-Booking Nudge on preferred card
+  var preBookingNudge = has('opbn1')
+    ? '<div class="pre-booking-nudge"><div class="pbn-hdr"><div class="pbn-icon">&#128178;</div><div class="pbn-title">Before you confirm</div></div><div class="pbn-row"><span class="pbn-key">Selecting this provider</span><span class="pbn-val">RM 45 out-of-pocket</span></div><div class="pbn-row"><span class="pbn-key">If you had chosen KLCC</span><span class="pbn-val" style="color:#DC2626">RM 65 (+RM 20)</span></div><div class="pbn-row"><span class="pbn-key">Quality score</span><span class="pbn-val">Equally rated \u00b7 4.8&#9733;</span></div><button class="pbn-book-btn">&#10003; Book at CareClinics Bangsar \u2192</button></div>'
+    : '';
   var VSVG = '<svg width="42" height="13" viewBox="0 0 75 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path fill-rule="evenodd" clip-rule="evenodd" d="M17.9554 5.75222C17.3298 6.66494 16.2678 7.26544 15.0629 7.26544C14.9493 7.26544 14.8369 7.26005 14.726 7.24961C14.9917 7.89257 15.1381 8.59556 15.1381 9.33213C15.1381 12.394 12.6097 14.8761 9.49052 14.8761C6.37149 14.8761 3.84294 12.394 3.84294 9.33213C3.84294 6.27031 6.37149 3.7882 9.49052 3.7882C10.2348 3.7882 10.9455 3.92964 11.5963 4.18648C11.5849 4.07436 11.5791 3.96064 11.5791 3.8456C11.5791 2.67532 12.178 1.64237 13.0912 1.02584C11.994 0.571528 10.7883 0.320312 9.52263 0.320312C4.44789 0.320312 0.333984 4.35869 0.333984 9.34035C0.333984 14.3219 4.44789 18.3604 9.52263 18.3604C14.5975 18.3604 18.7113 14.3219 18.7113 9.34035C18.7113 8.06517 18.4416 6.85187 17.9554 5.75222Z" fill="#714FFF"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.8987 19.9727H2.14657C1.1455 19.9727 0.333984 20.8379 0.333984 21.9055C0.333984 22.973 1.1455 23.8384 2.14657 23.8384H16.8987C17.8998 23.8384 18.7113 22.973 18.7113 21.9055C18.7113 20.8379 17.8998 19.9727 16.8987 19.9727Z" fill="#714FFF"/><path d="M30.0557 17.5606L25.7714 7.42556C25.677 7.20152 25.6016 6.97766 25.6016 6.73469C25.6016 5.93209 26.2433 5.31641 27.0549 5.31641C27.8097 5.31641 28.3004 5.74536 28.5269 6.32412L31.8296 14.7794L35.1703 6.23074C35.359 5.7643 35.8685 5.31641 36.5669 5.31641C37.3594 5.31641 38.0013 5.91354 38.0013 6.69739C38.0013 6.92143 37.9258 7.1642 37.8502 7.332L33.5282 17.5606C33.2263 18.27 32.679 18.6991 31.8863 18.6991H31.6976C30.905 18.6991 30.3576 18.27 30.0557 17.5606Z" fill="#714FFF"/><path d="M40.1074 6.7637C40.1074 5.95529 40.7272 5.31641 41.5112 5.31641C42.295 5.31641 42.9148 5.95529 42.9148 6.7637V17.2515C42.9148 18.0599 42.295 18.6991 41.5112 18.6991C40.7272 18.6991 40.1074 18.0599 40.1074 17.2515V6.7637Z" fill="#714FFF"/><path d="M46.0319 17.1378C45.7132 16.9148 45.4883 16.5057 45.4883 16.0597C45.4883 15.3161 46.0882 14.7398 46.8382 14.7398C47.2131 14.7398 47.4757 14.8703 47.6631 15.0001C48.6569 15.725 49.7445 16.171 51.0198 16.171C52.2008 16.171 52.9135 15.7065 52.9135 14.9444V14.9073C52.9135 14.1823 52.4634 13.8106 50.2696 13.2532C47.6257 12.584 45.9195 11.8589 45.9195 9.27546V9.2383C45.9195 6.87773 47.8321 5.31641 50.5134 5.31641C52.107 5.31641 53.4946 5.72528 54.6759 6.46887C54.9949 6.65464 55.3135 7.0452 55.3135 7.60267C55.3135 8.3459 54.7136 8.92222 53.9634 8.92222C53.6822 8.92222 53.4572 8.84774 53.2321 8.71798C52.276 8.16013 51.3758 7.84407 50.4758 7.84407C49.3696 7.84407 48.7882 8.3459 48.7882 8.97786V9.01539C48.7882 9.87008 49.3507 10.149 51.6196 10.7251C54.2821 11.4127 55.7823 12.3608 55.7823 14.6285V14.6657C55.7823 17.2494 53.7948 18.6991 50.9631 18.6991C49.2383 18.6991 47.4944 18.1785 46.0319 17.1378Z" fill="#714FFF"/><path d="M58.3555 6.7637C58.3555 5.95529 58.9754 5.31641 59.7594 5.31641C60.5434 5.31641 61.163 5.95529 61.163 6.7637V17.2515C61.163 18.0599 60.5434 18.6991 59.7594 18.6991C58.9754 18.6991 58.3555 18.0599 58.3555 17.2515V6.7637Z" fill="#714FFF"/><path d="M67.7195 8.39422H65.029C64.3201 8.39422 63.7383 7.80909 63.7383 7.09573C63.7383 6.38218 64.3201 5.79688 65.029 5.79688H73.2094C73.9186 5.79688 74.5003 6.38218 74.5003 7.09573C74.5003 7.80909 73.9186 8.39422 73.2094 8.39422H70.5191V17.3014C70.5191 18.0881 69.901 18.71 69.1193 18.71C68.3376 18.71 67.7195 18.0881 67.7195 17.3014V8.39422Z" fill="#714FFF"/></g></svg>';
   return '<div class="doc-card' + (showPreferred ? ' preferred' : '') + '" id="card-' + clinic.id + '">' +
     '<div class="doc-card-top">' +
@@ -2542,6 +2802,10 @@ function renderClinicCard(clinic, isAfter, activeActions) {
     '</div>' +
     (combinedLabel ? '<div style="padding:0 2px 4px">' + combinedLabel + '</div>' : '') +
     (combinedBadges ? '<div style="display:flex;flex-wrap:wrap;gap:5px;padding:0 2px 8px">' + combinedBadges + '</div>' : '') +
+    (costComparePopup ? costComparePopup : '') +
+    (preBookingNudge ? preBookingNudge : '') +
+    (costComparePopup ? costComparePopup : '') +
+    (preBookingNudge ? preBookingNudge : '') +
     '<div class="doc-body">' +
       '<div class="doc-photo-wrap">' +
         '<div class="doc-photo-bg" style="background:' + photoBg + '">' +
@@ -2582,6 +2846,9 @@ function renderClinicListScreen(c, isAfter, activeActions) {
   var nearestBanner = (isAfter && activeActions.indexOf('op3') !== -1)
     ? '<div class="nearest-banner">&#128205;&nbsp; CareClinics Bangsar is your nearest panel clinic &mdash; 0.8 km &nbsp;·&nbsp; Next slot: Today 11:00 AM</div>'
     : '';
+  var virtualFirstBanner = (isAfter && activeActions.indexOf('ovf1') !== -1)
+    ? '<div class="virtual-first-banner"><div class="vfb-hdr"><div class="vfb-icon">&#128187;</div><div class="vfb-title">This condition can often be treated online</div></div><div class="vfb-body">Would you like to consult a virtual doctor? Often faster and costs significantly less than an in-person visit.</div><div class="vfb-meta"><div class="vfb-tag">Save RM 20–45</div><div class="vfb-tag">Available now</div><div class="vfb-tag">No travel needed</div></div><button class="vfb-cta">Consult a Virtual Doctor →</button></div>'
+    : '';
   var centers = (isAfter ? [{ text: 'CC', bg: '#714FFF', label: 'CareClinics', hl: true, tag: '\u2605 #1', tagBg: '#714FFF' }] : []).concat([
     { text: 'CA', bg: '#2563EB', label: 'Columbia',   hl: false, tag: '', tagBg: '' },
     { text: 'SM', bg: '#F97316', label: 'Sunway',     hl: false, tag: '', tagBg: '' },
@@ -2619,7 +2886,7 @@ function renderClinicListScreen(c, isAfter, activeActions) {
       '<div class="fchip">Nearest</div>' +
       '<div class="fchip">Panel Only</div>' +
     '</div>' +
-    '<div class="doc-list">' + nearestBanner + cards + '</div>' +
+    '<div class="doc-list">' + virtualFirstBanner + nearestBanner + cards + '</div>' +
     '<div class="app-bottom-nav">' +
       '<div class="nav-item"><div class="nav-icon">\ud83c\udfe0</div>Home</div>' +
       '<div class="nav-item active"><div class="nav-icon">\ud83c\udfe5</div>Services</div>' +
@@ -2743,17 +3010,281 @@ function renderAppScreen(c, isAfter, activeActions) {
   return renderClinicListScreen(c, isAfter, activeActions);
 }
 
+// OPS Config state
+var OPS_ACTIVE = { costThreshold: false, stoppingRule: false };
+
+function showOpsToast(icon, msg) {
+  var t = document.getElementById('ops-toast');
+  if (!t) return;
+  document.getElementById('ops-toast-icon').textContent = icon;
+  document.getElementById('ops-toast-msg').textContent = msg;
+  t.classList.add('visible');
+  setTimeout(function() { t.classList.remove('visible'); }, 4000);
+}
+
+function saveOpsCard(btn, type) {
+  if (btn.classList.contains('saved')) return;
+  var orig = btn.textContent;
+  btn.textContent = '\u2713  Saved';
+  btn.classList.add('saved');
+  setTimeout(function() { btn.textContent = orig; btn.classList.remove('saved'); }, 2200);
+  if (type === 'cost') {
+    OPS_ACTIVE.costThreshold = true; renderTabs();
+    showOpsToast('\u26a0', '18 members flagged across OPD & Referral \u2014 cost threshold now active');
+  } else if (type === 'stopping') {
+    OPS_ACTIVE.stoppingRule = true;
+    var opd = CASE_INTEL.opd;
+    if (!opd.exclusions.items.find(function(i) { return i.label && i.label.indexOf('Override') === 0; })) {
+      opd.exclusions.total += 14;
+      opd.exclusions.items.push({ count: 14, label: 'Override stopped (2 dismissals)', type: 'referral' });
+    }
+    renderTabs();
+    showOpsToast('\u26a1', '47 override sessions logged \u2014 14 members added to OPD exclusions');
+  } else if (type === 'workflow') {
+    showOpsToast('\u2714', '9 high-cost members escalated \u2014 care navigators notified');
+  } else if (type === 'panel') {
+    showOpsToast('\u2713', 'Provider tier saved \u2014 steerage rankings update on next search');
+  } else if (type === 'gl') {
+    showOpsToast('\u2705', 'GL auto-trigger active \u2014 next eligible booking fires a request automatically');
+  } else { showOpsToast('\u2713', 'Settings saved'); }
+}
+
+var PLATFORM_SECTION = 'exclusions';
+
+function switchPlatformSection(section) {
+  PLATFORM_SECTION = section;
+  document.getElementById('panel-left-inner').innerHTML = renderPlatformTab();
+}
+
+function renderPhoneIdle() {
+  var screen = document.getElementById('phone-screen');
+  var old = screen.querySelector('.app-screen, .app-screen-plain, .app-screen-passive, .phone-idle');
+  if (old) old.remove();
+  screen.insertAdjacentHTML('beforeend',
+    '<div class="phone-idle">' +
+    '<div class="phone-idle-icon">\u2699\ufe0f</div>' +
+    '<div class="phone-idle-text">Platform configuration<br>No member view</div>' +
+    '</div>');
+}
+
+function renderKPIMonitor() {
+  var kpis = [
+    { name: 'Steerage Acceptance Rate', val: '61%', sub: 'target \u226575%', status: 'amber', cta: 'Review OPD nudge copy \u2014 acceptance gaps in Klang Valley cohort' },
+    { name: 'Panel Utilisation Rate', val: '54%', sub: 'target \u226570%', status: 'red', cta: 'Expand pre-booking nudge to dental & optical pathways' },
+    { name: 'Cost Per Steered Claim', val: 'RM 148', sub: 'vs RM 210 non-steered', status: 'green', cta: 'Maintain \u2014 cost differential holding; monitor specialist referrals' },
+    { name: 'Override Rate', val: '18%', sub: 'target \u226415%', status: 'amber', cta: 'Tighten override logging; flag repeat overriders to ACM' },
+    { name: 'Time-to-First-Steered-Visit', val: '4.2d', sub: 'target \u22643d', status: 'amber', cta: 'Accelerate appointment slot release for top-5 panel providers' },
+    { name: 'High-Cost Claimant Diversion', val: '72%', sub: 'target \u226580%', status: 'amber', cta: 'Activate structured care pathway for chronic + maternity clusters' }
+  ];
+  var statusLabel = { green: 'On Track', amber: 'Watch', red: 'At Risk' };
+  var html = '<div class="ops-config-hdr" style="margin-bottom:16px"><div class="ops-config-hdr-title">KPI Monitor</div><div class="ops-config-hdr-sub">Live steerage performance against PMCare targets \u2014 recalibrates weekly</div></div>';
+  html += '<div class="kpi-grid">';
+  kpis.forEach(function(k) {
+    html += '<div class="kpi-card">' +
+      '<div class="kpi-card-hdr"><div class="kpi-card-name">' + k.name + '</div><span class="kpi-status-pill ' + k.status + '">' + statusLabel[k.status] + '</span></div>' +
+      '<div class="kpi-metric-val">' + k.val + '</div>' +
+      '<div class="kpi-metric-sub">' + k.sub + '</div>' +
+      '<div class="kpi-cta-box">\u25b6 ' + k.cta + '</div>' +
+      '</div>';
+  });
+  html += '</div>';
+  html += '<div class="feedback-section">' +
+    '<div class="feedback-section-title">Feedback Loop</div>' +
+    '<div class="feedback-section-sub">Signal inputs recalibrate the steerage rule engine weekly via PMCare data sync</div>' +
+    '<div class="feedback-grid">' +
+    '<div class="feedback-card"><div class="feedback-card-icon" style="background:rgba(113,79,255,0.12)">\ud83d\udcc8</div><div class="feedback-card-body"><div class="feedback-card-title">Claims Outcome Data <span class="feedback-arrow">\u2192</span> Factor Weights</div><div class="feedback-card-desc">Accepted steerage events vs. override events feed back into cost \u00b7 quality factor weights each cycle</div></div></div>' +
+    '<div class="feedback-card"><div class="feedback-card-icon" style="background:rgba(71,229,177,0.1)">\ud83e\uddd1\u200d\u2695\ufe0f</div><div class="feedback-card-body"><div class="feedback-card-title">Provider Performance <span class="feedback-arrow">\u2192</span> Panel Ranking</div><div class="feedback-card-desc">Clinical quality scores and patient experience ratings update provider steerage priority quarterly</div></div></div>' +
+    '<div class="feedback-card"><div class="feedback-card-icon" style="background:rgba(255,149,0,0.1)">\u26a0\ufe0f</div><div class="feedback-card-body"><div class="feedback-card-title">Override Patterns <span class="feedback-arrow">\u2192</span> Exclusion Review</div><div class="feedback-card-desc">High override clusters trigger ACM review and may escalate to exclusion rule updates</div></div></div>' +
+    '<div class="feedback-card"><div class="feedback-card-icon" style="background:rgba(63,140,255,0.12)">\ud83d\udd14</div><div class="feedback-card-body"><div class="feedback-card-title">KPI Breaches <span class="feedback-arrow">\u2192</span> Config Alerts</div><div class="feedback-card-desc">Metrics crossing red thresholds auto-flag relevant Ops Config cards for PMCare ops team review</div></div></div>' +
+    '</div></div>';
+  return html;
+}
+
+function renderPlatformTab() {
+  var sections = [
+    { id: 'exclusions', label: 'Exclusion Rules' },
+    { id: 'ops', label: 'Ops Config' },
+    { id: 'kpi', label: 'KPI Monitor' }
+  ];
+  var nav = '<div class="platform-subnav">';
+  sections.forEach(function(s) {
+    nav += '<button class="platform-subnav-item' + (PLATFORM_SECTION === s.id ? ' active' : '') + '" onclick="switchPlatformSection(\'' + s.id + '\')">' + s.label + '</button>';
+  });
+  nav += '</div>';
+  var body = '';
+  if (PLATFORM_SECTION === 'exclusions') body = renderExclusionTab();
+  else if (PLATFORM_SECTION === 'ops') body = renderOpsConfigTab();
+  else body = renderKPIMonitor();
+  return nav + body;
+}
+
+function renderOpsConfigTab() {
+  var html = '<div class="ops-config-wrap">';
+  html += '<div class="ops-config-hdr"><div class="ops-config-hdr-title">Ops Configuration</div>';
+  html += '<div class="ops-config-hdr-sub">Configure steerage logic, panel tiers, cost thresholds, and escalation rules for your operations team.</div></div>';
+  html += '<div class="ops-card"><div class="ops-card-hdr"><div class="ops-card-icon blue">&#127941;</div><div><div class="ops-card-title">Preferred Panel Management</div><div class="ops-card-desc">Tag and tier providers to control steerage priority. Tier 1 surfaced first; Tier 3 deprioritised.</div></div></div>';
+  html += '<div class="ops-card-controls"><div style="font-size:11px;color:var(--dash-text-muted);margin-bottom:4px">Assign tier to selected provider</div><div class="ops-input-row"><input class="ops-input" placeholder="Provider name or ID" /></div>';
+  html += '<div class="ops-tier-row"><button class="ops-tier-btn t1">&#9679; Tier 1 \u2014 Preferred</button><button class="ops-tier-btn t2">&#9679; Tier 2 \u2014 Standard</button><button class="ops-tier-btn t3">&#9679; Tier 3 \u2014 Deprioritised</button></div>';
+  html += '<div style="font-size:11px;color:var(--dash-text-muted);margin-top:2px">Currently: 12 Tier 1 &middot; 34 Tier 2 &middot; 8 Tier 3 providers</div></div>';
+  html += '<button class="ops-save-btn" onclick="saveOpsCard(this,\'panel\')">Save Tier Assignment</button></div>';
+  html += '<div class="ops-card"><div class="ops-card-hdr"><div class="ops-card-icon amber">&#9888;</div><div><div class="ops-card-title">Cost Threshold Alerts</div><div class="ops-card-desc">Flag members where expected episode cost exceeds the limit. Triggers a care navigator call.</div></div></div>';
+  html += '<div class="ops-card-controls"><div class="ops-input-row"><span class="ops-input-label">Episode cost limit (RM)</span><input class="ops-input" value="1,500" style="width:100px;flex:none" /></div>';
+  html += '<div class="ops-input-row"><span class="ops-input-label">Escalation trigger</span><select class="ops-input"><option>Care navigator call</option><option>In-app alert only</option><option>Ops dashboard flag</option></select></div>';
+  html += '<div class="ops-stat-row"><div class="ops-stat"><div class="ops-stat-val amber">18</div><div class="ops-stat-lbl">Members flagged this month</div></div><div class="ops-stat"><div class="ops-stat-val">RM 34K</div><div class="ops-stat-lbl">Est. cost at risk</div></div></div></div>';
+  html += '<button class="ops-save-btn" onclick="saveOpsCard(this,\'cost\')">Save Alert Settings</button></div>';
+  html += '<div class="ops-card"><div class="ops-card-hdr"><div class="ops-card-icon purple">&#128220;</div><div><div class="ops-card-title">Steerage Override Logging</div><div class="ops-card-desc">Every member dismissal is logged. Risk team reviews override patterns and adjusts nudge design.</div></div></div>';
+  html += '<div class="ops-card-controls"><div class="ops-stat-row"><div class="ops-stat"><div class="ops-stat-val amber">47</div><div class="ops-stat-lbl">Overrides this week</div></div><div class="ops-stat"><div class="ops-stat-val red">12</div><div class="ops-stat-lbl">Repeated overriders</div></div><div class="ops-stat"><div class="ops-stat-val">68%</div><div class="ops-stat-lbl">Override rate \u00b7 OPD</div></div></div>';
+  html += '<div class="ops-override-list"><div class="ops-override-row"><div class="ops-override-dot amber"></div>Ahmad Rizwan &middot; OPD &middot; 3 dismissals &middot; <strong style="color:#fff">Review nudge copy</strong></div>';
+  html += '<div class="ops-override-row"><div class="ops-override-dot red"></div>Priya Nair &middot; Referral &middot; 4 dismissals &middot; <strong style="color:#fff">Escalate to care navigator</strong></div>';
+  html += '<div class="ops-override-row"><div class="ops-override-dot amber"></div>Lee Wei Ming &middot; OPD &middot; 2 dismissals &middot; <strong style="color:#fff">Monitoring</strong></div></div></div></div>';
+  html += '<div class="ops-card"><div class="ops-card-hdr"><div class="ops-card-icon red">&#128170;</div><div><div class="ops-card-title">High-Cost Claimant Workflows</div><div class="ops-card-desc">Escalate to a care navigator when projected annual spend exceeds the threshold.</div></div></div>';
+  html += '<div class="ops-card-controls"><div class="ops-input-row"><span class="ops-input-label">Annual spend threshold (RM)</span><input class="ops-input" value="25,000" style="width:110px;flex:none" /></div>';
+  html += '<div class="ops-toggle-row"><span class="ops-toggle-label">Auto-assign care navigator on trigger</span><label class="toggle toggle-wrap" style="transform:scale(0.85);transform-origin:right center"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>';
+  html += '<div class="ops-stat-row"><div class="ops-stat"><div class="ops-stat-val red">9</div><div class="ops-stat-lbl">High-cost members active</div></div><div class="ops-stat"><div class="ops-stat-val">4</div><div class="ops-stat-lbl">Care navigators assigned</div></div></div></div>';
+  html += '<button class="ops-save-btn" onclick="saveOpsCard(this,\'workflow\')">Save Workflow Settings</button></div>';
+  html += '<div class="ops-card"><div class="ops-card-hdr"><div class="ops-card-icon teal">&#9889;</div><div><div class="ops-card-title">Override Stopping Rule</div><div class="ops-card-desc">After the set number of dismissals in one search session, the system stops nudging and logs the override.</div></div></div>';
+  html += '<div class="ops-card-controls"><div class="ops-input-row"><span class="ops-input-label">Stop nudging after</span><input class="ops-input" value="2" style="width:60px;flex:none;text-align:center" /><span class="ops-input-label">dismissals in one session</span></div>';
+  html += '<div class="ops-toggle-row"><span class="ops-toggle-label">Log stopped overrides to risk dashboard</span><label class="toggle toggle-wrap" style="transform:scale(0.85);transform-origin:right center"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>';
+  html += '<div style="font-size:11px;color:var(--dash-text-muted);padding:4px 2px">Current: stop after <strong style="color:#47E5B1">2 dismissals</strong> &middot; 47 sessions stopped this month</div></div>';
+  html += '<button class="ops-save-btn" onclick="saveOpsCard(this,\'stopping\')">Save Stopping Rule</button></div>';
+  html += '<div class="ops-card"><div class="ops-card-hdr"><div class="ops-card-icon green">&#10003;</div><div><div class="ops-card-title">Pre-auth / GL Auto-Trigger</div><div class="ops-card-desc">When a member selects a provider or procedure, automatically initiate a Guarantee Letter request.</div></div></div>';
+  html += '<div class="ops-card-controls"><div class="ops-toggle-row"><span class="ops-toggle-label">Auto-trigger GL on provider selection</span><label class="toggle toggle-wrap" style="transform:scale(0.85);transform-origin:right center"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>';
+  html += '<div class="ops-toggle-row"><span class="ops-toggle-label">Auto-trigger GL on procedure selection</span><label class="toggle toggle-wrap" style="transform:scale(0.85);transform-origin:right center"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>';
+  html += '<div class="ops-input-row"><span class="ops-input-label">Procedure categories</span><select class="ops-input"><option>All admissions</option><option>Specialist + surgical</option><option>Surgical only</option></select></div>';
+  html += '<div class="ops-stat-row"><div class="ops-stat"><div class="ops-stat-val">143</div><div class="ops-stat-lbl">GLs auto-triggered this month</div></div><div class="ops-stat"><div class="ops-stat-val" style="color:var(--visit-mint)">94%</div><div class="ops-stat-lbl">Auto-approval rate</div></div></div></div>';
+  html += '<button class="ops-save-btn" onclick="saveOpsCard(this,\'gl\')">Save GL Settings</button></div>';
+  html += '</div>'; return html;
+}
+
+var PASSIVE_FEATURE = 'home';
+var PASSIVE_CADENCE = '48h';
+var PASSIVE_ENABLED = { home: true, tooltip: true, confirmation: false, mydoctors: true };
+
+function switchPassiveFeature(feature) {
+  PASSIVE_FEATURE = feature;
+  document.getElementById('panel-left-inner').innerHTML = renderPassiveTab();
+  renderPhonePassive(feature);
+}
+
+function setPassiveCadence(cadence) {
+  PASSIVE_CADENCE = cadence;
+  document.getElementById('panel-left-inner').innerHTML = renderPassiveTab();
+  renderPhonePassive(PASSIVE_FEATURE);
+}
+
+function togglePassiveFeature(id) {
+  PASSIVE_ENABLED[id] = !PASSIVE_ENABLED[id];
+  document.getElementById('panel-left-inner').innerHTML = renderPassiveTab();
+  var labels = { home: 'Home Screen Cards', tooltip: '\u201cWhy Recommended?\u201d', confirmation: 'Confirmation Reminder', mydoctors: 'My Doctors' };
+  showOpsToast(PASSIVE_ENABLED[id] ? '\u2705' : '\u23f8\ufe0f', (PASSIVE_ENABLED[id] ? 'Enabled: ' : 'Paused: ') + labels[id]);
+}
+
+function renderPhonePassive(feature) {
+  var screen = document.getElementById('phone-screen');
+  var old = screen.querySelector('.app-screen, .app-screen-plain, .phone-idle, .app-screen-passive');
+  if (old) old.remove();
+  screen.insertAdjacentHTML('beforeend', renderPassiveAppScreen(feature));
+}
+
+function renderPassiveAppScreen(feature) {
+  if (feature === 'home') {
+    return '<div class="app-screen-passive">' +
+      '<div class="passive-push-banner"><div class="passive-push-icon">\ud83d\udccd</div><div><div class="passive-push-title">Visit Health</div><div class="passive-push-msg">Klinik Mediviron Damansara is 200m away &amp; open now</div></div></div>' +
+      '<div class="passive-app-home">' +
+      '<div><div class="passive-home-greeting">Good morning, Ahmad</div><div class="passive-home-sub">PMCare \u00b7 Gold Plan</div></div>' +
+      '<div class="passive-health-card">' +
+      '<div class="passive-hc-badge">\ud83e\udeba Health Reminder</div>' +
+      '<div class="passive-hc-title">Time for your annual screening</div>' +
+      '<div class="passive-hc-body">Here are 3 nearby recommended labs</div>' +
+      '<div class="passive-hc-lab">\u2192 Gribbles KL Sentral \u00b7 1.2km</div>' +
+      '<div class="passive-hc-lab">\u2192 DaVita Lab Bangsar \u00b7 2.1km</div>' +
+      '<div class="passive-hc-lab">\u2192 Pathlab Mid Valley \u00b7 2.8km</div>' +
+      '<button class="passive-hc-cta">Book Screening \u2192</button>' +
+      '</div>' +
+      '<div class="passive-cadence-row">\ud83d\udd14 Reminder every ' + PASSIVE_CADENCE + ' \u00b7 until acted on or dismissed</div>' +
+      '</div></div>';
+  }
+  if (feature === 'tooltip') {
+    return '<div class="app-screen-passive">' +
+      '<div class="passive-search-hdr"><div class="passive-search-back">\u2190 Panel Clinics</div><div class="passive-search-title">Recommended for you</div></div>' +
+      '<div class="passive-provider-card">' +
+      '<div class="passive-pcard-hdr"><div class="passive-pcard-name">Klinik Mediviron Cheras</div><div class="passive-pcard-badge">\u2605 Recommended</div></div>' +
+      '<div class="passive-pcard-dist">1.4km \u00b7 Open now \u00b7 GP + Specialist</div>' +
+      '<div class="passive-tooltip-box">' +
+      '<div class="passive-tooltip-title">Recommended because:</div>' +
+      '<div class="passive-tooltip-row">\ud83d\udccd Nearest panel clinic</div>' +
+      '<div class="passive-tooltip-row">\ud83d\udcc5 Same-day slot available</div>' +
+      '<div class="passive-tooltip-row">\ud83d\udcb3 Cashless coverage</div>' +
+      '<div class="passive-tooltip-row">\u2b50 High member rating (4.7)</div>' +
+      '</div>' +
+      '<button class="passive-book-btn">Book Now</button>' +
+      '</div></div>';
+  }
+  if (feature === 'confirmation') {
+    return '<div class="app-screen-passive">' +
+      '<div class="passive-confirm-hdr"><div class="passive-confirm-check">\u2713</div><div class="passive-confirm-title">Booking Confirmed</div><div class="passive-confirm-sub">Klinik Sunway Medic \u00b7 Tomorrow, 10:00am</div></div>' +
+      '<div class="passive-reminder-nudge"><div class="passive-nudge-icon">\ud83d\udca1</div><div><div class="passive-nudge-title">Did you know?</div><div class="passive-nudge-msg">You could save <strong>RM 85</strong> with a preferred panel provider. <span class="passive-nudge-link">See alternatives \u2192</span></div></div></div>' +
+      '<div class="passive-alt-provider">' +
+      '<div class="passive-alt-name">Klinik Mediviron Cheras</div>' +
+      '<div class="passive-alt-meta">\u2605 4.7 \u00b7 1.4km \u00b7 Cashless \u00b7 Panel</div>' +
+      '<div class="passive-alt-saving">Save RM 85 vs your current booking</div>' +
+      '</div></div>';
+  }
+  return '<div class="app-screen-passive">' +
+    '<div class="passive-profile-hdr"><div class="passive-profile-back">\u2190 My Profile</div><div class="passive-profile-title">My Doctors</div></div>' +
+    '<div class="passive-profile-sub">Your preferred providers sync automatically to the steerage engine</div>' +
+    '<div class="passive-mydoc-card"><div class="passive-mydoc-avatar">RP</div><div><div class="passive-mydoc-name">Dr. Rajan Pillai</div><div class="passive-mydoc-clinic">Klinik Mediviron Damansara</div><div class="passive-mydoc-type">General Practitioner \u00b7 Panel</div></div><div class="passive-mydoc-fav">\u2605</div></div>' +
+    '<div class="passive-sync-status"><div class="passive-sync-dot"></div>Synced to steerage engine \u00b7 override auto-applied</div>' +
+    '<button class="passive-add-doc-btn">+ Add preferred doctor</button>' +
+    '</div>';
+}
+
+function renderPassiveTab() {
+  var features = [
+    { id: 'home',         icon: '\ud83c\udfe0', bg: 'rgba(113,79,255,0.12)',  title: 'Home Screen Health Cards',            desc: 'Personalised tiles based on risk profile &amp; benefits utilisation. Geo-triggered variant fires when member is near a panel clinic during operating hours.' },
+    { id: 'tooltip',      icon: '\u2605',        bg: 'rgba(255,149,0,0.12)',   title: '\u201cWhy Recommended?\u201d Tooltip', desc: 'Tappable badge on provider cards that expands to show steerage reasoning. Builds trust and reduces override rates by making the logic transparent.' },
+    { id: 'confirmation', icon: '\ud83d\udca1',  bg: 'rgba(34,197,94,0.1)',    title: 'Appointment Confirmation Reminder',   desc: 'Soft post-confirmation nudge after booking a non-preferred provider. Does not block the booking \u2014 plants awareness for next episode.' },
+    { id: 'mydoctors',    icon: '\ud83d\udc64',  bg: 'rgba(63,140,255,0.12)',  title: 'My Doctors',                          desc: 'Member-initiated preference that syncs to the back-end exclusion panel \u2014 steerage engine respects stated loyalty without manual insurer intervention.' }
+  ];
+  var html = '<div class="ops-config-hdr" style="margin-bottom:16px"><div class="ops-config-hdr-title">Passive Steerage</div><div class="ops-config-hdr-sub">Ambient surfaces that shape behaviour between active search sessions</div></div>';
+  html += '<div class="ops-config-wrap">';
+  features.forEach(function(f) {
+    html += '<div class="passive-feature-card' + (PASSIVE_FEATURE === f.id ? ' active' : '') + '" onclick="switchPassiveFeature(\'' + f.id + '\')">';
+    html += '<div class="passive-card-hdr"><div class="passive-card-icon" style="background:' + f.bg + '">' + f.icon + '</div>';
+    html += '<div style="flex:1"><div class="passive-card-title">' + f.title + (PASSIVE_FEATURE === f.id ? ' <span style="font-size:10px;color:var(--visit-purple);margin-left:4px">\u25b6</span>' : '') + '</div><div class="passive-card-desc">' + f.desc + '</div></div>';
+    html += '<button class="passive-toggle ' + (PASSIVE_ENABLED[f.id] ? 'on' : 'off') + '" onclick="event.stopPropagation();togglePassiveFeature(\'' + f.id + '\')">' + (PASSIVE_ENABLED[f.id] ? 'ON' : 'OFF') + '</button></div>';
+    if (f.id === 'home') {
+      html += '<div class="passive-config-row"><span class="passive-config-label">Notify every</span><div class="passive-config-pills">';
+      ['24h','48h','72h'].forEach(function(c) {
+        html += '<button class="passive-config-pill' + (PASSIVE_CADENCE === c ? ' active' : '') + '" onclick="event.stopPropagation();setPassiveCadence(\'' + c + '\')">' + c + '</button>';
+      });
+      html += '</div></div>';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
 function renderTabs() {
+  var dotOPD = (OPS_ACTIVE.costThreshold || OPS_ACTIVE.stoppingRule) ? '<span class="tab-dot"></span>' : '';
+  var dotRef = OPS_ACTIVE.costThreshold ? '<span class="tab-dot"></span>' : '';
   var tabs = CASES.map(function(c, i) {
-    return '<div class="case-tab' + (i === currentIdx ? ' active' : '') + '" onclick="switchCase(' + i + ')">' + c.tab + '</div>';
+    var dot = (c.id === 'opd') ? dotOPD : (c.id === 'referral') ? dotRef : '';
+    return '<div class="case-tab' + (i === currentIdx ? ' active' : '') + '" onclick="switchCase(' + i + ')">' + c.tab + dot + '</div>';
   }).join('');
-  tabs += '<div class="case-tab' + (currentIdx === 4 ? ' active' : '') + '" onclick="switchCase(4)" style="margin-left:auto;' + (currentIdx === 4 ? '' : 'color:var(--dash-amber)') + '">&#8856; Exclusion Rules</div>';
+  tabs += '<div class="case-tab' + (currentIdx === 4 ? ' active' : '') + '" onclick="switchCase(4)">&#9678; Passive</div>';
+  tabs += '<div class="case-tab' + (currentIdx === 5 ? ' active' : '') + '" onclick="switchCase(5)" style="' + (currentIdx === 5 ? '' : 'color:#60A5FA') + '">&#9881; Platform</div>';
   document.getElementById('case-tabs').innerHTML = tabs;
 }
 
 function renderLeftContent() {
   if (currentIdx === 4) {
-    document.getElementById('panel-left-inner').innerHTML = renderExclusionTab();
+    document.getElementById('panel-left-inner').innerHTML = renderPassiveTab();
+    return;
+  }
+  if (currentIdx === 5) {
+    document.getElementById('panel-left-inner').innerHTML = renderPlatformTab();
     return;
   }
   var c = CASES[currentIdx];
@@ -2770,7 +3301,7 @@ function renderLeftContent() {
 function renderPhone(isAfter) {
   var c = CASES[currentIdx];
   var screen = document.getElementById('phone-screen');
-  var old = screen.querySelector('.app-screen, .app-screen-plain');
+  var old = screen.querySelector('.app-screen, .app-screen-plain, .app-screen-passive');
   if (old) old.remove();
   screen.insertAdjacentHTML('beforeend', renderAppScreen(c, isAfter));
   var pt = document.getElementById('push-text');
@@ -2814,7 +3345,7 @@ function wireApplyBtn() {
       }
     }, 2000);
     // Only fire push if a nudge/notification action was toggled on
-    var PUSH_ACTION_IDS = ['op2','oc2','ov3','oo3','rp1','rp3','rc1','rv3','cho3','bp3','bc1','bo1'];
+    var PUSH_ACTION_IDS = ['op2','oc2','ov3','oo3','occ1','opbn1','ovf1','rp1','rp3','rc1','rv3','cho3','bp3','bc1','bo1'];
     var shouldPush = PUSH_ACTION_IDS.some(function(id) { return ACTIVE_ACTIONS.indexOf(id) !== -1; });
     if (shouldPush) {
       setTimeout(function() {
@@ -2848,9 +3379,11 @@ function switchCase(idx) {
   // Reset generated state for the new case so user must re-generate
   var c = CASES[idx];
   if (c && GENERATED_FACTOR[c.id] !== undefined) GENERATED_FACTOR[c.id] = null;
+  if (idx === 4) PASSIVE_FEATURE = 'home';
+  if (idx === 5) PLATFORM_SECTION = 'exclusions';
   renderTabs();
   renderLeftContent();
-  if (idx < 4) renderPhone(false);
+  if (idx < 4) renderPhone(false); else if (idx === 4) renderPhonePassive(PASSIVE_FEATURE); else renderPhoneIdle();
 }
 
 renderTabs();
@@ -2895,5 +3428,9 @@ function simulateOverlayUpload() {
   document.getElementById('overlay-analyse-btn').classList.add('active');
 }
   </script>
+  <div class="ops-toast" id="ops-toast">
+    <span class="ops-toast-icon" id="ops-toast-icon"></span>
+    <span id="ops-toast-msg"></span>
+  </div>
 </body>
 </html>
