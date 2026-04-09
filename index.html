@@ -2078,7 +2078,7 @@
     <div class="panel-left">
       <div class="dash-header">
         <div class="dash-header-left">
-          <div class="dash-logo">
+          <div class="dash-logo" onclick="goToLanding()" style="cursor:pointer" title="Back to home">
             <svg width="75" height="24" viewBox="0 0 75 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_4676_17144)">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.9554 5.75222C17.3298 6.66494 16.2678 7.26544 15.0629 7.26544C14.9493 7.26544 14.8369 7.26005 14.726 7.24961C14.9917 7.89257 15.1381 8.59556 15.1381 9.33213C15.1381 12.394 12.6097 14.8761 9.49052 14.8761C6.37149 14.8761 3.84294 12.394 3.84294 9.33213C3.84294 6.27031 6.37149 3.7882 9.49052 3.7882C10.2348 3.7882 10.9455 3.92964 11.5963 4.18648C11.5849 4.07436 11.5791 3.96064 11.5791 3.8456C11.5791 2.67532 12.178 1.64237 13.0912 1.02584C11.994 0.571528 10.7883 0.320312 9.52263 0.320312C4.44789 0.320312 0.333984 4.35869 0.333984 9.34035C0.333984 14.3219 4.44789 18.3604 9.52263 18.3604C14.5975 18.3604 18.7113 14.3219 18.7113 9.34035C18.7113 8.06517 18.4416 6.85187 17.9554 5.75222Z" fill="white"/>
@@ -3410,6 +3410,18 @@ function launchDashboard() {
   setTimeout(function() {
     landing.style.display = 'none';
   }, 500);
+}
+
+function goToLanding() {
+  var landing = document.getElementById('landing-screen');
+  landing.style.display = '';
+  landing.classList.remove('fade-out');
+  document.getElementById('cohort-chip').classList.remove('visible');
+  document.getElementById('switch-cohort-btn').style.display = 'none';
+  currentIdx = 0;
+  renderTabs();
+  renderLeftContent();
+  renderPhone(false);
 }
 
 function openUploadOverlay() {
