@@ -2045,7 +2045,7 @@
             <button class="landing-browse-btn" onclick="event.stopPropagation(); simulateLandingUpload()">Browse file</button>
           </div>
           <button class="landing-analyse-btn" id="landing-analyse-btn" onclick="launchDashboard()">Analyse Cohort &rarr;</button>
-          <div style="text-align:center;margin-top:14px"><span onclick="launchDashboard();setTimeout(function(){switchCase(5);},50)" style="font-size:12px;color:var(--dash-text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px">Skip to Platform settings &rarr;</span></div>
+          <button onclick="launchDashboard();setTimeout(function(){switchCase(5);},50)" style="width:100%;margin-top:10px;padding:13px;background:none;border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;font-family:inherit;font-size:14px;font-weight:600;color:var(--dash-text);cursor:pointer;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='rgba(113,79,255,0.6)';this.style.color='#A78BFA'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='var(--dash-text)'">&#9881; Configure Platform Settings &rarr;</button>
         </div>
       </div>
     </div>
